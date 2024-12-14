@@ -1,0 +1,1112 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		18292AD02C6CBA7A00C8A525 /* TestResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18292AC92C6CBA7900C8A525 /* TestResultCell.swift */; };
+		18292AD12C6CBA7A00C8A525 /* CosmeticQuestionTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18292ACA2C6CBA7900C8A525 /* CosmeticQuestionTblCell.swift */; };
+		18292AD22C6CBA7A00C8A525 /* TestResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18292ACB2C6CBA7900C8A525 /* TestResultCell.xib */; };
+		18292AD32C6CBA7A00C8A525 /* QuestAnsrTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18292ACC2C6CBA7900C8A525 /* QuestAnsrTblCell.swift */; };
+		18292AD42C6CBA7A00C8A525 /* QuestAnsrTblCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18292ACD2C6CBA7A00C8A525 /* QuestAnsrTblCell.xib */; };
+		18292AD52C6CBA7A00C8A525 /* TestResultTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18292ACE2C6CBA7A00C8A525 /* TestResultTitleCell.xib */; };
+		18292AD62C6CBA7A00C8A525 /* TestResultTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18292ACF2C6CBA7A00C8A525 /* TestResultTitleCell.swift */; };
+		1833A30E2C7463E4009475AC /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833A30D2C7463E4009475AC /* Reachability.swift */; };
+		1833A3112C74677E009475AC /* CountryLanguages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833A3102C74677E009475AC /* CountryLanguages.swift */; };
+		183ACB792C563E7E004C9884 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACB782C563E7E004C9884 /* AppDelegate.swift */; };
+		183ACB7B2C563E7E004C9884 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACB7A2C563E7E004C9884 /* SceneDelegate.swift */; };
+		183ACB802C563E7E004C9884 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 183ACB7E2C563E7E004C9884 /* Main.storyboard */; };
+		183ACB822C563E80004C9884 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 183ACB812C563E80004C9884 /* Assets.xcassets */; };
+		183ACB852C563E80004C9884 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 183ACB832C563E80004C9884 /* LaunchScreen.storyboard */; };
+		183ACB902C563E81004C9884 /* InstaCashSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACB8F2C563E81004C9884 /* InstaCashSDKTests.swift */; };
+		183ACB9A2C563E81004C9884 /* InstaCashSDKUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACB992C563E81004C9884 /* InstaCashSDKUITests.swift */; };
+		183ACB9C2C563E81004C9884 /* InstaCashSDKUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACB9B2C563E81004C9884 /* InstaCashSDKUITestsLaunchTests.swift */; };
+		183ACBCA2C5640F2004C9884 /* proximity.gif in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBAD2C5640F1004C9884 /* proximity.gif */; };
+		183ACBCB2C5640F2004C9884 /* charging.gif in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBAE2C5640F1004C9884 /* charging.gif */; };
+		183ACBCC2C5640F2004C9884 /* speech.gif in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBAF2C5640F1004C9884 /* speech.gif */; };
+		183ACBCD2C5640F2004C9884 /* earphone_jack.gif in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBB02C5640F1004C9884 /* earphone_jack.gif */; };
+		183ACBCE2C5640F2004C9884 /* rotation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBB12C5640F1004C9884 /* rotation.gif */; };
+		183ACBCF2C5640F2004C9884 /* final_touch.gif in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBB22C5640F1004C9884 /* final_touch.gif */; };
+		183ACBD02C5640F2004C9884 /* internal.gif in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBB32C5640F1004C9884 /* internal.gif */; };
+		183ACBD12C5640F2004C9884 /* AllExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBB52C5640F1004C9884 /* AllExtensions.swift */; };
+		183ACBD22C5640F2004C9884 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBB62C5640F1004C9884 /* DeviceModel.swift */; };
+		183ACBD32C5640F2004C9884 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBB72C5640F1004C9884 /* Recording.swift */; };
+		183ACBD42C5640F2004C9884 /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBB82C5640F1004C9884 /* AppConstant.swift */; };
+		183ACBD52C5640F2004C9884 /* ViewController-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBB92C5640F1004C9884 /* ViewController-Extension.swift */; };
+		183ACBD62C5640F2004C9884 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBBB2C5640F2004C9884 /* Roboto-Medium.ttf */; };
+		183ACBD72C5640F2004C9884 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBBC2C5640F2004C9884 /* Roboto-Regular.ttf */; };
+		183ACBD82C5640F2004C9884 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBBD2C5640F2004C9884 /* Roboto-Bold.ttf */; };
+		183ACBD92C5640F2004C9884 /* four.wav in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBBF2C5640F2004C9884 /* four.wav */; };
+		183ACBDA2C5640F2004C9884 /* zero.wav in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBC02C5640F2004C9884 /* zero.wav */; };
+		183ACBDB2C5640F2004C9884 /* six.wav in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBC12C5640F2004C9884 /* six.wav */; };
+		183ACBDC2C5640F2004C9884 /* two.wav in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBC22C5640F2004C9884 /* two.wav */; };
+		183ACBDD2C5640F2004C9884 /* three.wav in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBC32C5640F2004C9884 /* three.wav */; };
+		183ACBDE2C5640F2004C9884 /* seven.wav in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBC42C5640F2004C9884 /* seven.wav */; };
+		183ACBDF2C5640F2004C9884 /* nine.wav in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBC52C5640F2004C9884 /* nine.wav */; };
+		183ACBE02C5640F2004C9884 /* eight.wav in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBC62C5640F2004C9884 /* eight.wav */; };
+		183ACBE12C5640F2004C9884 /* one.wav in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBC72C5640F2004C9884 /* one.wav */; };
+		183ACBE22C5640F2004C9884 /* whistle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBC82C5640F2004C9884 /* whistle.mp3 */; };
+		183ACBE32C5640F2004C9884 /* five.wav in Resources */ = {isa = PBXBuildFile; fileRef = 183ACBC92C5640F2004C9884 /* five.wav */; };
+		183ACBFC2C564138004C9884 /* MicroPhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBE52C564138004C9884 /* MicroPhoneVC.swift */; };
+		183ACBFD2C564138004C9884 /* VolumeButtonVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBE62C564138004C9884 /* VolumeButtonVC.swift */; };
+		183ACBFE2C564138004C9884 /* EarphoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBE72C564138004C9884 /* EarphoneVC.swift */; };
+		183ACBFF2C564138004C9884 /* ScreenCalibrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBE82C564138004C9884 /* ScreenCalibrationVC.swift */; };
+		183ACC002C564138004C9884 /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBE92C564138004C9884 /* CameraVC.swift */; };
+		183ACC012C564138004C9884 /* DiagnoseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBEA2C564138004C9884 /* DiagnoseVC.swift */; };
+		183ACC022C564138004C9884 /* DeadPixelsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBEB2C564138004C9884 /* DeadPixelsVC.swift */; };
+		183ACC032C564138004C9884 /* VibratorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBEC2C564138004C9884 /* VibratorVC.swift */; };
+		183ACC042C564138004C9884 /* SpeakerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBED2C564138004C9884 /* SpeakerVC.swift */; };
+		183ACC052C564138004C9884 /* ChargerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBEE2C564138004C9884 /* ChargerVC.swift */; };
+		183ACC082C564138004C9884 /* WiFiVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBF12C564138004C9884 /* WiFiVC.swift */; };
+		183ACC092C564138004C9884 /* BiometricVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBF22C564138004C9884 /* BiometricVC.swift */; };
+		183ACC0A2C564138004C9884 /* ProximityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBF32C564138004C9884 /* ProximityVC.swift */; };
+		183ACC0B2C564138004C9884 /* FlashLightVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBF42C564138004C9884 /* FlashLightVC.swift */; };
+		183ACC0C2C564138004C9884 /* AutoRotationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBF52C564138004C9884 /* AutoRotationVC.swift */; };
+		183ACC0D2C564138004C9884 /* DiagnosticTestResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACBF62C564138004C9884 /* DiagnosticTestResultVC.swift */; };
+		183ACC132C5642F5004C9884 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183ACC122C5642F5004C9884 /* HomeVC.swift */; };
+		184A8C0E2C634D1200ECC27B /* GlobalSkipPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184A8C0D2C634D1200ECC27B /* GlobalSkipPopUpVC.swift */; };
+		184A8C102C639BAD00ECC27B /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184A8C0F2C639BAD00ECC27B /* CircularProgressView.swift */; };
+		188384E92C576771003CF5E1 /* TestCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188384E72C576771003CF5E1 /* TestCVCell.swift */; };
+		188384EA2C576771003CF5E1 /* TestCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188384E82C576771003CF5E1 /* TestCVCell.xib */; };
+		188384F12C577581003CF5E1 /* CosmeticQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188384EC2C577581003CF5E1 /* CosmeticQuestions.swift */; };
+		188384F22C577581003CF5E1 /* ConditionValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188384ED2C577581003CF5E1 /* ConditionValue.swift */; };
+		188384F32C577581003CF5E1 /* Questions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188384EE2C577581003CF5E1 /* Questions.swift */; };
+		188384F42C577581003CF5E1 /* SpecificationValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188384EF2C577581003CF5E1 /* SpecificationValue.swift */; };
+		188384F52C577581003CF5E1 /* Msg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188384F02C577581003CF5E1 /* Msg.swift */; };
+		188384F72C5792A3003CF5E1 /* BatteryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188384F62C5792A3003CF5E1 /* BatteryVC.swift */; };
+		188384F92C5794D2003CF5E1 /* ring_loader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 188384F82C5794D2003CF5E1 /* ring_loader.gif */; };
+		188384FB2C579B08003CF5E1 /* StorageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188384FA2C579B08003CF5E1 /* StorageVC.swift */; };
+		188384FD2C579B13003CF5E1 /* BluetoothVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188384FC2C579B13003CF5E1 /* BluetoothVC.swift */; };
+		188384FF2C579B29003CF5E1 /* GpsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188384FE2C579B29003CF5E1 /* GpsVC.swift */; };
+		188385012C579E16003CF5E1 /* GsmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188385002C579E16003CF5E1 /* GsmVC.swift */; };
+		18E1C5F42C5B756E00676D59 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1C5ED2C5B756E00676D59 /* TPKeyboardAvoidingTableView.m */; };
+		18E1C5F52C5B756E00676D59 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1C5EE2C5B756E00676D59 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
+		18E1C5F62C5B756E00676D59 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1C5EF2C5B756E00676D59 /* TPKeyboardAvoidingScrollView.m */; };
+		18E1C5F72C5B756E00676D59 /* TPKeyboardAvoidingCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1C5F12C5B756E00676D59 /* TPKeyboardAvoidingCollectionView.m */; };
+		59DE7CF22CFF28BA00DFC04C /* ios-data-wipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DE7CF12CFF28BA00DFC04C /* ios-data-wipe.swift */; };
+		FD9C6EF4D8CAF0FE7C3718D8 /* Pods_InstaCashSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 398D284FDDF91CD9010CF8DB /* Pods_InstaCashSDK.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		183ACB8C2C563E81004C9884 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 183ACB6D2C563E7E004C9884 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 183ACB742C563E7E004C9884;
+			remoteInfo = InstaCashSDK;
+		};
+		183ACB962C563E81004C9884 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 183ACB6D2C563E7E004C9884 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 183ACB742C563E7E004C9884;
+			remoteInfo = InstaCashSDK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		061EED9040CC0DCC05F9790E /* Pods-InstaCashSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaCashSDK.release.xcconfig"; path = "Target Support Files/Pods-InstaCashSDK/Pods-InstaCashSDK.release.xcconfig"; sourceTree = "<group>"; };
+		18292AC92C6CBA7900C8A525 /* TestResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestResultCell.swift; sourceTree = "<group>"; };
+		18292ACA2C6CBA7900C8A525 /* CosmeticQuestionTblCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmeticQuestionTblCell.swift; sourceTree = "<group>"; };
+		18292ACB2C6CBA7900C8A525 /* TestResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestResultCell.xib; sourceTree = "<group>"; };
+		18292ACC2C6CBA7900C8A525 /* QuestAnsrTblCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestAnsrTblCell.swift; sourceTree = "<group>"; };
+		18292ACD2C6CBA7A00C8A525 /* QuestAnsrTblCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestAnsrTblCell.xib; sourceTree = "<group>"; };
+		18292ACE2C6CBA7A00C8A525 /* TestResultTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestResultTitleCell.xib; sourceTree = "<group>"; };
+		18292ACF2C6CBA7A00C8A525 /* TestResultTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestResultTitleCell.swift; sourceTree = "<group>"; };
+		1833A30D2C7463E4009475AC /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		1833A3102C74677E009475AC /* CountryLanguages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryLanguages.swift; sourceTree = "<group>"; };
+		183ACB752C563E7E004C9884 /* InstaCashSDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaCashSDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		183ACB782C563E7E004C9884 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		183ACB7A2C563E7E004C9884 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		183ACB7F2C563E7E004C9884 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		183ACB812C563E80004C9884 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		183ACB842C563E80004C9884 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		183ACB862C563E80004C9884 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		183ACB8B2C563E81004C9884 /* InstaCashSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstaCashSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		183ACB8F2C563E81004C9884 /* InstaCashSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaCashSDKTests.swift; sourceTree = "<group>"; };
+		183ACB952C563E81004C9884 /* InstaCashSDKUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstaCashSDKUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		183ACB992C563E81004C9884 /* InstaCashSDKUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaCashSDKUITests.swift; sourceTree = "<group>"; };
+		183ACB9B2C563E81004C9884 /* InstaCashSDKUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaCashSDKUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		183ACBAD2C5640F1004C9884 /* proximity.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = proximity.gif; sourceTree = "<group>"; };
+		183ACBAE2C5640F1004C9884 /* charging.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = charging.gif; sourceTree = "<group>"; };
+		183ACBAF2C5640F1004C9884 /* speech.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = speech.gif; sourceTree = "<group>"; };
+		183ACBB02C5640F1004C9884 /* earphone_jack.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = earphone_jack.gif; sourceTree = "<group>"; };
+		183ACBB12C5640F1004C9884 /* rotation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rotation.gif; sourceTree = "<group>"; };
+		183ACBB22C5640F1004C9884 /* final_touch.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = final_touch.gif; sourceTree = "<group>"; };
+		183ACBB32C5640F1004C9884 /* internal.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = internal.gif; sourceTree = "<group>"; };
+		183ACBB52C5640F1004C9884 /* AllExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllExtensions.swift; sourceTree = "<group>"; };
+		183ACBB62C5640F1004C9884 /* DeviceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
+		183ACBB72C5640F1004C9884 /* Recording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
+		183ACBB82C5640F1004C9884 /* AppConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
+		183ACBB92C5640F1004C9884 /* ViewController-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController-Extension.swift"; sourceTree = "<group>"; };
+		183ACBBB2C5640F2004C9884 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		183ACBBC2C5640F2004C9884 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		183ACBBD2C5640F2004C9884 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		183ACBBF2C5640F2004C9884 /* four.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = four.wav; sourceTree = "<group>"; };
+		183ACBC02C5640F2004C9884 /* zero.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = zero.wav; sourceTree = "<group>"; };
+		183ACBC12C5640F2004C9884 /* six.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = six.wav; sourceTree = "<group>"; };
+		183ACBC22C5640F2004C9884 /* two.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = two.wav; sourceTree = "<group>"; };
+		183ACBC32C5640F2004C9884 /* three.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = three.wav; sourceTree = "<group>"; };
+		183ACBC42C5640F2004C9884 /* seven.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = seven.wav; sourceTree = "<group>"; };
+		183ACBC52C5640F2004C9884 /* nine.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = nine.wav; sourceTree = "<group>"; };
+		183ACBC62C5640F2004C9884 /* eight.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = eight.wav; sourceTree = "<group>"; };
+		183ACBC72C5640F2004C9884 /* one.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = one.wav; sourceTree = "<group>"; };
+		183ACBC82C5640F2004C9884 /* whistle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = whistle.mp3; sourceTree = "<group>"; };
+		183ACBC92C5640F2004C9884 /* five.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = five.wav; sourceTree = "<group>"; };
+		183ACBE52C564138004C9884 /* MicroPhoneVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicroPhoneVC.swift; sourceTree = "<group>"; };
+		183ACBE62C564138004C9884 /* VolumeButtonVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeButtonVC.swift; sourceTree = "<group>"; };
+		183ACBE72C564138004C9884 /* EarphoneVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EarphoneVC.swift; sourceTree = "<group>"; };
+		183ACBE82C564138004C9884 /* ScreenCalibrationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenCalibrationVC.swift; sourceTree = "<group>"; };
+		183ACBE92C564138004C9884 /* CameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
+		183ACBEA2C564138004C9884 /* DiagnoseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagnoseVC.swift; sourceTree = "<group>"; };
+		183ACBEB2C564138004C9884 /* DeadPixelsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeadPixelsVC.swift; sourceTree = "<group>"; };
+		183ACBEC2C564138004C9884 /* VibratorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VibratorVC.swift; sourceTree = "<group>"; };
+		183ACBED2C564138004C9884 /* SpeakerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeakerVC.swift; sourceTree = "<group>"; };
+		183ACBEE2C564138004C9884 /* ChargerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargerVC.swift; sourceTree = "<group>"; };
+		183ACBF12C564138004C9884 /* WiFiVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WiFiVC.swift; sourceTree = "<group>"; };
+		183ACBF22C564138004C9884 /* BiometricVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiometricVC.swift; sourceTree = "<group>"; };
+		183ACBF32C564138004C9884 /* ProximityVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProximityVC.swift; sourceTree = "<group>"; };
+		183ACBF42C564138004C9884 /* FlashLightVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashLightVC.swift; sourceTree = "<group>"; };
+		183ACBF52C564138004C9884 /* AutoRotationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoRotationVC.swift; sourceTree = "<group>"; };
+		183ACBF62C564138004C9884 /* DiagnosticTestResultVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagnosticTestResultVC.swift; sourceTree = "<group>"; };
+		183ACC122C5642F5004C9884 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		184A8C0D2C634D1200ECC27B /* GlobalSkipPopUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalSkipPopUpVC.swift; sourceTree = "<group>"; };
+		184A8C0F2C639BAD00ECC27B /* CircularProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		188384E72C576771003CF5E1 /* TestCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCVCell.swift; sourceTree = "<group>"; };
+		188384E82C576771003CF5E1 /* TestCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCVCell.xib; sourceTree = "<group>"; };
+		188384EC2C577581003CF5E1 /* CosmeticQuestions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmeticQuestions.swift; sourceTree = "<group>"; };
+		188384ED2C577581003CF5E1 /* ConditionValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConditionValue.swift; sourceTree = "<group>"; };
+		188384EE2C577581003CF5E1 /* Questions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Questions.swift; sourceTree = "<group>"; };
+		188384EF2C577581003CF5E1 /* SpecificationValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificationValue.swift; sourceTree = "<group>"; };
+		188384F02C577581003CF5E1 /* Msg.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Msg.swift; sourceTree = "<group>"; };
+		188384F62C5792A3003CF5E1 /* BatteryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryVC.swift; sourceTree = "<group>"; };
+		188384F82C5794D2003CF5E1 /* ring_loader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ring_loader.gif; sourceTree = "<group>"; };
+		188384FA2C579B08003CF5E1 /* StorageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageVC.swift; sourceTree = "<group>"; };
+		188384FC2C579B13003CF5E1 /* BluetoothVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothVC.swift; sourceTree = "<group>"; };
+		188384FE2C579B29003CF5E1 /* GpsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GpsVC.swift; sourceTree = "<group>"; };
+		188385002C579E16003CF5E1 /* GsmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GsmVC.swift; sourceTree = "<group>"; };
+		18E1C5EB2C5B756D00676D59 /* InstaCashSDK-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "InstaCashSDK-Bridging-Header.h"; sourceTree = "<group>"; };
+		18E1C5EC2C5B756E00676D59 /* TPKeyboardAvoidingCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingCollectionView.h; sourceTree = "<group>"; };
+		18E1C5ED2C5B756E00676D59 /* TPKeyboardAvoidingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingTableView.m; sourceTree = "<group>"; };
+		18E1C5EE2C5B756E00676D59 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
+		18E1C5EF2C5B756E00676D59 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		18E1C5F02C5B756E00676D59 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		18E1C5F12C5B756E00676D59 /* TPKeyboardAvoidingCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingCollectionView.m; sourceTree = "<group>"; };
+		18E1C5F22C5B756E00676D59 /* TPKeyboardAvoidingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingTableView.h; sourceTree = "<group>"; };
+		18E1C5F32C5B756E00676D59 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		398D284FDDF91CD9010CF8DB /* Pods_InstaCashSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaCashSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		47561EA5E6AE836B7C6D1F8D /* Pods-InstaCashSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaCashSDK.debug.xcconfig"; path = "Target Support Files/Pods-InstaCashSDK/Pods-InstaCashSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		59DE7CF12CFF28BA00DFC04C /* ios-data-wipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ios-data-wipe.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		183ACB722C563E7E004C9884 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD9C6EF4D8CAF0FE7C3718D8 /* Pods_InstaCashSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		183ACB882C563E81004C9884 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		183ACB922C563E81004C9884 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		18292AC82C6CBA5700C8A525 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				18292ACA2C6CBA7900C8A525 /* CosmeticQuestionTblCell.swift */,
+				18292ACC2C6CBA7900C8A525 /* QuestAnsrTblCell.swift */,
+				18292ACD2C6CBA7A00C8A525 /* QuestAnsrTblCell.xib */,
+				18292AC92C6CBA7900C8A525 /* TestResultCell.swift */,
+				18292ACB2C6CBA7900C8A525 /* TestResultCell.xib */,
+				18292ACF2C6CBA7A00C8A525 /* TestResultTitleCell.swift */,
+				18292ACE2C6CBA7A00C8A525 /* TestResultTitleCell.xib */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		1833A30F2C74676C009475AC /* Modals */ = {
+			isa = PBXGroup;
+			children = (
+				1833A3102C74677E009475AC /* CountryLanguages.swift */,
+			);
+			path = Modals;
+			sourceTree = "<group>";
+		};
+		183ACB6C2C563E7E004C9884 = {
+			isa = PBXGroup;
+			children = (
+				183ACB772C563E7E004C9884 /* InstaCashSDK */,
+				183ACB8E2C563E81004C9884 /* InstaCashSDKTests */,
+				183ACB982C563E81004C9884 /* InstaCashSDKUITests */,
+				183ACB762C563E7E004C9884 /* Products */,
+				20C55B960A66C30EACA3658F /* Pods */,
+				DE748D317D3D6004916F9000 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		183ACB762C563E7E004C9884 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				183ACB752C563E7E004C9884 /* InstaCashSDK.app */,
+				183ACB8B2C563E81004C9884 /* InstaCashSDKTests.xctest */,
+				183ACB952C563E81004C9884 /* InstaCashSDKUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		183ACB772C563E7E004C9884 /* InstaCashSDK */ = {
+			isa = PBXGroup;
+			children = (
+				1833A30F2C74676C009475AC /* Modals */,
+				183ACBBA2C5640F2004C9884 /* Font */,
+				183ACBAC2C5640F1004C9884 /* Gifs */,
+				183ACBBE2C5640F2004C9884 /* Mp3 */,
+				183ACBB42C5640F1004C9884 /* AppUtility */,
+				188384EB2C57755D003CF5E1 /* QuestionModel */,
+				18292AC82C6CBA5700C8A525 /* TableViewCells */,
+				188384E02C575B91003CF5E1 /* CollectionViewCell */,
+				183ACBE42C564138004C9884 /* DiagnosticScreens */,
+				183ACB782C563E7E004C9884 /* AppDelegate.swift */,
+				183ACB7A2C563E7E004C9884 /* SceneDelegate.swift */,
+				183ACB7E2C563E7E004C9884 /* Main.storyboard */,
+				183ACB812C563E80004C9884 /* Assets.xcassets */,
+				183ACB832C563E80004C9884 /* LaunchScreen.storyboard */,
+				18E1C5EB2C5B756D00676D59 /* InstaCashSDK-Bridging-Header.h */,
+				183ACB862C563E80004C9884 /* Info.plist */,
+			);
+			path = InstaCashSDK;
+			sourceTree = "<group>";
+		};
+		183ACB8E2C563E81004C9884 /* InstaCashSDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				183ACB8F2C563E81004C9884 /* InstaCashSDKTests.swift */,
+			);
+			path = InstaCashSDKTests;
+			sourceTree = "<group>";
+		};
+		183ACB982C563E81004C9884 /* InstaCashSDKUITests */ = {
+			isa = PBXGroup;
+			children = (
+				183ACB992C563E81004C9884 /* InstaCashSDKUITests.swift */,
+				183ACB9B2C563E81004C9884 /* InstaCashSDKUITestsLaunchTests.swift */,
+			);
+			path = InstaCashSDKUITests;
+			sourceTree = "<group>";
+		};
+		183ACBAC2C5640F1004C9884 /* Gifs */ = {
+			isa = PBXGroup;
+			children = (
+				188384F82C5794D2003CF5E1 /* ring_loader.gif */,
+				183ACBAD2C5640F1004C9884 /* proximity.gif */,
+				183ACBAE2C5640F1004C9884 /* charging.gif */,
+				183ACBAF2C5640F1004C9884 /* speech.gif */,
+				183ACBB02C5640F1004C9884 /* earphone_jack.gif */,
+				183ACBB12C5640F1004C9884 /* rotation.gif */,
+				183ACBB22C5640F1004C9884 /* final_touch.gif */,
+				183ACBB32C5640F1004C9884 /* internal.gif */,
+			);
+			path = Gifs;
+			sourceTree = "<group>";
+		};
+		183ACBB42C5640F1004C9884 /* AppUtility */ = {
+			isa = PBXGroup;
+			children = (
+				18E1C5EA2C5B754B00676D59 /* TPKeyBoardAvoiding */,
+				183ACBB52C5640F1004C9884 /* AllExtensions.swift */,
+				59DE7CF12CFF28BA00DFC04C /* ios-data-wipe.swift */,
+				184A8C0F2C639BAD00ECC27B /* CircularProgressView.swift */,
+				183ACBB62C5640F1004C9884 /* DeviceModel.swift */,
+				183ACBB72C5640F1004C9884 /* Recording.swift */,
+				183ACBB82C5640F1004C9884 /* AppConstant.swift */,
+				1833A30D2C7463E4009475AC /* Reachability.swift */,
+				183ACBB92C5640F1004C9884 /* ViewController-Extension.swift */,
+			);
+			path = AppUtility;
+			sourceTree = "<group>";
+		};
+		183ACBBA2C5640F2004C9884 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				183ACBBB2C5640F2004C9884 /* Roboto-Medium.ttf */,
+				183ACBBC2C5640F2004C9884 /* Roboto-Regular.ttf */,
+				183ACBBD2C5640F2004C9884 /* Roboto-Bold.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		183ACBBE2C5640F2004C9884 /* Mp3 */ = {
+			isa = PBXGroup;
+			children = (
+				183ACBBF2C5640F2004C9884 /* four.wav */,
+				183ACBC02C5640F2004C9884 /* zero.wav */,
+				183ACBC12C5640F2004C9884 /* six.wav */,
+				183ACBC22C5640F2004C9884 /* two.wav */,
+				183ACBC32C5640F2004C9884 /* three.wav */,
+				183ACBC42C5640F2004C9884 /* seven.wav */,
+				183ACBC52C5640F2004C9884 /* nine.wav */,
+				183ACBC62C5640F2004C9884 /* eight.wav */,
+				183ACBC72C5640F2004C9884 /* one.wav */,
+				183ACBC82C5640F2004C9884 /* whistle.mp3 */,
+				183ACBC92C5640F2004C9884 /* five.wav */,
+			);
+			path = Mp3;
+			sourceTree = "<group>";
+		};
+		183ACBE42C564138004C9884 /* DiagnosticScreens */ = {
+			isa = PBXGroup;
+			children = (
+				183ACBEA2C564138004C9884 /* DiagnoseVC.swift */,
+				183ACC122C5642F5004C9884 /* HomeVC.swift */,
+				188384FC2C579B13003CF5E1 /* BluetoothVC.swift */,
+				183ACBF12C564138004C9884 /* WiFiVC.swift */,
+				188384F62C5792A3003CF5E1 /* BatteryVC.swift */,
+				188385002C579E16003CF5E1 /* GsmVC.swift */,
+				188384FA2C579B08003CF5E1 /* StorageVC.swift */,
+				188384FE2C579B29003CF5E1 /* GpsVC.swift */,
+				183ACBEC2C564138004C9884 /* VibratorVC.swift */,
+				183ACBED2C564138004C9884 /* SpeakerVC.swift */,
+				183ACBE52C564138004C9884 /* MicroPhoneVC.swift */,
+				183ACBF42C564138004C9884 /* FlashLightVC.swift */,
+				183ACBE72C564138004C9884 /* EarphoneVC.swift */,
+				183ACBF52C564138004C9884 /* AutoRotationVC.swift */,
+				183ACBF32C564138004C9884 /* ProximityVC.swift */,
+				183ACBEE2C564138004C9884 /* ChargerVC.swift */,
+				183ACBEB2C564138004C9884 /* DeadPixelsVC.swift */,
+				183ACBE92C564138004C9884 /* CameraVC.swift */,
+				183ACBE82C564138004C9884 /* ScreenCalibrationVC.swift */,
+				183ACBE62C564138004C9884 /* VolumeButtonVC.swift */,
+				183ACBF22C564138004C9884 /* BiometricVC.swift */,
+				183ACBF62C564138004C9884 /* DiagnosticTestResultVC.swift */,
+				184A8C0D2C634D1200ECC27B /* GlobalSkipPopUpVC.swift */,
+			);
+			path = DiagnosticScreens;
+			sourceTree = "<group>";
+		};
+		188384E02C575B91003CF5E1 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				188384E72C576771003CF5E1 /* TestCVCell.swift */,
+				188384E82C576771003CF5E1 /* TestCVCell.xib */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		188384EB2C57755D003CF5E1 /* QuestionModel */ = {
+			isa = PBXGroup;
+			children = (
+				188384ED2C577581003CF5E1 /* ConditionValue.swift */,
+				188384EC2C577581003CF5E1 /* CosmeticQuestions.swift */,
+				188384F02C577581003CF5E1 /* Msg.swift */,
+				188384EE2C577581003CF5E1 /* Questions.swift */,
+				188384EF2C577581003CF5E1 /* SpecificationValue.swift */,
+			);
+			path = QuestionModel;
+			sourceTree = "<group>";
+		};
+		18E1C5EA2C5B754B00676D59 /* TPKeyBoardAvoiding */ = {
+			isa = PBXGroup;
+			children = (
+				18E1C5EC2C5B756E00676D59 /* TPKeyboardAvoidingCollectionView.h */,
+				18E1C5F12C5B756E00676D59 /* TPKeyboardAvoidingCollectionView.m */,
+				18E1C5F32C5B756E00676D59 /* TPKeyboardAvoidingScrollView.h */,
+				18E1C5EF2C5B756E00676D59 /* TPKeyboardAvoidingScrollView.m */,
+				18E1C5F22C5B756E00676D59 /* TPKeyboardAvoidingTableView.h */,
+				18E1C5ED2C5B756E00676D59 /* TPKeyboardAvoidingTableView.m */,
+				18E1C5F02C5B756E00676D59 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				18E1C5EE2C5B756E00676D59 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+			);
+			path = TPKeyBoardAvoiding;
+			sourceTree = "<group>";
+		};
+		20C55B960A66C30EACA3658F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				47561EA5E6AE836B7C6D1F8D /* Pods-InstaCashSDK.debug.xcconfig */,
+				061EED9040CC0DCC05F9790E /* Pods-InstaCashSDK.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DE748D317D3D6004916F9000 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				398D284FDDF91CD9010CF8DB /* Pods_InstaCashSDK.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		183ACB742C563E7E004C9884 /* InstaCashSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 183ACB9F2C563E81004C9884 /* Build configuration list for PBXNativeTarget "InstaCashSDK" */;
+			buildPhases = (
+				B497E0B98BEFC45EA89667C2 /* [CP] Check Pods Manifest.lock */,
+				183ACB712C563E7E004C9884 /* Sources */,
+				183ACB722C563E7E004C9884 /* Frameworks */,
+				183ACB732C563E7E004C9884 /* Resources */,
+				27379F066D193C817A7BEB95 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = InstaCashSDK;
+			productName = InstaCashSDK;
+			productReference = 183ACB752C563E7E004C9884 /* InstaCashSDK.app */;
+			productType = "com.apple.product-type.application";
+		};
+		183ACB8A2C563E81004C9884 /* InstaCashSDKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 183ACBA22C563E81004C9884 /* Build configuration list for PBXNativeTarget "InstaCashSDKTests" */;
+			buildPhases = (
+				183ACB872C563E81004C9884 /* Sources */,
+				183ACB882C563E81004C9884 /* Frameworks */,
+				183ACB892C563E81004C9884 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				183ACB8D2C563E81004C9884 /* PBXTargetDependency */,
+			);
+			name = InstaCashSDKTests;
+			productName = InstaCashSDKTests;
+			productReference = 183ACB8B2C563E81004C9884 /* InstaCashSDKTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		183ACB942C563E81004C9884 /* InstaCashSDKUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 183ACBA52C563E81004C9884 /* Build configuration list for PBXNativeTarget "InstaCashSDKUITests" */;
+			buildPhases = (
+				183ACB912C563E81004C9884 /* Sources */,
+				183ACB922C563E81004C9884 /* Frameworks */,
+				183ACB932C563E81004C9884 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				183ACB972C563E81004C9884 /* PBXTargetDependency */,
+			);
+			name = InstaCashSDKUITests;
+			productName = InstaCashSDKUITests;
+			productReference = 183ACB952C563E81004C9884 /* InstaCashSDKUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		183ACB6D2C563E7E004C9884 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					183ACB742C563E7E004C9884 = {
+						CreatedOnToolsVersion = 15.2;
+						LastSwiftMigration = 1520;
+					};
+					183ACB8A2C563E81004C9884 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 183ACB742C563E7E004C9884;
+					};
+					183ACB942C563E81004C9884 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 183ACB742C563E7E004C9884;
+					};
+				};
+			};
+			buildConfigurationList = 183ACB702C563E7E004C9884 /* Build configuration list for PBXProject "InstaCashSDK" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 183ACB6C2C563E7E004C9884;
+			productRefGroup = 183ACB762C563E7E004C9884 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				183ACB742C563E7E004C9884 /* InstaCashSDK */,
+				183ACB8A2C563E81004C9884 /* InstaCashSDKTests */,
+				183ACB942C563E81004C9884 /* InstaCashSDKUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		183ACB732C563E7E004C9884 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				183ACBD92C5640F2004C9884 /* four.wav in Resources */,
+				183ACBD62C5640F2004C9884 /* Roboto-Medium.ttf in Resources */,
+				183ACBCA2C5640F2004C9884 /* proximity.gif in Resources */,
+				183ACBDA2C5640F2004C9884 /* zero.wav in Resources */,
+				183ACBD82C5640F2004C9884 /* Roboto-Bold.ttf in Resources */,
+				183ACBDD2C5640F2004C9884 /* three.wav in Resources */,
+				183ACBCB2C5640F2004C9884 /* charging.gif in Resources */,
+				183ACB852C563E80004C9884 /* LaunchScreen.storyboard in Resources */,
+				188384EA2C576771003CF5E1 /* TestCVCell.xib in Resources */,
+				18292AD42C6CBA7A00C8A525 /* QuestAnsrTblCell.xib in Resources */,
+				183ACBCF2C5640F2004C9884 /* final_touch.gif in Resources */,
+				183ACBE02C5640F2004C9884 /* eight.wav in Resources */,
+				183ACBDC2C5640F2004C9884 /* two.wav in Resources */,
+				183ACBD02C5640F2004C9884 /* internal.gif in Resources */,
+				183ACBCE2C5640F2004C9884 /* rotation.gif in Resources */,
+				183ACBD72C5640F2004C9884 /* Roboto-Regular.ttf in Resources */,
+				183ACBE22C5640F2004C9884 /* whistle.mp3 in Resources */,
+				183ACBDF2C5640F2004C9884 /* nine.wav in Resources */,
+				183ACBCD2C5640F2004C9884 /* earphone_jack.gif in Resources */,
+				183ACBE32C5640F2004C9884 /* five.wav in Resources */,
+				18292AD52C6CBA7A00C8A525 /* TestResultTitleCell.xib in Resources */,
+				188384F92C5794D2003CF5E1 /* ring_loader.gif in Resources */,
+				18292AD22C6CBA7A00C8A525 /* TestResultCell.xib in Resources */,
+				183ACB822C563E80004C9884 /* Assets.xcassets in Resources */,
+				183ACB802C563E7E004C9884 /* Main.storyboard in Resources */,
+				183ACBDB2C5640F2004C9884 /* six.wav in Resources */,
+				183ACBCC2C5640F2004C9884 /* speech.gif in Resources */,
+				183ACBE12C5640F2004C9884 /* one.wav in Resources */,
+				183ACBDE2C5640F2004C9884 /* seven.wav in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		183ACB892C563E81004C9884 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		183ACB932C563E81004C9884 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		27379F066D193C817A7BEB95 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InstaCashSDK/Pods-InstaCashSDK-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InstaCashSDK/Pods-InstaCashSDK-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InstaCashSDK/Pods-InstaCashSDK-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B497E0B98BEFC45EA89667C2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-InstaCashSDK-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		183ACB712C563E7E004C9884 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				183ACBFF2C564138004C9884 /* ScreenCalibrationVC.swift in Sources */,
+				183ACC092C564138004C9884 /* BiometricVC.swift in Sources */,
+				183ACC0B2C564138004C9884 /* FlashLightVC.swift in Sources */,
+				183ACC132C5642F5004C9884 /* HomeVC.swift in Sources */,
+				183ACBD32C5640F2004C9884 /* Recording.swift in Sources */,
+				18E1C5F62C5B756E00676D59 /* TPKeyboardAvoidingScrollView.m in Sources */,
+				183ACBD52C5640F2004C9884 /* ViewController-Extension.swift in Sources */,
+				188384F32C577581003CF5E1 /* Questions.swift in Sources */,
+				184A8C102C639BAD00ECC27B /* CircularProgressView.swift in Sources */,
+				188384FB2C579B08003CF5E1 /* StorageVC.swift in Sources */,
+				188384FF2C579B29003CF5E1 /* GpsVC.swift in Sources */,
+				183ACC082C564138004C9884 /* WiFiVC.swift in Sources */,
+				183ACBD42C5640F2004C9884 /* AppConstant.swift in Sources */,
+				183ACB792C563E7E004C9884 /* AppDelegate.swift in Sources */,
+				188384E92C576771003CF5E1 /* TestCVCell.swift in Sources */,
+				188385012C579E16003CF5E1 /* GsmVC.swift in Sources */,
+				183ACC022C564138004C9884 /* DeadPixelsVC.swift in Sources */,
+				18E1C5F42C5B756E00676D59 /* TPKeyboardAvoidingTableView.m in Sources */,
+				59DE7CF22CFF28BA00DFC04C /* ios-data-wipe.swift in Sources */,
+				183ACBD22C5640F2004C9884 /* DeviceModel.swift in Sources */,
+				188384F22C577581003CF5E1 /* ConditionValue.swift in Sources */,
+				188384F42C577581003CF5E1 /* SpecificationValue.swift in Sources */,
+				188384F72C5792A3003CF5E1 /* BatteryVC.swift in Sources */,
+				183ACBFE2C564138004C9884 /* EarphoneVC.swift in Sources */,
+				183ACC0D2C564138004C9884 /* DiagnosticTestResultVC.swift in Sources */,
+				183ACC0C2C564138004C9884 /* AutoRotationVC.swift in Sources */,
+				183ACBFC2C564138004C9884 /* MicroPhoneVC.swift in Sources */,
+				183ACB7B2C563E7E004C9884 /* SceneDelegate.swift in Sources */,
+				183ACC012C564138004C9884 /* DiagnoseVC.swift in Sources */,
+				18292AD12C6CBA7A00C8A525 /* CosmeticQuestionTblCell.swift in Sources */,
+				18E1C5F52C5B756E00676D59 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
+				188384F12C577581003CF5E1 /* CosmeticQuestions.swift in Sources */,
+				18292AD32C6CBA7A00C8A525 /* QuestAnsrTblCell.swift in Sources */,
+				183ACC002C564138004C9884 /* CameraVC.swift in Sources */,
+				183ACC0A2C564138004C9884 /* ProximityVC.swift in Sources */,
+				18E1C5F72C5B756E00676D59 /* TPKeyboardAvoidingCollectionView.m in Sources */,
+				183ACC032C564138004C9884 /* VibratorVC.swift in Sources */,
+				1833A3112C74677E009475AC /* CountryLanguages.swift in Sources */,
+				18292AD62C6CBA7A00C8A525 /* TestResultTitleCell.swift in Sources */,
+				183ACBFD2C564138004C9884 /* VolumeButtonVC.swift in Sources */,
+				1833A30E2C7463E4009475AC /* Reachability.swift in Sources */,
+				188384FD2C579B13003CF5E1 /* BluetoothVC.swift in Sources */,
+				18292AD02C6CBA7A00C8A525 /* TestResultCell.swift in Sources */,
+				184A8C0E2C634D1200ECC27B /* GlobalSkipPopUpVC.swift in Sources */,
+				183ACC042C564138004C9884 /* SpeakerVC.swift in Sources */,
+				188384F52C577581003CF5E1 /* Msg.swift in Sources */,
+				183ACBD12C5640F2004C9884 /* AllExtensions.swift in Sources */,
+				183ACC052C564138004C9884 /* ChargerVC.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		183ACB872C563E81004C9884 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				183ACB902C563E81004C9884 /* InstaCashSDKTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		183ACB912C563E81004C9884 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				183ACB9C2C563E81004C9884 /* InstaCashSDKUITestsLaunchTests.swift in Sources */,
+				183ACB9A2C563E81004C9884 /* InstaCashSDKUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		183ACB8D2C563E81004C9884 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 183ACB742C563E7E004C9884 /* InstaCashSDK */;
+			targetProxy = 183ACB8C2C563E81004C9884 /* PBXContainerItemProxy */;
+		};
+		183ACB972C563E81004C9884 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 183ACB742C563E7E004C9884 /* InstaCashSDK */;
+			targetProxy = 183ACB962C563E81004C9884 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		183ACB7E2C563E7E004C9884 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				183ACB7F2C563E7E004C9884 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		183ACB832C563E80004C9884 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				183ACB842C563E80004C9884 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		183ACB9D2C563E81004C9884 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		183ACB9E2C563E81004C9884 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		183ACBA02C563E81004C9884 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 47561EA5E6AE836B7C6D1F8D /* Pods-InstaCashSDK.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FPA74MVT87;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = InstaCashSDK/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth Permission needed for Diagnosing the bluetooth hardware.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth Permission needed for Diagnosing the bluetooth hardware.";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "Calendar Permission needed for schedule pickup";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera Permission is needed to check the Camera";
+				INFOPLIST_KEY_NSContactsUsageDescription = "Contacts Permission needed for make test call";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Face Id access required to test FaceId working on not";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Gather location updates to detect country of current customer and also locality of customer to schedule order pick up.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Gather location updates to detect country of current customer and also locality of customer to schedule order pick up.";
+				INFOPLIST_KEY_NSLocationUsageDescription = "Gather location updates to detect country of current customer and also locality of customer to schedule order pick up.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Gather location updates to detect country of current customer and also locality of customer to schedule order pick up.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone permission required to check the Mic and Speaker";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Photo library access required to upload device's bill & front/back image";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Photo library access required to upload device's bill & front/back image";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.6;
+				PRODUCT_BUNDLE_IDENTIFIER = in.instaWarehouse;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "InstaCashSDK/InstaCashSDK-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		183ACBA12C563E81004C9884 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 061EED9040CC0DCC05F9790E /* Pods-InstaCashSDK.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FPA74MVT87;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = InstaCashSDK/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth Permission needed for Diagnosing the bluetooth hardware.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth Permission needed for Diagnosing the bluetooth hardware.";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "Calendar Permission needed for schedule pickup";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera Permission is needed to check the Camera";
+				INFOPLIST_KEY_NSContactsUsageDescription = "Contacts Permission needed for make test call";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Face Id access required to test FaceId working on not";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Gather location updates to detect country of current customer and also locality of customer to schedule order pick up.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Gather location updates to detect country of current customer and also locality of customer to schedule order pick up.";
+				INFOPLIST_KEY_NSLocationUsageDescription = "Gather location updates to detect country of current customer and also locality of customer to schedule order pick up.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Gather location updates to detect country of current customer and also locality of customer to schedule order pick up.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone permission required to check the Mic and Speaker";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Photo library access required to upload device's bill & front/back image";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Photo library access required to upload device's bill & front/back image";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.6;
+				PRODUCT_BUNDLE_IDENTIFIER = in.instaWarehouse;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "InstaCashSDK/InstaCashSDK-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		183ACBA32C563E81004C9884 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FPA74MVT87;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = in.InstaSDK.InstaCashSDKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InstaCashSDK.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/InstaCashSDK";
+			};
+			name = Debug;
+		};
+		183ACBA42C563E81004C9884 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FPA74MVT87;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = in.InstaSDK.InstaCashSDKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InstaCashSDK.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/InstaCashSDK";
+			};
+			name = Release;
+		};
+		183ACBA62C563E81004C9884 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FPA74MVT87;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = in.InstaSDK.InstaCashSDKUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = InstaCashSDK;
+			};
+			name = Debug;
+		};
+		183ACBA72C563E81004C9884 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FPA74MVT87;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = in.InstaSDK.InstaCashSDKUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = InstaCashSDK;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		183ACB702C563E7E004C9884 /* Build configuration list for PBXProject "InstaCashSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				183ACB9D2C563E81004C9884 /* Debug */,
+				183ACB9E2C563E81004C9884 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		183ACB9F2C563E81004C9884 /* Build configuration list for PBXNativeTarget "InstaCashSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				183ACBA02C563E81004C9884 /* Debug */,
+				183ACBA12C563E81004C9884 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		183ACBA22C563E81004C9884 /* Build configuration list for PBXNativeTarget "InstaCashSDKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				183ACBA32C563E81004C9884 /* Debug */,
+				183ACBA42C563E81004C9884 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		183ACBA52C563E81004C9884 /* Build configuration list for PBXNativeTarget "InstaCashSDKUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				183ACBA62C563E81004C9884 /* Debug */,
+				183ACBA72C563E81004C9884 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 183ACB6D2C563E7E004C9884 /* Project object */;
+}
