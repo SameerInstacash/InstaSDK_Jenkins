@@ -86,6 +86,8 @@
 		18E1C5F52C5B756E00676D59 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1C5EE2C5B756E00676D59 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		18E1C5F62C5B756E00676D59 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1C5EF2C5B756E00676D59 /* TPKeyboardAvoidingScrollView.m */; };
 		18E1C5F72C5B756E00676D59 /* TPKeyboardAvoidingCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1C5F12C5B756E00676D59 /* TPKeyboardAvoidingCollectionView.m */; };
+		5955B0742D0DA59500350373 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5955B0732D0DA59500350373 /* Entitlements.plist */; };
+		59D4BD932D11823F00E009B0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D4BD922D11823F00E009B0 /* UIKit.framework */; };
 		59DE7CF22CFF28BA00DFC04C /* ios-data-wipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DE7CF12CFF28BA00DFC04C /* ios-data-wipe.swift */; };
 		FD9C6EF4D8CAF0FE7C3718D8 /* Pods_InstaCashSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 398D284FDDF91CD9010CF8DB /* Pods_InstaCashSDK.framework */; };
 /* End PBXBuildFile section */
@@ -199,6 +201,8 @@
 		18E1C5F32C5B756E00676D59 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		398D284FDDF91CD9010CF8DB /* Pods_InstaCashSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaCashSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47561EA5E6AE836B7C6D1F8D /* Pods-InstaCashSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaCashSDK.debug.xcconfig"; path = "Target Support Files/Pods-InstaCashSDK/Pods-InstaCashSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		5955B0732D0DA59500350373 /* Entitlements.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		59D4BD922D11823F00E009B0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		59DE7CF12CFF28BA00DFC04C /* ios-data-wipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ios-data-wipe.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -208,6 +212,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD9C6EF4D8CAF0FE7C3718D8 /* Pods_InstaCashSDK.framework in Frameworks */,
+				59D4BD932D11823F00E009B0 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +296,7 @@
 				183ACB832C563E80004C9884 /* LaunchScreen.storyboard */,
 				18E1C5EB2C5B756D00676D59 /* InstaCashSDK-Bridging-Header.h */,
 				183ACB862C563E80004C9884 /* Info.plist */,
+				5955B0732D0DA59500350373 /* Entitlements.plist */,
 			);
 			path = InstaCashSDK;
 			sourceTree = "<group>";
@@ -449,6 +455,7 @@
 		DE748D317D3D6004916F9000 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				59D4BD922D11823F00E009B0 /* UIKit.framework */,
 				398D284FDDF91CD9010CF8DB /* Pods_InstaCashSDK.framework */,
 			);
 			name = Frameworks;
@@ -581,6 +588,7 @@
 				183ACBDF2C5640F2004C9884 /* nine.wav in Resources */,
 				183ACBCD2C5640F2004C9884 /* earphone_jack.gif in Resources */,
 				183ACBE32C5640F2004C9884 /* five.wav in Resources */,
+				5955B0742D0DA59500350373 /* Entitlements.plist in Resources */,
 				18292AD52C6CBA7A00C8A525 /* TestResultTitleCell.xib in Resources */,
 				188384F92C5794D2003CF5E1 /* ring_loader.gif in Resources */,
 				18292AD22C6CBA7A00C8A525 /* TestResultCell.xib in Resources */,
@@ -890,6 +898,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FPA74MVT87;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InstaCashSDK/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
@@ -918,7 +930,52 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.6;
+				MARKETING_VERSION = 0.0.1;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"BiometricAuthentication\"",
+					"-framework",
+					"\"CameraManager\"",
+					"-framework",
+					"\"CoreMotion\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"DKCamera\"",
+					"-framework",
+					"\"Deviice\"",
+					"-framework",
+					"\"DynamicBlurView\"",
+					"-framework",
+					"\"ExternalAccessory\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"INTULocationManager\"",
+					"-framework",
+					"\"JGProgressHUD\"",
+					"-framework",
+					"\"Luminous\"",
+					"-framework",
+					"\"PopupDialog\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SwiftGifOrigin\"",
+					"-framework",
+					"\"SwiftyJSON\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"Toast_Swift\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = in.instaWarehouse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -942,10 +999,16 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FPA74MVT87;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = FPA74MVT87;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InstaCashSDK/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
@@ -974,10 +1037,56 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.6;
+				MARKETING_VERSION = 0.0.1;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"BiometricAuthentication\"",
+					"-framework",
+					"\"CameraManager\"",
+					"-framework",
+					"\"CoreMotion\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"DKCamera\"",
+					"-framework",
+					"\"Deviice\"",
+					"-framework",
+					"\"DynamicBlurView\"",
+					"-framework",
+					"\"ExternalAccessory\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"INTULocationManager\"",
+					"-framework",
+					"\"JGProgressHUD\"",
+					"-framework",
+					"\"Luminous\"",
+					"-framework",
+					"\"PopupDialog\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SwiftGifOrigin\"",
+					"-framework",
+					"\"SwiftyJSON\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"Toast_Swift\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = in.instaWarehouse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = instaWarehouse_DistProfile;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

@@ -5,6 +5,7 @@
 //  Created by Sameer Khan on 28/07/24.
 //
 
+import Foundation
 import UIKit
 import SwiftyJSON
 import CoreBluetooth
@@ -20,6 +21,7 @@ import AudioToolbox
 
 import DeviceCheck
 import os
+import MachO
 
 class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, CBCentralManagerDelegate {
     
@@ -33,7 +35,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     var resultJSON = JSON()
     var currentTestName : String = ""
     
-    var arrTestInSDK_Hold = [String]()    
+    var arrTestInSDK_Hold = [String]()
     
     var arrCountrylanguages = [CountryLanguages]()
     let reachability: Reachability? = Reachability()
@@ -75,13 +77,61 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     var vibratorCount = 0
     let manager = CMMotionManager()
     var isVibrate = false
+        
+
+    //MARK: Framework Paths
+    let SBSERVPATH = "/System/Library/PrivateFrameworks/SpringBoardServices.framework/SpringBoardServices"
+    let UIKITPATH = "/System/Library/Framework/UIKit.framework/UIKit"
     
-    //MARK: ActivityIndicatorView
-    let messageFrame = UIView()
-    var activityIndicator = UIActivityIndicatorView()
-    var strLabel = UILabel()
-    let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+    //let UIKITPATH = "/Applications/Xcode-16.0.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/UIKit.framework"
     
+    let WIPE_MODE_NORMAL = 4
+
+    func main() {
+    
+        autoreleasepool {
+            // Fetch the SpringBoard server port
+            var p = mach_port_t()
+            let uikit = dlopen(UIKITPATH, RTLD_LAZY)
+            
+            let SBSSpringBoardServerPort = dlsym(uikit, "SBSSpringBoardServerPort")
+            //let portFunction = unsafeBitCast(SBSSpringBoardServerPort, to: mach_port_t.self)
+            let portFunction = unsafeBitCast(SBSSpringBoardServerPort, to: (@convention(c) () -> mach_port_t).self)
+            p = portFunction()
+            dlclose(uikit)
+            
+            // Getting DataReset proc
+            let sbserv = dlopen(SBSERVPATH, RTLD_LAZY)
+            let dataReset = dlsym(sbserv, "SBDataReset")
+            let resetFunction = unsafeBitCast(dataReset, to: (@convention(c) (UnsafeMutablePointer<mach_port_t>?, Int32) -> Void).self)
+            resetFunction(&p, Int32(WIPE_MODE_NORMAL))
+            dlclose(sbserv)
+        }
+        
+    }
+
+    func main1() {
+        /*
+        autoreleasepool {
+            // Establish a connection to SpringBoardServices
+            var springboardPort: mach_port_t = 0
+            let result = SBSSpringBoardServerPort(&springboardPort)
+            
+            if result != KERN_SUCCESS || springboardPort == MACH_PORT_NULL {
+                print("Failed to connect to SpringBoardServices.")
+                exit(-1)
+            }
+            
+            // Perform a data wipe using SBDataReset
+            let resetResult = SBDataReset(springboardPort, kSBDataResetAll, nil)
+            if resetResult != KERN_SUCCESS {
+                print("Failed to reset device data.")
+                exit(-1)
+            }
+            
+            print("Device data reset successfully!")
+        }*/
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,7 +146,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         self.dynamicTestCallingSetup()
         
         self.refreshLocalData()
-                
+                        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -414,7 +464,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             self.runTestDynamicInApp()
             
             self.startTestBtn.setTitle(self.getLocalizatioStringValue(key: "RESTART TEST"), for: .normal)
-            self.quiteAppBtn.isHidden = false
+            //self.quiteAppBtn.isHidden = false
             //self.syncResultBtn.isHidden = false
                         
             self.printRamRom()
@@ -459,6 +509,9 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     @IBAction func wipeDataButtonPressed(_ sender: UIButton) {
         
+        //main()
+        //return
+        
         createTestFile()
         
         activityIndicator("Data Wipes In Process")
@@ -495,10 +548,6 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             */
             
             NSLog("%@", OSLogStr)
-            
-            DispatchQueue.main.async {
-                self.effectView.removeFromSuperview()
-            }
             
         }
         
@@ -1079,6 +1128,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
     
     func activityIndicator(_ title: String) {
+        /*
         strLabel.removeFromSuperview()
         activityIndicator.removeFromSuperview()
         effectView.removeFromSuperview()
@@ -1095,6 +1145,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         effectView.contentView.addSubview(activityIndicator)
         effectView.contentView.addSubview(strLabel)
         view.addSubview(effectView)
+        */
     }
     
 }

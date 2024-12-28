@@ -1694,7 +1694,7 @@
                                 <rect key="frame" x="15" y="508" width="290" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgr-Jm-67r" customClass="CornerButton" customModule="InstaCashSDK" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="135" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="290" height="40"/>
                                         <color key="backgroundColor" red="0.0" green="0.5607843137254902" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="AEf-A4-qgG"/>
@@ -1712,7 +1712,7 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MQK-Su-1uM" customClass="CornerButton" customModule="InstaCashSDK" customModuleProvider="target">
-                                        <rect key="frame" x="145" y="0.0" width="0.0" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="40"/>
                                         <color key="backgroundColor" red="0.84705882352941175" green="0.76862745098039209" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="AVv-YZ-6RU"/>
@@ -1729,8 +1729,8 @@
                                             <action selector="quiteAppButtonPressed:" destination="Pfu-QE-7fw" eventType="touchUpInside" id="MVf-4x-x5E"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNz-ci-UPs" customClass="CornerButton" customModule="InstaCashSDK" customModuleProvider="target">
-                                        <rect key="frame" x="155" y="0.0" width="135" height="40"/>
+                                    <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNz-ci-UPs" customClass="CornerButton" customModule="InstaCashSDK" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="40"/>
                                         <color key="backgroundColor" red="0.84705882349999995" green="0.76862745099999996" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Whw-cO-XqI"/>
