@@ -28,7 +28,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     @IBOutlet weak var testCollectionView: UICollectionView!
     @IBOutlet weak var startTestBtn: UIButton!
     @IBOutlet weak var quiteAppBtn: UIButton!
-    @IBOutlet weak var syncResultBtn: UIButton!
+    //@IBOutlet weak var syncResultBtn: UIButton!
     
     var phyMemoryJSON = JSON()
     var oemJailMdmJSON = JSON()
@@ -80,13 +80,14 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         
 
     //MARK: Framework Paths
-    let SBSERVPATH = "/System/Library/PrivateFrameworks/SpringBoardServices.framework/SpringBoardServices"
-    let UIKITPATH = "/System/Library/Framework/UIKit.framework/UIKit"
+    //let SBSERVPATH = "/System/Library/PrivateFrameworks/SpringBoardServices.framework/SpringBoardServices"
+    //let UIKITPATH = "/System/Library/Framework/UIKit.framework/UIKit"
     
     //let UIKITPATH = "/Applications/Xcode-16.0.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/UIKit.framework"
     
     let WIPE_MODE_NORMAL = 4
 
+    /*
     func main() {
     
         autoreleasepool {
@@ -109,9 +110,11 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         }
         
     }
+    */
 
+    /*
     func main1() {
-        /*
+        
         autoreleasepool {
             // Establish a connection to SpringBoardServices
             var springboardPort: mach_port_t = 0
@@ -130,8 +133,9 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             }
             
             print("Device data reset successfully!")
-        }*/
+        }
     }
+    */
     
     override func viewDidLoad() {
         super.viewDidLoad()
