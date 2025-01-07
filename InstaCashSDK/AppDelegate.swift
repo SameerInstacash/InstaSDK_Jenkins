@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      */
     
     
-    
+    /* //MARK: Comment due to Apple's rejection
     func registerforDeviceLockNotification() {
         //Screen lock notifications
         CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),     //center
@@ -104,6 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
     }
+    */
     
 }
 

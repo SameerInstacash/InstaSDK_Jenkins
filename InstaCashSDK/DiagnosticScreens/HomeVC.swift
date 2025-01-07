@@ -476,6 +476,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         }
         else {
             
+            NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+            
             self.dynamicTestCallingSetup()
             
             //self.startTestBtn.setTitle(self.getLocalizatioStringValue(key: "START TEST"), for: .normal)
@@ -714,7 +716,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.batteryRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -732,7 +745,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.gsmRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -750,7 +774,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.storageRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -768,7 +803,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.wifiRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -786,7 +832,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.bluetoothRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -804,7 +861,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.gpsRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -822,7 +890,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.vibratorRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -843,7 +922,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.speakerRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -864,7 +954,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.speakerRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -885,7 +986,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.micRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -906,7 +1018,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.micRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -924,7 +1047,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.flashlightRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -942,7 +1076,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.earphoneRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -960,7 +1105,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.rotationRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -978,7 +1134,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.proximityRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -996,7 +1163,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.chargerRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -1014,7 +1192,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.deadPixelRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -1032,7 +1221,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.cameraRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -1050,7 +1250,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.cameraRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -1068,7 +1279,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.screenRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -1086,7 +1308,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.volumeRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }
@@ -1104,7 +1337,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.biometricRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
-                        print("arrTestsResultJSONInSDK on retry",arrTestsResultJSONInSDK)
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
                         
                         self.testCollectionView.reloadData()
                     }

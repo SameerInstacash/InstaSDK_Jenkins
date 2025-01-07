@@ -110,10 +110,14 @@ class GpsVC: UIViewController, CLLocationManagerDelegate {
         self.gpsTimer?.invalidate()
         self.gpsCount = 0
         
-        self.dismiss(animated: false, completion: {
-            guard let didFinishRetryDiagnosis = self.gpsRetryDiagnosis else { return }
-            didFinishRetryDiagnosis(self.resultJSON)
-        })
+        DispatchQueue.main.async {
+            
+            self.dismiss(animated: false, completion: {
+                guard let didFinishRetryDiagnosis = self.gpsRetryDiagnosis else { return }
+                didFinishRetryDiagnosis(self.resultJSON)
+            })
+            
+        }
         
     }
     
