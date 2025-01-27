@@ -430,7 +430,7 @@ class SpeakerVC: UIViewController {
         
         // To play number from earpiece speaker (upper speaker)
         self.audioSession = AVAudioSession.sharedInstance()
-        print("Configuring audio session")
+        //print("Configuring audio session")
         
         do {
             
@@ -496,7 +496,7 @@ class SpeakerVC: UIViewController {
         
         // This is to audio output from bottom (main) speaker
         self.audioSession = AVAudioSession.sharedInstance()
-        print("Configuring audio session")
+        //print("Configuring audio session")
         
         do {
             
@@ -504,8 +504,8 @@ class SpeakerVC: UIViewController {
             try self.audioSession?.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
             try self.audioSession?.setActive(true)
             
-            print("AVAudio Session out options: ", self.audioSession?.currentRoute ?? "")
-            print("Successfully configured audio session (SPEAKER-Bottom).", "\nCurrent audio route: ",self.audioSession?.currentRoute.outputs ?? 0)
+            //print("AVAudio Session out options: ", self.audioSession?.currentRoute ?? "")
+            //print("Successfully configured audio session (SPEAKER-Bottom).", "\nCurrent audio route: ",self.audioSession?.currentRoute.outputs ?? 0)
             
         } catch let error as NSError {
             print("#configureAudioSessionToSpeaker Error \(error.localizedDescription)")

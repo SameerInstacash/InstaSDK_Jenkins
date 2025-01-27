@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftyJSON
+import Luminous
 
 import os
 
@@ -21,6 +22,9 @@ class ChargerVC: UIViewController {
     var retryIndex = -1
     var isComingFromTestResult = false
     var chargerRetryDiagnosis: ((_ testJSON: JSON) -> Void)?
+    
+    var batteryTimer: Timer?
+    var batteryCount = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,16 +50,75 @@ class ChargerVC: UIViewController {
         super.viewWillDisappear(animated)
         
         NotificationCenter.default.removeObserver(self, name: UIDevice.batteryStateDidChangeNotification, object: nil)
-        
+
+        //NotificationCenter.default.removeObserver(self, name: UIDevice.batteryLevelDidChangeNotification, object: nil)
+
     }
         
     //MARK: Custom Methods
     func chargerTestSetup() {
         
         UIDevice.current.isBatteryMonitoringEnabled = true
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.batteryStateDidChange), name: UIDevice.batteryStateDidChangeNotification, object: nil)
         
         //NotificationCenter.default.addObserver(self, selector: #selector(self.batteryLevelDidChange), name: UIDevice.batteryLevelDidChangeNotification, object: nil)
+        
+        self.batteryTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.runBatteryTimer), userInfo: nil, repeats: true)
+        
+    }
+    
+    @objc func runBatteryTimer() {
+        
+        self.batteryTest()
+        
+        self.batteryCount += 1
+        
+    }
+    
+    func batteryTest() {
+        
+        if Luminous.Battery.state == .charging {
+            
+            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                self.resultJSON = resultJson
+            }
+            
+            if self.isComingFromTestResult {
+                arrTestsResultJSONInSDK.remove(at: retryIndex)
+                arrTestsResultJSONInSDK.insert(1, at: retryIndex)
+            }
+            else {
+                arrTestsResultJSONInSDK.append(1)
+            }
+            
+            UserDefaults.standard.set(true, forKey: "charger")
+            self.resultJSON["USB"].int = 1
+            
+            AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+            DispatchQueue.main.async {
+                        if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                            let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                            self.resultJSON = resultJson
+                            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                        }
+                        else {
+                            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                        }
+                    }
+            
+            if self.isComingFromTestResult {
+                self.navToSummaryPage()
+            }
+            else {
+                self.dismissThisPage()
+            }
+            
+        }
+        else {
+            
+        }
         
     }
     
@@ -103,6 +166,42 @@ class ChargerVC: UIViewController {
     
     @objc func batteryLevelDidChange(notification: NSNotification){
         // The battery's level did change (98%, 99%, ...)
+        
+        if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+            let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+            self.resultJSON = resultJson
+        }
+        
+        if self.isComingFromTestResult {
+            arrTestsResultJSONInSDK.remove(at: retryIndex)
+            arrTestsResultJSONInSDK.insert(1, at: retryIndex)
+        }
+        else {
+            arrTestsResultJSONInSDK.append(1)
+        }
+        
+        UserDefaults.standard.set(true, forKey: "charger")
+        self.resultJSON["USB"].int = 1
+        
+        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+        DispatchQueue.main.async {
+                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                        self.resultJSON = resultJson
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                    else {
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                }
+        
+        if self.isComingFromTestResult {
+            self.navToSummaryPage()
+        }
+        else {
+            self.dismissThisPage()
+        }
+        
     }
     
     func setCustomNavigationBar() {
@@ -126,6 +225,8 @@ class ChargerVC: UIViewController {
     
     @objc func backBtnPressed() {
         self.dismiss(animated: true, completion: {
+            self.batteryTimer?.invalidate()
+            
             performDiagnostics = nil
         })
     }
@@ -174,6 +275,9 @@ class ChargerVC: UIViewController {
     
     func dismissThisPage() {
         
+        self.batteryTimer?.invalidate()
+        self.batteryCount = 0
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.0, execute: {
             
             self.dismiss(animated: false, completion: {
@@ -186,6 +290,9 @@ class ChargerVC: UIViewController {
     }
     
     func navToSummaryPage() {
+        
+        self.batteryTimer?.invalidate()
+        self.batteryCount = 0
         
         self.dismiss(animated: false, completion: {
             guard let didFinishRetryDiagnosis = self.chargerRetryDiagnosis else { return }

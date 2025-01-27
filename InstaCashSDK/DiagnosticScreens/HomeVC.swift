@@ -297,10 +297,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 "gps",
                 "gsm network",
                 "vibrator",
-                
                 "camera",
                 "autofocus",
-                
                 "auto rotation",
                 "proximity",
                 "fingerprint scanner",
@@ -314,13 +312,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 "bottom speaker",
                 "top microphone",
                 "bottom microphone",
-                
-                //"speaker",
-                //"microphone",
+                                
                 //"nfc",
-                
-                //"camera",
-                //"autofocus",
                 
             ]
             
