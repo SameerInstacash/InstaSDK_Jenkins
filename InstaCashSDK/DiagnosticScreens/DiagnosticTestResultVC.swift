@@ -87,18 +87,18 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
         }
         
         //MARK: 2. GSM Test
-        if self.resultJSON["GSM"].int != nil {
+        if self.resultJSON["GSM Network"].int != nil {
             
             let model = ModelCompleteDiagnosticFlow()
-            model.strTestName = "GSM"
+            model.strTestName = "GSM Network"
             
-            if self.resultJSON["GSM"].int == 1 {
+            if self.resultJSON["GSM Network"].int == 1 {
                 self.arrPassedTest.append(model)
             }
-            else if self.resultJSON["GSM"].int == -1 {
+            else if self.resultJSON["GSM Network"].int == -1 {
                 self.arrSkippedTest.append(model)
             }
-            else if self.resultJSON["GSM"].int == 0 {
+            else if self.resultJSON["GSM Network"].int == 0 {
                 self.arrFailedTest.append(model)
             }
             else {
@@ -127,18 +127,18 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
         }
                 
         //MARK: 4. WiFi Test
-        if self.resultJSON["WIFI"].int != nil {
+        if self.resultJSON["WiFi"].int != nil {
             
             let model = ModelCompleteDiagnosticFlow()
-            model.strTestName = "WIFI"
+            model.strTestName = "WiFi"
             
-            if self.resultJSON["WIFI"].int == 1 {
+            if self.resultJSON["WiFi"].int == 1 {
                 self.arrPassedTest.append(model)
             }
-            else if self.resultJSON["WIFI"].int == -1 {
+            else if self.resultJSON["WiFi"].int == -1 {
                 self.arrSkippedTest.append(model)
             }
-            else if self.resultJSON["WIFI"].int == 0 {
+            else if self.resultJSON["WiFi"].int == 0 {
                 self.arrFailedTest.append(model)
             }
             else {
@@ -207,18 +207,37 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
         }
         
         //MARK: 8. Speaker Test
-        if self.resultJSON["Speakers"].int != nil {
+        if self.resultJSON["Top Speakers"].int != nil {
             
             let model = ModelCompleteDiagnosticFlow()
-            model.strTestName = "Speakers"
+            model.strTestName = "Top Speakers"
             
-            if self.resultJSON["Speakers"].int == 1 {
+            if self.resultJSON["Top Speakers"].int == 1 {
                 self.arrPassedTest.append(model)
             }
-            else if self.resultJSON["Speakers"].int == -1 {
+            else if self.resultJSON["Top Speakers"].int == -1 {
                 self.arrSkippedTest.append(model)
             }
-            else if self.resultJSON["Speakers"].int == 0 {
+            else if self.resultJSON["Top Speakers"].int == 0 {
+                self.arrFailedTest.append(model)
+            }
+            else {
+                
+            }
+        }
+        
+        if self.resultJSON["Bottom Speakers"].int != nil {
+            
+            let model = ModelCompleteDiagnosticFlow()
+            model.strTestName = "Bottom Speakers"
+            
+            if self.resultJSON["Bottom Speakers"].int == 1 {
+                self.arrPassedTest.append(model)
+            }
+            else if self.resultJSON["Bottom Speakers"].int == -1 {
+                self.arrSkippedTest.append(model)
+            }
+            else if self.resultJSON["Bottom Speakers"].int == 0 {
                 self.arrFailedTest.append(model)
             }
             else {
@@ -227,18 +246,37 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
         }
         
         //MARK: 9. Mic Test
-        if self.resultJSON["MIC"].int != nil {
+        if self.resultJSON["Top Microphone"].int != nil {
             
             let model = ModelCompleteDiagnosticFlow()
-            model.strTestName = "Microphone"
+            model.strTestName = "Top Microphone"
             
-            if self.resultJSON["MIC"].int == 1 {
+            if self.resultJSON["Top Microphone"].int == 1 {
                 self.arrPassedTest.append(model)
             }
-            else if self.resultJSON["MIC"].int == -1 {
+            else if self.resultJSON["Top Microphone"].int == -1 {
                 self.arrSkippedTest.append(model)
             }
-            else if self.resultJSON["MIC"].int == 0 {
+            else if self.resultJSON["Top Microphone"].int == 0 {
+                self.arrFailedTest.append(model)
+            }
+            else {
+                
+            }
+        }
+        
+        if self.resultJSON["Bottom Microphone"].int != nil {
+            
+            let model = ModelCompleteDiagnosticFlow()
+            model.strTestName = "Bottom Microphone"
+            
+            if self.resultJSON["Bottom Microphone"].int == 1 {
+                self.arrPassedTest.append(model)
+            }
+            else if self.resultJSON["Bottom Microphone"].int == -1 {
+                self.arrSkippedTest.append(model)
+            }
+            else if self.resultJSON["Bottom Microphone"].int == 0 {
                 self.arrFailedTest.append(model)
             }
             else {
@@ -267,18 +305,18 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
         }
         
         //MARK: 11. Earphone Test
-        if self.resultJSON["Earphone"].int != nil {
+        if self.resultJSON["Earphone Jack"].int != nil {
             
             let model = ModelCompleteDiagnosticFlow()
-            model.strTestName = "Earphone"
+            model.strTestName = "Earphone Jack"
             
-            if self.resultJSON["Earphone"].int == 1 {
+            if self.resultJSON["Earphone Jack"].int == 1 {
                 self.arrPassedTest.append(model)
             }
-            else if self.resultJSON["Earphone"].int == -1 {
+            else if self.resultJSON["Earphone Jack"].int == -1 {
                 self.arrSkippedTest.append(model)
             }
-            else if self.resultJSON["Earphone"].int == 0 {
+            else if self.resultJSON["Earphone Jack"].int == 0 {
                 self.arrFailedTest.append(model)
             }
             else {
@@ -287,18 +325,18 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
         }
         
         //MARK: 12. Rotation Test
-        if self.resultJSON["Rotation"].int != nil {
+        if self.resultJSON["Auto Rotation"].int != nil {
             
             let model = ModelCompleteDiagnosticFlow()
-            model.strTestName = "Rotation"
+            model.strTestName = "Auto Rotation"
             
-            if self.resultJSON["Rotation"].int == 1 {
+            if self.resultJSON["Auto Rotation"].int == 1 {
                 self.arrPassedTest.append(model)
             }
-            else if self.resultJSON["Rotation"].int == -1 {
+            else if self.resultJSON["Auto Rotation"].int == -1 {
                 self.arrSkippedTest.append(model)
             }
-            else if self.resultJSON["Rotation"].int == 0 {
+            else if self.resultJSON["Auto Rotation"].int == 0 {
                 self.arrFailedTest.append(model)
             }
             else {
@@ -327,18 +365,18 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
         }
         
         //MARK: 14. USB Test
-        if self.resultJSON["USB"].int != nil {
+        if self.resultJSON["USB Slot"].int != nil {
             
             let model = ModelCompleteDiagnosticFlow()
-            model.strTestName = "USB"
+            model.strTestName = "USB Slot"
             
-            if self.resultJSON["USB"].int == 1 {
+            if self.resultJSON["USB Slot"].int == 1 {
                 self.arrPassedTest.append(model)
             }
-            else if self.resultJSON["USB"].int == -1 {
+            else if self.resultJSON["USB Slot"].int == -1 {
                 self.arrSkippedTest.append(model)
             }
-            else if self.resultJSON["USB"].int == 0 {
+            else if self.resultJSON["USB Slot"].int == 0 {
                 self.arrFailedTest.append(model)
             }
             else {
@@ -347,18 +385,18 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
         }
         
         //MARK: 15. Dead-Pixels Test
-        if self.resultJSON["Dead Pixels"].int != nil {
+        if self.resultJSON["Dead Pixel"].int != nil {
             
             let model = ModelCompleteDiagnosticFlow()
-            model.strTestName = "Dead Pixels"
+            model.strTestName = "Dead Pixel"
             
-            if self.resultJSON["Dead Pixels"].int == 1 {
+            if self.resultJSON["Dead Pixel"].int == 1 {
                 self.arrPassedTest.append(model)
             }
-            else if self.resultJSON["Dead Pixels"].int == -1 {
+            else if self.resultJSON["Dead Pixel"].int == -1 {
                 self.arrSkippedTest.append(model)
             }
-            else if self.resultJSON["Dead Pixels"].int == 0 {
+            else if self.resultJSON["Dead Pixel"].int == 0 {
                 self.arrFailedTest.append(model)
             }
             else {
@@ -407,18 +445,18 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
         }
         
         //MARK: 18. Screen-Calibration Test
-        if self.resultJSON["Screen"].int != nil {
+        if self.resultJSON["Touch Screen"].int != nil {
             
             let model = ModelCompleteDiagnosticFlow()
-            model.strTestName = "Screen"
+            model.strTestName = "Touch Screen"
             
-            if self.resultJSON["Screen"].int == 1 {
+            if self.resultJSON["Touch Screen"].int == 1 {
                 self.arrPassedTest.append(model)
             }
-            else if self.resultJSON["Screen"].int == -1 {
+            else if self.resultJSON["Touch Screen"].int == -1 {
                 self.arrSkippedTest.append(model)
             }
-            else if self.resultJSON["Screen"].int == 0 {
+            else if self.resultJSON["Touch Screen"].int == 0 {
                 self.arrFailedTest.append(model)
             }
             else {
@@ -427,18 +465,18 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
         }
         
         //MARK: 19. Volume-Button Test
-        if self.resultJSON["Hardware Buttons"].int != nil {
+        if self.resultJSON["Device Button"].int != nil {
             
             let model = ModelCompleteDiagnosticFlow()
-            model.strTestName = "Hardware Buttons"
+            model.strTestName = "Device Button"
             
-            if self.resultJSON["Hardware Buttons"].int == 1 {
+            if self.resultJSON["Device Button"].int == 1 {
                 self.arrPassedTest.append(model)
             }
-            else if self.resultJSON["Hardware Buttons"].int == -1 {
+            else if self.resultJSON["Device Button"].int == -1 {
                 self.arrSkippedTest.append(model)
             }
-            else if self.resultJSON["Hardware Buttons"].int == 0 {
+            else if self.resultJSON["Device Button"].int == 0 {
                 self.arrFailedTest.append(model)
             }
             else {
@@ -447,18 +485,18 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
         }
         
         //MARK: 20. Biometric Test
-        if self.resultJSON["Fingerprint Scanner"].int != nil {
+        if self.resultJSON["Finger Print"].int != nil {
             
             let model = ModelCompleteDiagnosticFlow()
             model.strTestName = "Biometric"
             
-            if self.resultJSON["Fingerprint Scanner"].int == 1 {
+            if self.resultJSON["Finger Print"].int == 1 {
                 self.arrPassedTest.append(model)
             }
-            else if self.resultJSON["Fingerprint Scanner"].int == -1 {
+            else if self.resultJSON["Finger Print"].int == -1 {
                 self.arrSkippedTest.append(model)
             }
-            else if self.resultJSON["Fingerprint Scanner"].int == 0 {
+            else if self.resultJSON["Finger Print"].int == 0 {
                 self.arrFailedTest.append(model)
             }
             else {
@@ -619,7 +657,7 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "GSM") {
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "GSM Network") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "GsmVC") as! GsmVC
                     vc.isComingFromTestResult = true
@@ -645,7 +683,7 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "WIFI") {
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "WiFi") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "WiFiVC") as! WiFiVC
                     vc.isComingFromTestResult = true
@@ -697,10 +735,13 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Speakers") {
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Top Speakers") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpeakerVC") as! SpeakerVC
                     vc.isComingFromTestResult = true
+                    
+                    vc.isComeForTopSpeaker = true
+                    vc.isComeForBottomSpeaker = false
                     
                     vc.speakerRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
@@ -710,10 +751,45 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Microphone") {
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Bottom Speakers") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpeakerVC") as! SpeakerVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.isComeForTopSpeaker = false
+                    vc.isComeForBottomSpeaker = true
+                    
+                    vc.speakerRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Top Microphone") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "MicroPhoneVC") as! MicroPhoneVC
                     vc.isComingFromTestResult = true
+                    
+                    vc.isComeForTopMic = true
+                    vc.isComeForBottomMic = false
+                    
+                    vc.micRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Bottom Microphone") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "MicroPhoneVC") as! MicroPhoneVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.isComeForTopMic = false
+                    vc.isComeForBottomMic = true
                     
                     vc.micRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
@@ -736,7 +812,7 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Earphone") {
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Earphone Jack") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "EarphoneVC") as! EarphoneVC
                     vc.isComingFromTestResult = true
@@ -749,7 +825,7 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Rotation") {
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Auto Rotation") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "AutoRotationVC") as! AutoRotationVC
                     vc.isComingFromTestResult = true
@@ -775,7 +851,7 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "USB") {
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "USB Slot") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChargerVC") as! ChargerVC
                     vc.isComingFromTestResult = true
@@ -788,7 +864,7 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Dead Pixels") {
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Dead Pixel") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "DeadPixelsVC") as! DeadPixelsVC
                     vc.isComingFromTestResult = true
@@ -827,7 +903,7 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Screen") {
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Touch Screen") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "ScreenCalibrationVC") as! ScreenCalibrationVC
                     vc.isComingFromTestResult = true
@@ -840,7 +916,7 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Hardware Buttons") {
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Device Button") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "VolumeButtonVC") as! VolumeButtonVC
                     vc.isComingFromTestResult = true
@@ -893,7 +969,7 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "GSM") {
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "GSM Network") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "GsmVC") as! GsmVC
                     vc.isComingFromTestResult = true
@@ -919,7 +995,7 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "WIFI") {
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "WiFi") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "WiFiVC") as! WiFiVC
                     vc.isComingFromTestResult = true
@@ -971,10 +1047,13 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Speakers") {
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Top Speakers") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpeakerVC") as! SpeakerVC
                     vc.isComingFromTestResult = true
+                    
+                    vc.isComeForTopSpeaker = true
+                    vc.isComeForBottomSpeaker = false
                     
                     vc.speakerRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
@@ -984,10 +1063,45 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Microphone") {
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Bottom Speakers") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpeakerVC") as! SpeakerVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.isComeForTopSpeaker = false
+                    vc.isComeForBottomSpeaker = true
+                    
+                    vc.speakerRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Top Microphone") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "MicroPhoneVC") as! MicroPhoneVC
                     vc.isComingFromTestResult = true
+                    
+                    vc.isComeForTopMic = true
+                    vc.isComeForBottomMic = false
+                    
+                    vc.micRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Bottom Microphone") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "MicroPhoneVC") as! MicroPhoneVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.isComeForTopMic = false
+                    vc.isComeForBottomMic = true
                     
                     vc.micRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
@@ -1010,7 +1124,7 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Earphone") {
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Earphone Jack") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "EarphoneVC") as! EarphoneVC
                     vc.isComingFromTestResult = true
@@ -1023,7 +1137,7 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Rotation") {
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Auto Rotation") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "AutoRotationVC") as! AutoRotationVC
                     vc.isComingFromTestResult = true
@@ -1049,7 +1163,7 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "USB") {
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "USB Slot") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChargerVC") as! ChargerVC
                     vc.isComingFromTestResult = true
@@ -1062,7 +1176,7 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Dead Pixels") {
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Dead Pixel") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "DeadPixelsVC") as! DeadPixelsVC
                     vc.isComingFromTestResult = true
@@ -1101,7 +1215,7 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Screen") {
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Touch Screen") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "ScreenCalibrationVC") as! ScreenCalibrationVC
                     vc.isComingFromTestResult = true
@@ -1114,7 +1228,7 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Hardware Buttons") {
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Device Button") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "VolumeButtonVC") as! VolumeButtonVC
                     vc.isComingFromTestResult = true

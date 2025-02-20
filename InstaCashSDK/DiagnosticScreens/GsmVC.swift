@@ -113,8 +113,8 @@ class GsmVC: UIViewController {
                     arrTestsResultJSONInSDK.append(1)
                 }
                 
-                self.resultJSON["GSM"].int = 1
-                UserDefaults.standard.set(true, forKey: "GSM")
+                self.resultJSON["GSM Network"].int = 1
+                UserDefaults.standard.set(true, forKey: "GSM Network")
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
@@ -155,8 +155,8 @@ class GsmVC: UIViewController {
                     arrTestsResultJSONInSDK.append(1)
                 }
                 
-                self.resultJSON["GSM"].int = 1
-                UserDefaults.standard.set(true, forKey: "GSM")
+                self.resultJSON["GSM Network"].int = 1
+                UserDefaults.standard.set(true, forKey: "GSM Network")
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
@@ -197,8 +197,8 @@ class GsmVC: UIViewController {
                     arrTestsResultJSONInSDK.append(1)
                 }
                 
-                self.resultJSON["GSM"].int = 1
-                UserDefaults.standard.set(true, forKey: "GSM")
+                self.resultJSON["GSM Network"].int = 1
+                UserDefaults.standard.set(true, forKey: "GSM Network")
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
@@ -256,8 +256,8 @@ class GsmVC: UIViewController {
                             arrTestsResultJSONInSDK.append(1)
                         }
                         
-                        self.resultJSON["GSM"].int = 1
-                        UserDefaults.standard.set(true, forKey: "GSM")
+                        self.resultJSON["GSM Network"].int = 1
+                        UserDefaults.standard.set(true, forKey: "GSM Network")
                         
                         AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                         DispatchQueue.main.async {
@@ -307,8 +307,8 @@ class GsmVC: UIViewController {
                         arrTestsResultJSONInSDK.append(1)
                     }
                                         
-                    self.resultJSON["GSM"].int = 1
-                    UserDefaults.standard.set(true, forKey: "GSM")
+                    self.resultJSON["GSM Network"].int = 1
+                    UserDefaults.standard.set(true, forKey: "GSM Network")
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                     DispatchQueue.main.async {
@@ -348,8 +348,8 @@ class GsmVC: UIViewController {
                         arrTestsResultJSONInSDK.append(0)
                     }
                     
-                    self.resultJSON["GSM"].int = 0
-                    UserDefaults.standard.set(false, forKey: "GSM")
+                    self.resultJSON["GSM Network"].int = 0
+                    UserDefaults.standard.set(false, forKey: "GSM Network")
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                     DispatchQueue.main.async {
@@ -391,8 +391,8 @@ class GsmVC: UIViewController {
                 arrTestsResultJSONInSDK.append(-2)
             }
             
-            self.resultJSON["GSM"].int = -2
-            UserDefaults.standard.set(true, forKey: "GSM")
+            self.resultJSON["GSM Network"].int = -2
+            UserDefaults.standard.set(true, forKey: "GSM Network")
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {

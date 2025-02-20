@@ -96,8 +96,8 @@ class EarphoneVC: UIViewController {
                     arrTestsResultJSONInSDK.append(1)
                 }
                 
-                UserDefaults.standard.set(true, forKey: "earphone")
-                self.resultJSON["Earphone"].int = 1
+                UserDefaults.standard.set(true, forKey: "Earphone Jack")
+                self.resultJSON["Earphone Jack"].int = 1
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
@@ -136,8 +136,8 @@ class EarphoneVC: UIViewController {
                     arrTestsResultJSONInSDK.append(1)
                 }
                 
-                UserDefaults.standard.set(true, forKey: "earphone")
-                self.resultJSON["Earphone"].int = 1
+                UserDefaults.standard.set(true, forKey: "Earphone Jack")
+                self.resultJSON["Earphone Jack"].int = 1
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
@@ -215,8 +215,8 @@ class EarphoneVC: UIViewController {
             arrTestsResultJSONInSDK.append(-1)
         }
         
-        UserDefaults.standard.set(false, forKey: "earphone")
-        self.resultJSON["Earphone"].int = -1
+        UserDefaults.standard.set(false, forKey: "Earphone Jack")
+        self.resultJSON["Earphone Jack"].int = -1
         
         AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
         DispatchQueue.main.async {

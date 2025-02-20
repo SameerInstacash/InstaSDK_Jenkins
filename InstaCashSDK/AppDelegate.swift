@@ -60,6 +60,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             lctnState()
         }
         
+        if let powerBtn = checkPowerBtnState {
+            powerBtn()
+        }
+        
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {

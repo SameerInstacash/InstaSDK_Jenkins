@@ -125,8 +125,8 @@ class ScreenCalibrationVC: UIViewController {
                 arrTestsResultJSONInSDK.append(1)
             }
             
-            UserDefaults.standard.set(true, forKey: "screen")
-            self.resultJSON["Screen"].int = 1
+            UserDefaults.standard.set(true, forKey: "Touch Screen")
+            self.resultJSON["Touch Screen"].int = 1
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {
@@ -292,8 +292,8 @@ class ScreenCalibrationVC: UIViewController {
                     arrTestsResultJSONInSDK.append(0)
                 }
                 
-                UserDefaults.standard.set(false, forKey: "screen")
-                self.resultJSON["Screen"].int = 0
+                UserDefaults.standard.set(false, forKey: "Touch Screen")
+                self.resultJSON["Touch Screen"].int = 0
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {

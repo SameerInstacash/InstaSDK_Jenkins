@@ -86,8 +86,25 @@
 		18E1C5F52C5B756E00676D59 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1C5EE2C5B756E00676D59 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		18E1C5F62C5B756E00676D59 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1C5EF2C5B756E00676D59 /* TPKeyboardAvoidingScrollView.m */; };
 		18E1C5F72C5B756E00676D59 /* TPKeyboardAvoidingCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1C5F12C5B756E00676D59 /* TPKeyboardAvoidingCollectionView.m */; };
+		596AA4022D6359AF001E72A0 /* BluetoothPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA4012D6359AF001E72A0 /* BluetoothPermission */; };
+		596AA4042D6359AF001E72A0 /* CameraPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA4032D6359AF001E72A0 /* CameraPermission */; };
+		596AA4062D6359AF001E72A0 /* FaceIDPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA4052D6359AF001E72A0 /* FaceIDPermission */; };
+		596AA4082D6359AF001E72A0 /* LocationPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA4072D6359AF001E72A0 /* LocationPermission */; };
+		596AA40A2D6359AF001E72A0 /* MediaLibraryPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA4092D6359AF001E72A0 /* MediaLibraryPermission */; };
+		596AA40C2D6359AF001E72A0 /* MicrophonePermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA40B2D6359AF001E72A0 /* MicrophonePermission */; };
+		596AA40E2D6359AF001E72A0 /* PhotoLibraryPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA40D2D6359AF001E72A0 /* PhotoLibraryPermission */; };
+		596AA4102D6359AF001E72A0 /* SpeechRecognizerPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA40F2D6359AF001E72A0 /* SpeechRecognizerPermission */; };
+		596AA4132D6361CE001E72A0 /* BluetoothPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA4122D6361CE001E72A0 /* BluetoothPermission */; };
+		596AA4152D6361CE001E72A0 /* CameraPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA4142D6361CE001E72A0 /* CameraPermission */; };
+		596AA4172D6361CE001E72A0 /* FaceIDPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA4162D6361CE001E72A0 /* FaceIDPermission */; };
+		596AA4192D6361CE001E72A0 /* LocationPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA4182D6361CE001E72A0 /* LocationPermission */; };
+		596AA41B2D6361CE001E72A0 /* MediaLibraryPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA41A2D6361CE001E72A0 /* MediaLibraryPermission */; };
+		596AA41D2D6361CE001E72A0 /* MicrophonePermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA41C2D6361CE001E72A0 /* MicrophonePermission */; };
+		596AA41F2D6361CE001E72A0 /* PhotoLibraryPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA41E2D6361CE001E72A0 /* PhotoLibraryPermission */; };
+		596AA4212D6361CE001E72A0 /* SpeechRecognizerPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA4202D6361CE001E72A0 /* SpeechRecognizerPermission */; };
 		59D4BD932D11823F00E009B0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D4BD922D11823F00E009B0 /* UIKit.framework */; };
 		59DE7CF22CFF28BA00DFC04C /* ios-data-wipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DE7CF12CFF28BA00DFC04C /* ios-data-wipe.swift */; };
+		59E7F6852D6491BC0040ECC4 /* CameraTestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E7F6842D6491BC0040ECC4 /* CameraTestVC.swift */; };
 		FD9C6EF4D8CAF0FE7C3718D8 /* Pods_InstaCashSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 398D284FDDF91CD9010CF8DB /* Pods_InstaCashSDK.framework */; };
 /* End PBXBuildFile section */
 
@@ -202,6 +219,7 @@
 		47561EA5E6AE836B7C6D1F8D /* Pods-InstaCashSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaCashSDK.debug.xcconfig"; path = "Target Support Files/Pods-InstaCashSDK/Pods-InstaCashSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		59D4BD922D11823F00E009B0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		59DE7CF12CFF28BA00DFC04C /* ios-data-wipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ios-data-wipe.swift"; sourceTree = "<group>"; };
+		59E7F6842D6491BC0040ECC4 /* CameraTestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTestVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,7 +227,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				596AA4082D6359AF001E72A0 /* LocationPermission in Frameworks */,
+				596AA41D2D6361CE001E72A0 /* MicrophonePermission in Frameworks */,
+				596AA4102D6359AF001E72A0 /* SpeechRecognizerPermission in Frameworks */,
+				596AA4212D6361CE001E72A0 /* SpeechRecognizerPermission in Frameworks */,
+				596AA4172D6361CE001E72A0 /* FaceIDPermission in Frameworks */,
+				596AA4152D6361CE001E72A0 /* CameraPermission in Frameworks */,
+				596AA41F2D6361CE001E72A0 /* PhotoLibraryPermission in Frameworks */,
+				596AA4192D6361CE001E72A0 /* LocationPermission in Frameworks */,
+				596AA41B2D6361CE001E72A0 /* MediaLibraryPermission in Frameworks */,
+				596AA40C2D6359AF001E72A0 /* MicrophonePermission in Frameworks */,
 				FD9C6EF4D8CAF0FE7C3718D8 /* Pods_InstaCashSDK.framework in Frameworks */,
+				596AA4062D6359AF001E72A0 /* FaceIDPermission in Frameworks */,
+				596AA4022D6359AF001E72A0 /* BluetoothPermission in Frameworks */,
+				596AA4132D6361CE001E72A0 /* BluetoothPermission in Frameworks */,
+				596AA40E2D6359AF001E72A0 /* PhotoLibraryPermission in Frameworks */,
+				596AA4042D6359AF001E72A0 /* CameraPermission in Frameworks */,
+				596AA40A2D6359AF001E72A0 /* MediaLibraryPermission in Frameworks */,
 				59D4BD932D11823F00E009B0 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,6 +429,7 @@
 				183ACBEE2C564138004C9884 /* ChargerVC.swift */,
 				183ACBEB2C564138004C9884 /* DeadPixelsVC.swift */,
 				183ACBE92C564138004C9884 /* CameraVC.swift */,
+				59E7F6842D6491BC0040ECC4 /* CameraTestVC.swift */,
 				183ACBE82C564138004C9884 /* ScreenCalibrationVC.swift */,
 				183ACBE62C564138004C9884 /* VolumeButtonVC.swift */,
 				183ACBF22C564138004C9884 /* BiometricVC.swift */,
@@ -549,6 +584,9 @@
 				Base,
 			);
 			mainGroup = 183ACB6C2C563E7E004C9884;
+			packageReferences = (
+				596AA4112D6361CE001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */,
+			);
 			productRefGroup = 183ACB762C563E7E004C9884 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -678,6 +716,7 @@
 				188385012C579E16003CF5E1 /* GsmVC.swift in Sources */,
 				183ACC022C564138004C9884 /* DeadPixelsVC.swift in Sources */,
 				18E1C5F42C5B756E00676D59 /* TPKeyboardAvoidingTableView.m in Sources */,
+				59E7F6852D6491BC0040ECC4 /* CameraTestVC.swift in Sources */,
 				59DE7CF22CFF28BA00DFC04C /* ios-data-wipe.swift in Sources */,
 				183ACBD22C5640F2004C9884 /* DeviceModel.swift in Sources */,
 				188384F22C577581003CF5E1 /* ConditionValue.swift in Sources */,
@@ -902,6 +941,7 @@
 				INFOPLIST_FILE = InstaCashSDK/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Insta Warehouse";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Media library access required to check app's functionality";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth Permission needed for Diagnosing the bluetooth hardware.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth Permission needed for Diagnosing the bluetooth hardware.";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "Calendar Permission needed for schedule pickup";
@@ -922,12 +962,12 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -1010,6 +1050,7 @@
 				INFOPLIST_FILE = InstaCashSDK/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Insta Warehouse";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Media library access required to check app's functionality";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth Permission needed for Diagnosing the bluetooth hardware.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth Permission needed for Diagnosing the bluetooth hardware.";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "Calendar Permission needed for schedule pickup";
@@ -1030,12 +1071,12 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -1214,6 +1255,108 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		596AA4002D6359AF001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparrowcode/PermissionsKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.1.0;
+			};
+		};
+		596AA4112D6361CE001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparrowcode/PermissionsKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		596AA4012D6359AF001E72A0 /* BluetoothPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 596AA4002D6359AF001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = BluetoothPermission;
+		};
+		596AA4032D6359AF001E72A0 /* CameraPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 596AA4002D6359AF001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = CameraPermission;
+		};
+		596AA4052D6359AF001E72A0 /* FaceIDPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 596AA4002D6359AF001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = FaceIDPermission;
+		};
+		596AA4072D6359AF001E72A0 /* LocationPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 596AA4002D6359AF001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = LocationPermission;
+		};
+		596AA4092D6359AF001E72A0 /* MediaLibraryPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 596AA4002D6359AF001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = MediaLibraryPermission;
+		};
+		596AA40B2D6359AF001E72A0 /* MicrophonePermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 596AA4002D6359AF001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = MicrophonePermission;
+		};
+		596AA40D2D6359AF001E72A0 /* PhotoLibraryPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 596AA4002D6359AF001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = PhotoLibraryPermission;
+		};
+		596AA40F2D6359AF001E72A0 /* SpeechRecognizerPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 596AA4002D6359AF001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = SpeechRecognizerPermission;
+		};
+		596AA4122D6361CE001E72A0 /* BluetoothPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 596AA4112D6361CE001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = BluetoothPermission;
+		};
+		596AA4142D6361CE001E72A0 /* CameraPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 596AA4112D6361CE001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = CameraPermission;
+		};
+		596AA4162D6361CE001E72A0 /* FaceIDPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 596AA4112D6361CE001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = FaceIDPermission;
+		};
+		596AA4182D6361CE001E72A0 /* LocationPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 596AA4112D6361CE001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = LocationPermission;
+		};
+		596AA41A2D6361CE001E72A0 /* MediaLibraryPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 596AA4112D6361CE001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = MediaLibraryPermission;
+		};
+		596AA41C2D6361CE001E72A0 /* MicrophonePermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 596AA4112D6361CE001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = MicrophonePermission;
+		};
+		596AA41E2D6361CE001E72A0 /* PhotoLibraryPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 596AA4112D6361CE001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = PhotoLibraryPermission;
+		};
+		596AA4202D6361CE001E72A0 /* SpeechRecognizerPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 596AA4112D6361CE001E72A0 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = SpeechRecognizerPermission;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 183ACB6D2C563E7E004C9884 /* Project object */;
 }

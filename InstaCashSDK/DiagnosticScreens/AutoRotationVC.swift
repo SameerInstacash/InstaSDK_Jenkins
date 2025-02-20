@@ -135,8 +135,8 @@ class AutoRotationVC: UIViewController {
                 arrTestsResultJSONInSDK.append(1)
             }
             
-            UserDefaults.standard.set(true, forKey: "rotation")
-            self.resultJSON["Rotation"].int = 1
+            UserDefaults.standard.set(true, forKey: "Auto Rotation")
+            self.resultJSON["Auto Rotation"].int = 1
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {
@@ -179,8 +179,8 @@ class AutoRotationVC: UIViewController {
             arrTestsResultJSONInSDK.append(-1)
         }
         
-        UserDefaults.standard.set(false, forKey: "rotation")
-        self.resultJSON["Rotation"].int = -1
+        UserDefaults.standard.set(false, forKey: "Auto Rotation")
+        self.resultJSON["Auto Rotation"].int = -1
         
         AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
         DispatchQueue.main.async {

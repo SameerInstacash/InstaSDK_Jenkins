@@ -88,14 +88,14 @@ class SpeakerVC: UIViewController {
     
     func changeLanguageOfUI() {
         
-        self.topLblTestTitle.text = self.getLocalizatioStringValue(key: "Top Speaker")
+        self.topLblTestTitle.text = self.getLocalizatioStringValue(key: "Top Speakers")
         self.topLblTestDesc.text = self.getLocalizatioStringValue(key: "Listen number from top speaker by clicking on start button")
         self.topTxtFieldSpeaker.placeholder = self.getLocalizatioStringValue(key: "")
         self.topBtnStartSpeaker.setTitle(self.getLocalizatioStringValue(key: "Start"), for: .normal)
         self.topBtnRetrySpeaker.setTitle(self.getLocalizatioStringValue(key: "Retry"), for: .normal)
                 
         
-        self.bottomLblTestTitle.text = self.getLocalizatioStringValue(key: "Bottom Speaker")
+        self.bottomLblTestTitle.text = self.getLocalizatioStringValue(key: "Bottom Speakers")
         self.bottomLblTestDesc.text = self.getLocalizatioStringValue(key: "Listen number from bottom speaker by clicking on start button")
         self.bottomTxtFieldSpeaker.placeholder = self.getLocalizatioStringValue(key: "")
         self.bottomBtnStartSpeaker.setTitle(self.getLocalizatioStringValue(key: "Start"), for: .normal)
@@ -162,7 +162,7 @@ class SpeakerVC: UIViewController {
         
         if sender.titleLabel?.text == self.getLocalizatioStringValue(key: "Start") {
             
-            self.topBtnStartSpeaker.isUserInteractionEnabled = false
+            self.topBtnStartSpeaker.isUserInteractionEnabled = true
             
             self.playSoundFromTopSpeaker()
             
@@ -216,8 +216,8 @@ class SpeakerVC: UIViewController {
                     //self.resultJSON["Speakers"].int = 1
                     //UserDefaults.standard.set(true, forKey: "Speakers")
                     
-                    self.resultJSON["top speaker"].int = 1
-                    UserDefaults.standard.set(true, forKey: "top speaker")
+                    self.resultJSON["Top Speakers"].int = 1
+                    UserDefaults.standard.set(true, forKey: "Top Speakers")
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                     DispatchQueue.main.async {
@@ -249,8 +249,8 @@ class SpeakerVC: UIViewController {
                     //self.resultJSON["Speakers"].int = 0
                     //UserDefaults.standard.set(false, forKey: "Speakers")
                     
-                    self.resultJSON["top speaker"].int = 0
-                    UserDefaults.standard.set(false, forKey: "top speaker")
+                    self.resultJSON["Top Speakers"].int = 0
+                    UserDefaults.standard.set(false, forKey: "Top Speakers")
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                     DispatchQueue.main.async {
@@ -281,9 +281,41 @@ class SpeakerVC: UIViewController {
     @IBAction func topSpeakerRetryBtnPressed(_ sender: UIButton) {
         self.view.endEditing(true)
         
-        self.topBtnRetrySpeaker.isUserInteractionEnabled = false
+        self.ShowGlobalPopUpForRetryTopSpeaker()
         
-        self.playSoundFromTopSpeaker()
+    }
+    
+    func ShowGlobalPopUpForRetryTopSpeaker() {
+        
+        let popUpVC = self.storyboard?.instantiateViewController(withIdentifier: "GlobalSkipPopUpVC") as! GlobalSkipPopUpVC
+        
+        popUpVC.strTitle = "Are you sure you want to restart?"
+        popUpVC.strMessage = ""
+        popUpVC.strBtnYesTitle = "Yes"
+        popUpVC.strBtnNoTitle = "No"
+        popUpVC.strBtnRetryTitle = ""
+        popUpVC.isShowThirdBtn = false
+        
+        popUpVC.userConsent = { btnTag in
+            switch btnTag {
+            case 1:
+                
+                self.topBtnRetrySpeaker.isUserInteractionEnabled = true
+                
+                self.playSoundFromTopSpeaker()
+                
+            case 2:
+                
+                break
+                
+            default:
+                
+                break
+            }
+        }
+        
+        popUpVC.modalPresentationStyle = .overFullScreen
+        self.present(popUpVC, animated: false) { }
         
     }
     
@@ -292,7 +324,7 @@ class SpeakerVC: UIViewController {
         
         if sender.titleLabel?.text == self.getLocalizatioStringValue(key: "Start") {
             
-            self.bottomBtnStartSpeaker.isUserInteractionEnabled = false
+            self.bottomBtnStartSpeaker.isUserInteractionEnabled = true
             
             self.playSoundFromBottomSpeaker()
             
@@ -342,8 +374,8 @@ class SpeakerVC: UIViewController {
                 //self.resultJSON["Speakers"].int = 1
                 //UserDefaults.standard.set(true, forKey: "Speakers")
                 
-                self.resultJSON["bottom speaker"].int = 1
-                UserDefaults.standard.set(true, forKey: "bottom speaker")
+                self.resultJSON["Bottom Speakers"].int = 1
+                UserDefaults.standard.set(true, forKey: "Bottom Speakers")
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
@@ -375,8 +407,8 @@ class SpeakerVC: UIViewController {
                 //self.resultJSON["Speakers"].int = 0
                 //UserDefaults.standard.set(false, forKey: "Speakers")
                 
-                self.resultJSON["bottom speaker"].int = 0
-                UserDefaults.standard.set(false, forKey: "bottom speaker")
+                self.resultJSON["Bottom Speakers"].int = 0
+                UserDefaults.standard.set(false, forKey: "Bottom Speakers")
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
@@ -405,9 +437,41 @@ class SpeakerVC: UIViewController {
     @IBAction func bottomSpeakerRetryBtnPressed(_ sender: UIButton) {
         self.view.endEditing(true)
         
-        self.bottomBtnRetrySpeaker.isUserInteractionEnabled = false
+        self.ShowGlobalPopUpForRetryBottomSpeaker()
+    }
+    
+    func ShowGlobalPopUpForRetryBottomSpeaker() {
         
-        self.playSoundFromBottomSpeaker()
+        let popUpVC = self.storyboard?.instantiateViewController(withIdentifier: "GlobalSkipPopUpVC") as! GlobalSkipPopUpVC
+        
+        popUpVC.strTitle = "Are you sure you want to restart?"
+        popUpVC.strMessage = ""
+        popUpVC.strBtnYesTitle = "Yes"
+        popUpVC.strBtnNoTitle = "No"
+        popUpVC.strBtnRetryTitle = ""
+        popUpVC.isShowThirdBtn = false
+        
+        popUpVC.userConsent = { btnTag in
+            switch btnTag {
+            case 1:
+                
+                self.bottomBtnRetrySpeaker.isUserInteractionEnabled = true
+                
+                self.playSoundFromBottomSpeaker()
+                
+            case 2:
+                
+                break
+                
+            default:
+                
+                break
+            }
+        }
+        
+        popUpVC.modalPresentationStyle = .overFullScreen
+        self.present(popUpVC, animated: false) { }
+        
     }
     
     // MARK: - Navigation
@@ -416,6 +480,26 @@ class SpeakerVC: UIViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
+    
+    // Function to apply an equalizer for boosting loudness
+        private func applyEqualizer(to player: AVAudioPlayer) {
+            let audioEngine = AVAudioEngine()
+            let playerNode = AVAudioPlayerNode()
+            let eq = AVAudioUnitEQ(numberOfBands: 1)
+
+            eq.bands[0].frequency = 500  // Mid-range frequency
+            eq.bands[0].gain = 50.0        // Boost (adjust if needed)
+            eq.bands[0].bypass = false
+
+            audioEngine.attach(playerNode)
+            audioEngine.attach(eq)
+            
+            audioEngine.connect(playerNode, to: eq, format: nil)
+            audioEngine.connect(eq, to: audioEngine.outputNode, format: nil)
+
+            try? audioEngine.start()
+            playerNode.play()
+        }
     
     func playSoundFromTopSpeaker() {
         
@@ -433,10 +517,13 @@ class SpeakerVC: UIViewController {
         //print("Configuring audio session")
         
         do {
+            //try self.audioSession?.setCategory(AVAudioSession.Category.playAndRecord)
             
-            try self.audioSession?.setCategory(AVAudioSession.Category.playAndRecord)
-            try self.audioSession?.overrideOutputAudioPort(AVAudioSession.PortOverride.none)
+            try self.audioSession?.setCategory(.playAndRecord, mode: .voiceChat, options: [.defaultToSpeaker, .allowBluetooth])
+            
             try self.audioSession?.setActive(true)
+            
+            try self.audioSession?.overrideOutputAudioPort(AVAudioSession.PortOverride.none)
             
             //print("Successfully configured audio session (SPEAKER-Upper).", "\nCurrent audio route: ",self.audioSession?.currentRoute.outputs ?? 0)
             
@@ -447,7 +534,12 @@ class SpeakerVC: UIViewController {
         
         do {
             self.audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: filePath))
-            self.audioPlayer.volume = .greatestFiniteMagnitude
+            //self.audioPlayer.volume = .greatestFiniteMagnitude
+            
+            //self.audioPlayer.volume = 1.0
+            // Apply an equalizer to boost mid frequencies (for louder effect without distortion)
+            //self.applyEqualizer(to: self.audioPlayer!)
+            
             self.audioPlayer.play()
             
         } catch let error {
@@ -467,7 +559,7 @@ class SpeakerVC: UIViewController {
             
             do {
                 self.audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: filePath))
-                self.audioPlayer.volume = .greatestFiniteMagnitude
+                //self.audioPlayer.volume = .greatestFiniteMagnitude
                 self.audioPlayer.play()
                 
                 self.topBtnStartSpeaker.isUserInteractionEnabled = true
@@ -501,9 +593,9 @@ class SpeakerVC: UIViewController {
         do {
             
             try self.audioSession?.setCategory(AVAudioSession.Category.playAndRecord)
-            try self.audioSession?.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
             try self.audioSession?.setActive(true)
-            
+            try self.audioSession?.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+                        
             //print("AVAudio Session out options: ", self.audioSession?.currentRoute ?? "")
             //print("Successfully configured audio session (SPEAKER-Bottom).", "\nCurrent audio route: ",self.audioSession?.currentRoute.outputs ?? 0)
             
@@ -514,6 +606,7 @@ class SpeakerVC: UIViewController {
         
         do {
             self.audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: filePath))
+            //self.audioPlayer.volume = .greatestFiniteMagnitude
             self.audioPlayer.play()
             
         } catch let error {
@@ -532,6 +625,7 @@ class SpeakerVC: UIViewController {
             
             do {
                 self.audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: filePath))
+                //self.audioPlayer.volume = .greatestFiniteMagnitude
                 self.audioPlayer.play()
                 
                 self.bottomBtnStartSpeaker.isUserInteractionEnabled = true

@@ -94,7 +94,7 @@ class ChargerVC: UIViewController {
             }
             
             UserDefaults.standard.set(true, forKey: "charger")
-            self.resultJSON["USB"].int = 1
+            self.resultJSON["USB Slot"].int = 1
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {
@@ -122,7 +122,7 @@ class ChargerVC: UIViewController {
         
     }
     
-    @objc func batteryStateDidChange(notification: NSNotification){
+    @objc func batteryStateDidChange(notification: NSNotification) {
         
         // The stage did change: plugged, unplugged, full charge...
         print("USB plugged in.")
@@ -141,7 +141,7 @@ class ChargerVC: UIViewController {
         }
         
         UserDefaults.standard.set(true, forKey: "charger")
-        self.resultJSON["USB"].int = 1
+        self.resultJSON["USB Slot"].int = 1
         
         AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
         DispatchQueue.main.async {
@@ -164,7 +164,7 @@ class ChargerVC: UIViewController {
                 
     }
     
-    @objc func batteryLevelDidChange(notification: NSNotification){
+    @objc func batteryLevelDidChange(notification: NSNotification) {
         // The battery's level did change (98%, 99%, ...)
         
         if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
@@ -181,7 +181,7 @@ class ChargerVC: UIViewController {
         }
         
         UserDefaults.standard.set(true, forKey: "charger")
-        self.resultJSON["USB"].int = 1
+        self.resultJSON["USB Slot"].int = 1
         
         AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
         DispatchQueue.main.async {
@@ -250,7 +250,7 @@ class ChargerVC: UIViewController {
         }
         
         UserDefaults.standard.set(false, forKey: "charger")
-        self.resultJSON["USB"].int = -1
+        self.resultJSON["USB Slot"].int = -1
         
         AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
         DispatchQueue.main.async {

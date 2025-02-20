@@ -8,6 +8,7 @@ PODS:
   - JGProgressHUD (2.2)
   - Luminous (2.2.0):
     - Deviice (>= 2.0.0)
+  - Mute (0.6.1)
   - PopupDialog (1.1.1):
     - DynamicBlurView (~> 4.0)
   - SwiftGifOrigin (1.7.0)
@@ -21,6 +22,7 @@ DEPENDENCIES:
   - INTULocationManager
   - JGProgressHUD
   - Luminous
+  - Mute
   - PopupDialog
   - SwiftGifOrigin
   - SwiftyJSON
@@ -36,6 +38,7 @@ SPEC REPOS:
     - INTULocationManager
     - JGProgressHUD
     - Luminous
+    - Mute
     - PopupDialog
     - SwiftGifOrigin
     - SwiftyJSON
@@ -50,11 +53,12 @@ SPEC CHECKSUMS:
   INTULocationManager: b5a0422782f0b87af0b8db14e0826fb38dbecd19
   JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
   Luminous: 22b449577c9de4ea2d2eda87add34fbc50115a97
+  Mute: 20135a96076f140cc82bfc8b810e2d6150d8ec7e
   PopupDialog: 720c92befd8bc23c13442254945213db5612f149
   SwiftGifOrigin: fbd6cf37afcfcf97a5c3db996ddc0492e5c5c145
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
   Toast-Swift: 7a03a532afe3a560d4044bc7c237e2864d295173
 
-PODFILE CHECKSUM: a540e7defa29b8f9091cc92fccddaf1b890358e4
+PODFILE CHECKSUM: 1503508bf2549619535358aa08d070db94ff10e5
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

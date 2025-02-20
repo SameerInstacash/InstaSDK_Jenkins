@@ -78,7 +78,7 @@ class BiometricVC: UIViewController {
                 }
                 
                 UserDefaults.standard.set(true, forKey: "fingerprint")
-                self.resultJSON["Fingerprint Scanner"].int = 1
+                self.resultJSON["Finger Print"].int = 1
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
@@ -120,7 +120,7 @@ class BiometricVC: UIViewController {
                     }
                     
                     UserDefaults.standard.set(false, forKey: "fingerprint")
-                    self.resultJSON["Fingerprint Scanner"].int = 0
+                    self.resultJSON["Finger Print"].int = 0
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                     DispatchQueue.main.async {
@@ -160,7 +160,7 @@ class BiometricVC: UIViewController {
                     }
                     
                     UserDefaults.standard.set(true, forKey: "fingerprint")
-                    self.resultJSON["Fingerprint Scanner"].int = -2
+                    self.resultJSON["Finger Print"].int = -2
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                     DispatchQueue.main.async {
@@ -209,7 +209,7 @@ class BiometricVC: UIViewController {
                     }
                     
                     UserDefaults.standard.set(false, forKey: "fingerprint")
-                    self.resultJSON["Fingerprint Scanner"].int = 0
+                    self.resultJSON["Finger Print"].int = 0
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                     DispatchQueue.main.async {
@@ -259,7 +259,7 @@ class BiometricVC: UIViewController {
                     }
                     
                     UserDefaults.standard.set(false, forKey: "fingerprint")
-                    self.resultJSON["Fingerprint Scanner"].int = 0
+                    self.resultJSON["Finger Print"].int = 0
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                     DispatchQueue.main.async {
@@ -309,7 +309,7 @@ class BiometricVC: UIViewController {
                     }
                     
                     UserDefaults.standard.set(false, forKey: "fingerprint")
-                    self.resultJSON["Fingerprint Scanner"].int = 0
+                    self.resultJSON["Finger Print"].int = 0
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                     DispatchQueue.main.async {
@@ -359,7 +359,7 @@ class BiometricVC: UIViewController {
                     }
                     
                     UserDefaults.standard.set(false, forKey: "fingerprint")
-                    self.resultJSON["Fingerprint Scanner"].int = 0
+                    self.resultJSON["Finger Print"].int = 0
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                     DispatchQueue.main.async {
@@ -415,7 +415,7 @@ class BiometricVC: UIViewController {
             
             self.lblTestTitle.text = "Touch ID"
             self.lblTestDesc.text = "Please enable the fingerprint feature from settings." + "\n" + "Disabling the fingerprint scanner will result in price drop during evaluation"
-            self.supportedTestImgVW.image = UIImage(named: "fingerprint scanner")
+            self.supportedTestImgVW.image = UIImage(named: "Finger Print")
             
         }
         else if currentBiometric == .optic {
@@ -441,7 +441,7 @@ class BiometricVC: UIViewController {
             }
             
             UserDefaults.standard.set(true, forKey: "fingerprint")
-            self.resultJSON["Fingerprint Scanner"].int = -2
+            self.resultJSON["Finger Print"].int = -2
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {
@@ -508,7 +508,7 @@ class BiometricVC: UIViewController {
                 }
                 
                 UserDefaults.standard.set(false, forKey: "fingerprint")
-                self.resultJSON["Fingerprint Scanner"].int = 0
+                self.resultJSON["Finger Print"].int = 0
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {

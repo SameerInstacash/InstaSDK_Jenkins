@@ -109,8 +109,8 @@ class WiFiVC: UIViewController {
                 arrTestsResultJSONInSDK.append(1)
             }
             
-            self.resultJSON["WIFI"].int = 1
-            UserDefaults.standard.setValue(true, forKey: "WIFI")
+            self.resultJSON["WiFi"].int = 1
+            UserDefaults.standard.setValue(true, forKey: "WiFi")
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {
@@ -149,8 +149,8 @@ class WiFiVC: UIViewController {
                 arrTestsResultJSONInSDK.append(0)
             }
             
-            self.resultJSON["WIFI"].int = 0
-            UserDefaults.standard.setValue(false, forKey: "WIFI")
+            self.resultJSON["WiFi"].int = 0
+            UserDefaults.standard.setValue(false, forKey: "WiFi")
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {

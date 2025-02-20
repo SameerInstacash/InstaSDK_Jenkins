@@ -186,7 +186,7 @@ extension UIViewController {
         let testName = arrTests[index]
         
         switch testName {
-        case "screen":
+        case "Touch Screen":
             return ("ScreenCalibrationVC", ScreenCalibrationVC())
         case "deadpixel":
             return ("DeadPixelsVC", DeadPixelsVC())
@@ -198,19 +198,19 @@ extension UIViewController {
             return ("VibratorVC", VibratorVC())
         case "flashlight":
             return ("FlashLightVC", FlashLightVC())
-        case "rotation":
+        case "Auto Rotation":
             return ("AutoRotationVC", AutoRotationVC())
-        case "proximity":
+        case "Proximity":
             return ("ProximityVC", ProximityVC())
         case "volumebutton":
             return ("VolumeButtonVC", VolumeButtonVC())
-        case "earphone":
+        case "Earphone Jack":
             return ("EarphoneVC", EarphoneVC())
         case "charger":
             return ("ChargerVC", ChargerVC())
-        case "camera":
+        case "Camera":
             return ("CameraVC", CameraVC())
-        case "autofocus":
+        case "Autofocus":
             return ("CameraVC", CameraVC())
         case "biometric":
             return ("BiometricVC", BiometricVC())
@@ -218,9 +218,9 @@ extension UIViewController {
             return ("WiFiVC", WiFiVC())
         case "battery":
             return ("BackgroundTestsVC", BackgroundTestsVC())
-        case "bluetooth":
+        case "Bluetooth":
             return ("BackgroundTestsVC", BackgroundTestsVC())
-        case "gps":
+        case "GPS":
             return ("BackgroundTestsVC", BackgroundTestsVC())
         case "gsm":
             return ("BackgroundTestsVC", BackgroundTestsVC())

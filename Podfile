@@ -27,5 +27,7 @@ target 'InstaCashSDK' do
   
   #pod 'AACameraView'
   pod 'CameraManager'
+  pod 'Mute'
+  
   
 end

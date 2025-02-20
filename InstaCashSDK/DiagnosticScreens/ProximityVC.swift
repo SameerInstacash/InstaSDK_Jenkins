@@ -115,7 +115,7 @@ class ProximityVC: UIViewController {
                 arrTestsResultJSONInSDK.append(-2)
             }
             
-            UserDefaults.standard.set(true, forKey: "proximity")
+            UserDefaults.standard.set(true, forKey: "Proximity")
             self.resultJSON["Proximity"].int = -2
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
@@ -160,7 +160,7 @@ class ProximityVC: UIViewController {
                 arrTestsResultJSONInSDK.append(1)
             }
             
-            UserDefaults.standard.set(true, forKey: "proximity")
+            UserDefaults.standard.set(true, forKey: "Proximity")
             self.resultJSON["Proximity"].int = 1
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
@@ -188,6 +188,9 @@ class ProximityVC: UIViewController {
     func dismissThisPage() {
         
         let device = UIDevice.current
+        device.isProximityMonitoringEnabled = false
+        
+        //let device = UIDevice.current
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "UIDeviceProximityStateDidChangeNotification"), object: device)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.0, execute: {
@@ -202,6 +205,9 @@ class ProximityVC: UIViewController {
     }
     
     func navToSummaryPage() {
+        
+        let device = UIDevice.current
+        device.isProximityMonitoringEnabled = false
         
         self.dismiss(animated: false, completion: {
             guard let didFinishRetryDiagnosis = self.proximityRetryDiagnosis else { return }

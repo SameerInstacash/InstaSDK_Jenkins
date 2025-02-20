@@ -23,6 +23,18 @@ import DeviceCheck
 import os
 import MachO
 
+import PermissionsKit
+import BluetoothPermission
+import LocationPermission
+import FaceIDPermission
+import CameraPermission
+import MicrophonePermission
+import PhotoLibraryPermission
+import MediaLibraryPermission
+import SpeechRecognizerPermission
+
+import ExternalAccessory
+
 class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, CBCentralManagerDelegate {
     
     @IBOutlet weak var testCollectionView: UICollectionView!
@@ -55,7 +67,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     //MARK: 3. Battery
     var batteryTimer: Timer?
     var batteryCount = 0
-
+    
     //MARK: 4. Storage
     var storageTimer: Timer?
     var storageCount = 0
@@ -77,8 +89,11 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     var vibratorCount = 0
     let manager = CMMotionManager()
     var isVibrate = false
-        
-
+    
+    var syncTimer: Timer?
+    var syncCount = 0
+    
+    
     //MARK: Framework Paths
     //let SBSERVPATH = "/System/Library/PrivateFrameworks/SpringBoardServices.framework/SpringBoardServices"
     //let UIKITPATH = "/System/Library/Framework/UIKit.framework/UIKit"
@@ -86,56 +101,56 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     //let UIKITPATH = "/Applications/Xcode-16.0.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/UIKit.framework"
     
     let WIPE_MODE_NORMAL = 4
-
-    /*
-    func main() {
     
-        autoreleasepool {
-            // Fetch the SpringBoard server port
-            var p = mach_port_t()
-            let uikit = dlopen(UIKITPATH, RTLD_LAZY)
-            
-            let SBSSpringBoardServerPort = dlsym(uikit, "SBSSpringBoardServerPort")
-            //let portFunction = unsafeBitCast(SBSSpringBoardServerPort, to: mach_port_t.self)
-            let portFunction = unsafeBitCast(SBSSpringBoardServerPort, to: (@convention(c) () -> mach_port_t).self)
-            p = portFunction()
-            dlclose(uikit)
-            
-            // Getting DataReset proc
-            let sbserv = dlopen(SBSERVPATH, RTLD_LAZY)
-            let dataReset = dlsym(sbserv, "SBDataReset")
-            let resetFunction = unsafeBitCast(dataReset, to: (@convention(c) (UnsafeMutablePointer<mach_port_t>?, Int32) -> Void).self)
-            resetFunction(&p, Int32(WIPE_MODE_NORMAL))
-            dlclose(sbserv)
-        }
-        
-    }
-    */
-
     /*
-    func main1() {
-        
-        autoreleasepool {
-            // Establish a connection to SpringBoardServices
-            var springboardPort: mach_port_t = 0
-            let result = SBSSpringBoardServerPort(&springboardPort)
-            
-            if result != KERN_SUCCESS || springboardPort == MACH_PORT_NULL {
-                print("Failed to connect to SpringBoardServices.")
-                exit(-1)
-            }
-            
-            // Perform a data wipe using SBDataReset
-            let resetResult = SBDataReset(springboardPort, kSBDataResetAll, nil)
-            if resetResult != KERN_SUCCESS {
-                print("Failed to reset device data.")
-                exit(-1)
-            }
-            
-            print("Device data reset successfully!")
-        }
-    }
-    */
+     func main() {
+     
+     autoreleasepool {
+     // Fetch the SpringBoard server port
+     var p = mach_port_t()
+     let uikit = dlopen(UIKITPATH, RTLD_LAZY)
+     
+     let SBSSpringBoardServerPort = dlsym(uikit, "SBSSpringBoardServerPort")
+     //let portFunction = unsafeBitCast(SBSSpringBoardServerPort, to: mach_port_t.self)
+     let portFunction = unsafeBitCast(SBSSpringBoardServerPort, to: (@convention(c) () -> mach_port_t).self)
+     p = portFunction()
+     dlclose(uikit)
+     
+     // Getting DataReset proc
+     let sbserv = dlopen(SBSERVPATH, RTLD_LAZY)
+     let dataReset = dlsym(sbserv, "SBDataReset")
+     let resetFunction = unsafeBitCast(dataReset, to: (@convention(c) (UnsafeMutablePointer<mach_port_t>?, Int32) -> Void).self)
+     resetFunction(&p, Int32(WIPE_MODE_NORMAL))
+     dlclose(sbserv)
+     }
+     
+     }
+     */
+    
+    /*
+     func main1() {
+     
+     autoreleasepool {
+     // Establish a connection to SpringBoardServices
+     var springboardPort: mach_port_t = 0
+     let result = SBSSpringBoardServerPort(&springboardPort)
+     
+     if result != KERN_SUCCESS || springboardPort == MACH_PORT_NULL {
+     print("Failed to connect to SpringBoardServices.")
+     exit(-1)
+     }
+     
+     // Perform a data wipe using SBDataReset
+     let resetResult = SBDataReset(springboardPort, kSBDataResetAll, nil)
+     if resetResult != KERN_SUCCESS {
+     print("Failed to reset device data.")
+     exit(-1)
+     }
+     
+     print("Device data reset successfully!")
+     }
+     }
+     */
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,7 +165,13 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         self.dynamicTestCallingSetup()
         
         self.refreshLocalData()
-                        
+                
+        
+        if UserDefaults.standard.value(forKey: "allPermissions") == nil {
+            self.askForAllPermissions()
+        }
+        
+               
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -163,6 +184,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         self.changeLanguageOfUI()
         
         //generateDeviceToken()
+                
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -174,13 +196,49 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
     
     //MARK: Custom Methods
+    func askForAllPermissions() {
+        
+        /*if !SPRequestPermission.isAllowPermissions([.camera,.locationWhenInUse,.microphone,.photoLibrary]){
+            SPRequestPermission.dialog.interactive.present(on: self, with: [.camera,.microphone,.photoLibrary,.locationWhenInUse], dataSource: DataSource())
+        }*/
+        
+        let bleP: () = PermissionsKit.Permission.bluetooth.request {
+            
+        }
+        
+        let locP = PermissionsKit.Permission.location(access: Permission.LocationAccess.whenInUse)
+        
+        let faceP: () = PermissionsKit.Permission.faceID.request {
+            
+        }
+        
+        let camP: () = PermissionsKit.Permission.camera.request {
+            
+        }
+        
+        let micP: () = PermissionsKit.Permission.microphone.request {
+            
+        }
+        
+        let photP: () = PermissionsKit.Permission.photoLibrary.request {
+            
+        }
+        
+        //let medP: () = PermissionsKit.Permission.mediaLibrary.request {
+            
+        //}
+        
+        UserDefaults.standard.set(true, forKey: "allPermissions")
+        
+    }
+    
     func generateDeviceToken() {
         let deviceCheck = DCDevice.current
         guard deviceCheck.isSupported else {
             //print("Device Check not supported on this device.")
             return
         }
-
+        
         deviceCheck.generateToken { data, error in
             guard let data = data, error == nil else {
                 //print("Error generating token: \(error?.localizedDescription ?? "Unknown error")")
@@ -212,19 +270,19 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         
         
         /*
-        //create a new button as RightBarButton for Language change in SDK
-        let button: UIButton = UIButton(type: .custom)
-        //set image for button
-        button.setImage(UIImage(named: "changeLanguage_icon"), for: .normal)
-        //add function for button
-        button.addTarget(self, action: #selector(didPressChangeLanguageBtn), for: .touchUpInside)
-        //set frame
-        button.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
-        
-        let barButton = UIBarButtonItem(customView: button)
-        //assign button to navigationbar
-        self.navigationItem.rightBarButtonItem = barButton
-        */
+         //create a new button as RightBarButton for Language change in SDK
+         let button: UIButton = UIButton(type: .custom)
+         //set image for button
+         button.setImage(UIImage(named: "changeLanguage_icon"), for: .normal)
+         //add function for button
+         button.addTarget(self, action: #selector(didPressChangeLanguageBtn), for: .touchUpInside)
+         //set frame
+         button.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
+         
+         let barButton = UIBarButtonItem(customView: button)
+         //assign button to navigationbar
+         self.navigationItem.rightBarButtonItem = barButton
+         */
         
         
         if #available(iOS 13.0, *) {
@@ -234,7 +292,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         } else {
             // Fallback on earlier versions
         }
-                
+        
     }
     
     @objc func backBtnPressed() {
@@ -279,7 +337,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         
         performDiagnostics = nil
         self.performTestsInSDK()
-                
+        
         //MARK: Assign List of Tests to be performed in App
         //arrTestsInSDK = CustomUserDefault.getArrDiagnosisTest()
         arrTestsInSDK = []
@@ -290,29 +348,30 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             
             arrTestsInSDK = [
                 
-                "bluetooth",
-                "wifi",                                
-                "battery",
-                "storage",
-                "gps",
-                "gsm network",
-                "vibrator",
-                "camera",
-                "autofocus",
-                "auto rotation",
-                "proximity",
-                "fingerprint scanner",
-                "dead pixels",
-                "screen",
-                "earphone jack",
-                "microusb slot",
-                "torch",
-                "device buttons",
-                "top speaker",
-                "bottom speaker",
-                "top microphone",
-                "bottom microphone",
-                                
+                "Bluetooth",
+//                "WiFi",
+//                "Battery",
+//                "Storage",
+//                "GPS",
+                "GSM Network",
+//                "Vibrator",
+//                "Camera",
+//                "Autofocus",
+//                "Auto Rotation",
+//                "Proximity",
+//                "Finger Print",
+//                "Dead Pixel",
+//                "Touch Screen",
+//                "Earphone Jack",
+//                "USB Slot",
+//                "Torch",
+//                "Device Button",
+//                "Top Speakers",
+//                "Bottom Speakers",
+//                "Top Microphone",
+//                "Bottom Microphone",
+                
+                
                 //"nfc",
                 
             ]
@@ -329,7 +388,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     func runTestDynamicInApp() {
         
         self.dynamicTestCallingSetup()
-                
+        
         AppResultJSON = JSON()
         self.resultJSON = JSON()
         
@@ -356,9 +415,13 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                                 if (key != "LanguageVersion") {
                                     if (key != "LanguageSymbol") {
                                         if (key != "LanguageUrl") {
-                                            
-                                            //print("key to remove from userDefaults",key)
-                                            defaults.removeObject(forKey: key)
+                                                                                        
+                                            if (key != "allPermissions") {
+                                                
+                                                //print("key to remove from userDefaults",key)
+                                                defaults.removeObject(forKey: key)
+                                                
+                                            }
                                             
                                         }
                                     }
@@ -388,15 +451,15 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         NSLog("%@%@", "39220iOS@physicalMemory: ", "\(self.phyMemoryJSON)")
         
         /*
-        let OSLogStr = ("39220iOS@physicalMemory: " + "\(self.phyMemoryJSON)")
-        if #available(iOS 14.0, *) {
-            let logger = Logger()
-            logger.info("\(OSLogStr)")
-        } else {
-            // Fallback on earlier versions
-            NSLog("%@%@", "39220iOS@physicalMemory: ", "\(self.phyMemoryJSON)")
-        }
-        */
+         let OSLogStr = ("39220iOS@physicalMemory: " + "\(self.phyMemoryJSON)")
+         if #available(iOS 14.0, *) {
+         let logger = Logger()
+         logger.info("\(OSLogStr)")
+         } else {
+         // Fallback on earlier versions
+         NSLog("%@%@", "39220iOS@physicalMemory: ", "\(self.phyMemoryJSON)")
+         }
+         */
         
         checkOEMLockJailbreakMdmStatus()
     }
@@ -433,15 +496,15 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         NSLog("%@%@", "39220iOS@LOCKS: ", "\(self.oemJailMdmJSON)")
         
         /*
-        let OSLogStr = ("39220iOS@LOCKS: " + "\(self.oemJailMdmJSON)")
-        if #available(iOS 14.0, *) {
-            let logger = Logger()
-            logger.info("\(OSLogStr)")
-        } else {
-            // Fallback on earlier versions
-            NSLog("%@%@", "39220iOS@LOCKS: ", "\(self.oemJailMdmJSON)")
-        }
-        */
+         let OSLogStr = ("39220iOS@LOCKS: " + "\(self.oemJailMdmJSON)")
+         if #available(iOS 14.0, *) {
+         let logger = Logger()
+         logger.info("\(OSLogStr)")
+         } else {
+         // Fallback on earlier versions
+         NSLog("%@%@", "39220iOS@LOCKS: ", "\(self.oemJailMdmJSON)")
+         }
+         */
         
     }
     
@@ -453,7 +516,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
     
     @IBAction func startTestButtonPressed(_ sender: UIButton) {
-                
+        
         AppUserDefaults.removeObject(forKey: "AppResultJSON_Data")
         
         if sender.titleLabel?.text == "START TEST" {
@@ -463,7 +526,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             self.startTestBtn.setTitle(self.getLocalizatioStringValue(key: "RESTART TEST"), for: .normal)
             //self.quiteAppBtn.isHidden = false
             //self.syncResultBtn.isHidden = false
-                        
+            
             self.printRamRom()
             
         }
@@ -480,7 +543,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             
             self.printRamRom()
         }
-                
+        
     }
     
     @IBAction func quiteAppButtonPressed(_ sender: UIButton) {
@@ -497,7 +560,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             self.resultJSON = JSON()
             self.resultJSON = resultJson
             NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-                  
+            
         }else {
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
@@ -514,7 +577,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         createTestFile()
         
         activityIndicator("Data Wipes In Process")
-                
+        
         let fileManager = FileManager.default
         if let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.path {
             
@@ -535,16 +598,16 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             
             
             /*
-            SecureDataWipe.threePassWipe(at: filePath) { success in
-                if success {
-                    OSLogStr = "39220iOS@datawipe: " + "Secure wipe completed successfully"
-                }
-                else {
-                    OSLogStr = "39220iOS@datawipe: " + "Secure wipe failed"
-                }
-                NSLog("%@", OSLogStr)
-            }
-            */
+             SecureDataWipe.threePassWipe(at: filePath) { success in
+             if success {
+             OSLogStr = "39220iOS@datawipe: " + "Secure wipe completed successfully"
+             }
+             else {
+             OSLogStr = "39220iOS@datawipe: " + "Secure wipe failed"
+             }
+             NSLog("%@", OSLogStr)
+             }
+             */
             
             NSLog("%@", OSLogStr)
             
@@ -573,13 +636,13 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             }
         }
     }
-
+    
     func threePassWipe(filePath: String) -> Bool {
         //guard FileManager.default.fileExists(atPath: filePath) else {
-            //print("File does not exist.")
-            //return false
+        //print("File does not exist.")
+        //return false
         //}
-
+        
         do {
             // Perform 3 passes
             for _ in 1...3 {
@@ -595,23 +658,23 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     try fileHandle.close()
                 } else {
                     // Fallback on earlier versions
-                     fileHandle.write(randomData)
-                     fileHandle.closeFile()
+                    fileHandle.write(randomData)
+                    fileHandle.closeFile()
                 }
                 
             }
-
+            
             // Delete the file
             try FileManager.default.removeItem(atPath: filePath)
             print("File securely wiped and deleted.")
             return true
-
+            
         } catch {
             print("Error during 3-pass wipe: \(error)")
             return false
         }
     }
-
+    
     
     //MARK: UICollectionView DataSource & Delegates
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -638,7 +701,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         //if (arrTestsResultJSONInSDK.count > 0 && arrTestsResultJSONInSDK.count >= arrTestInSDK_Hold.count) {
         
         if (arrTestsResultJSONInSDK.count > indexPath.item) {
-                                    
+            
             if arrTestsResultJSONInSDK[indexPath.item] == 0 {
                 TestCVCell.testImgVW.layer.borderColor = UIColor.systemRed.cgColor
                 
@@ -700,7 +763,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             
             if (arrTestsResultJSONInSDK[indexPath.item] == 0 || arrTestsResultJSONInSDK[indexPath.item] == -1) {
                 
-                if (self.arrTestInSDK_Hold[indexPath.item] == "battery".lowercased()) {
+                if (self.arrTestInSDK_Hold[indexPath.item] == "Battery") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "BatteryVC") as! BatteryVC
                     vc.isComingFromTestResult = true
@@ -729,7 +792,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "gsm network".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "GSM Network") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "GsmVC") as! GsmVC
                     vc.isComingFromTestResult = true
@@ -758,7 +821,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "storage".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "Storage") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "StorageVC") as! StorageVC
                     vc.isComingFromTestResult = true
@@ -787,7 +850,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "wifi".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "WiFi") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "WiFiVC") as! WiFiVC
                     vc.isComingFromTestResult = true
@@ -816,7 +879,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "bluetooth".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "Bluetooth") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "BluetoothVC") as! BluetoothVC
                     vc.isComingFromTestResult = true
@@ -845,7 +908,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "gps".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "GPS") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "GpsVC") as! GpsVC
                     vc.isComingFromTestResult = true
@@ -874,7 +937,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "vibrator".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "Vibrator") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "VibratorVC") as! VibratorVC
                     vc.isComingFromTestResult = true
@@ -903,7 +966,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "top speaker".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "Top Speakers") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpeakerVC") as! SpeakerVC
                     vc.isComingFromTestResult = true
@@ -935,7 +998,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "bottom speaker".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "Bottom Speakers") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpeakerVC") as! SpeakerVC
                     vc.isComingFromTestResult = true
@@ -967,7 +1030,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "top microphone".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "Top Microphone") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "MicroPhoneVC") as! MicroPhoneVC
                     vc.isComingFromTestResult = true
@@ -999,7 +1062,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "bottom microphone".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "Bottom Microphone") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "MicroPhoneVC") as! MicroPhoneVC
                     vc.isComingFromTestResult = true
@@ -1031,7 +1094,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "torch".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "Torch") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "FlashLightVC") as! FlashLightVC
                     vc.isComingFromTestResult = true
@@ -1060,7 +1123,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "earphone jack".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "Earphone Jack") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "EarphoneVC") as! EarphoneVC
                     vc.isComingFromTestResult = true
@@ -1089,7 +1152,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "auto rotation".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "Auto Rotation") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "AutoRotationVC") as! AutoRotationVC
                     vc.isComingFromTestResult = true
@@ -1118,7 +1181,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "proximity".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "Proximity") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProximityVC") as! ProximityVC
                     vc.isComingFromTestResult = true
@@ -1147,7 +1210,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "microusb slot".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "USB Slot") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChargerVC") as! ChargerVC
                     vc.isComingFromTestResult = true
@@ -1176,7 +1239,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "dead pixels".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "Dead Pixel") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "DeadPixelsVC") as! DeadPixelsVC
                     vc.isComingFromTestResult = true
@@ -1205,7 +1268,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "camera".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "Camera") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
                     vc.isComingFromTestResult = true
@@ -1234,7 +1297,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "autofocus".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "Autofocus") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
                     vc.isComingFromTestResult = true
@@ -1263,7 +1326,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "screen".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "Touch Screen") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "ScreenCalibrationVC") as! ScreenCalibrationVC
                     vc.isComingFromTestResult = true
@@ -1292,7 +1355,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "device buttons".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "Device Button") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "VolumeButtonVC") as! VolumeButtonVC
                     vc.isComingFromTestResult = true
@@ -1321,7 +1384,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "fingerprint scanner".lowercased()) {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "Finger Print") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "BiometricVC") as! BiometricVC
                     vc.isComingFromTestResult = true
@@ -1370,23 +1433,23 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     func activityIndicator(_ title: String) {
         /*
-        strLabel.removeFromSuperview()
-        activityIndicator.removeFromSuperview()
-        effectView.removeFromSuperview()
-        strLabel = UILabel(frame: CGRect(x: 50, y: 0, width: 160, height: 46))
-        strLabel.text = title
-        strLabel.font = .systemFont(ofSize: 14, weight: .medium)
-        strLabel.textColor = UIColor(white: 0.9, alpha: 0.7)
-        effectView.frame = CGRect(x: view.frame.midX - strLabel.frame.width/2, y: view.frame.midY - strLabel.frame.height/2 , width: 160, height: 46)
-        effectView.layer.cornerRadius = 15
-        effectView.layer.masksToBounds = true
-        activityIndicator = UIActivityIndicatorView(style: .white)
-        activityIndicator.frame = CGRect(x: 0, y: 0, width: 46, height: 46)
-        activityIndicator.startAnimating()
-        effectView.contentView.addSubview(activityIndicator)
-        effectView.contentView.addSubview(strLabel)
-        view.addSubview(effectView)
-        */
+         strLabel.removeFromSuperview()
+         activityIndicator.removeFromSuperview()
+         effectView.removeFromSuperview()
+         strLabel = UILabel(frame: CGRect(x: 50, y: 0, width: 160, height: 46))
+         strLabel.text = title
+         strLabel.font = .systemFont(ofSize: 14, weight: .medium)
+         strLabel.textColor = UIColor(white: 0.9, alpha: 0.7)
+         effectView.frame = CGRect(x: view.frame.midX - strLabel.frame.width/2, y: view.frame.midY - strLabel.frame.height/2 , width: 160, height: 46)
+         effectView.layer.cornerRadius = 15
+         effectView.layer.masksToBounds = true
+         activityIndicator = UIActivityIndicatorView(style: .white)
+         activityIndicator.frame = CGRect(x: 0, y: 0, width: 46, height: 46)
+         activityIndicator.startAnimating()
+         effectView.contentView.addSubview(activityIndicator)
+         effectView.contentView.addSubview(strLabel)
+         view.addSubview(effectView)
+         */
     }
     
 }
@@ -1397,7 +1460,7 @@ extension HomeVC {
     func performTestsInSDK() {
         
         performDiagnostics = { testResultJSON in
-                        
+            
             self.resultJSON = JSON()
             self.resultJSON = testResultJSON
             self.testCollectionView.reloadData()
@@ -1414,202 +1477,202 @@ extension HomeVC {
                     //print("test's Result JSON at BEGUN : ", testResultJSON)
                     
                     currentTestIndex += 1
-                                    
+                    
                     switch self.currentTestName {
                         
-                    case "bluetooth".lowercased():
+                    case "Bluetooth":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("bluetooth".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Bluetooth")) {
                             arrTestsInSDK.remove(at: ind)
-                                          
+                            
                             self.bluetoothLoad()
                             
                         }
                         
                         break
                         
-                    case "wifi".lowercased():
+                    case "WiFi":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("wifi".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("WiFi")) {
                             arrTestsInSDK.remove(at: ind)
-                                         
+                            
                             self.wifiLoad()
                             
                         }
                         
                         break
                         
-                    case "battery".lowercased():
+                    case "Battery":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("battery".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Battery")) {
                             arrTestsInSDK.remove(at: ind)
-                                          
+                            
                             self.batteryLoad()
                             
                         }
                         
                         break
                         
-                    case "storage".lowercased():
+                    case "Storage":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("storage".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Storage")) {
                             arrTestsInSDK.remove(at: ind)
-                                                   
+                            
                             self.storageLoad()
                             
                         }
                         
                         break
                         
-                    case "gps".lowercased():
+                    case "GPS":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("gps".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("GPS")) {
                             arrTestsInSDK.remove(at: ind)
-                                          
+                            
                             self.gpsLoad()
                             
                         }
                         
                         break
                         
-                    case "gsm network".lowercased():
+                    case "GSM Network":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("gsm network".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("GSM Network")) {
                             arrTestsInSDK.remove(at: ind)
-                                                        
+                            
                             self.gsmLoad()
                         }
                         
                         break
                         
-                    case "vibrator".lowercased():
+                    case "Vibrator":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("vibrator".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Vibrator")) {
                             arrTestsInSDK.remove(at: ind)
-                                                        
+                            
                             self.vibratorLoad()
                             
                         }
                         
                         break
                         
-                    /*
-                    case "bluetooth".lowercased():
+                        /*
+                         case "Bluetooth":
+                         
+                         if let ind = arrTestsInSDK.firstIndex(of: ("Bluetooth")) {
+                         arrTestsInSDK.remove(at: ind)
+                         
+                         let vc = self.storyboard?.instantiateViewController(withIdentifier: "BluetoothVC") as! BluetoothVC
+                         let navigationController = UINavigationController(rootViewController: vc)
+                         navigationController.modalPresentationStyle = .overFullScreen
+                         vc.resultJSON = testResultJSON
+                         vc.modalPresentationStyle = .overFullScreen
+                         self.present(navigationController, animated: true, completion: nil)
+                         
+                         }
+                         
+                         break
+                         
+                         case "WiFi":
+                         
+                         if let ind = arrTestsInSDK.firstIndex(of: ("WiFi")) {
+                         arrTestsInSDK.remove(at: ind)
+                         
+                         let vc = self.storyboard?.instantiateViewController(withIdentifier: "WiFiVC") as! WiFiVC
+                         let navigationController = UINavigationController(rootViewController: vc)
+                         navigationController.modalPresentationStyle = .overFullScreen
+                         vc.resultJSON = testResultJSON
+                         vc.modalPresentationStyle = .overFullScreen
+                         self.present(navigationController, animated: true, completion: nil)
+                         
+                         }
+                         
+                         break
+                         
+                         case "Battery":
+                         
+                         if let ind = arrTestsInSDK.firstIndex(of: ("Battery")) {
+                         arrTestsInSDK.remove(at: ind)
+                         
+                         let vc = self.storyboard?.instantiateViewController(withIdentifier: "BatteryVC") as! BatteryVC
+                         let navigationController = UINavigationController(rootViewController: vc)
+                         navigationController.modalPresentationStyle = .overFullScreen
+                         vc.resultJSON = testResultJSON
+                         vc.modalPresentationStyle = .overFullScreen
+                         self.present(navigationController, animated: true, completion: nil)
+                         
+                         }
+                         
+                         break
+                         
+                         case "Storage":
+                         
+                         if let ind = arrTestsInSDK.firstIndex(of: ("Storage")) {
+                         arrTestsInSDK.remove(at: ind)
+                         
+                         let vc = self.storyboard?.instantiateViewController(withIdentifier: "StorageVC") as! StorageVC
+                         let navigationController = UINavigationController(rootViewController: vc)
+                         navigationController.modalPresentationStyle = .overFullScreen
+                         vc.resultJSON = testResultJSON
+                         vc.modalPresentationStyle = .overFullScreen
+                         self.present(navigationController, animated: true, completion: nil)
+                         
+                         }
+                         
+                         break
+                         
+                         case "GPS":
+                         
+                         if let ind = arrTestsInSDK.firstIndex(of: ("GPS")) {
+                         arrTestsInSDK.remove(at: ind)
+                         
+                         let vc = self.storyboard?.instantiateViewController(withIdentifier: "GpsVC") as! GpsVC
+                         let navigationController = UINavigationController(rootViewController: vc)
+                         navigationController.modalPresentationStyle = .overFullScreen
+                         vc.resultJSON = testResultJSON
+                         vc.modalPresentationStyle = .overFullScreen
+                         self.present(navigationController, animated: true, completion: nil)
+                         
+                         }
+                         
+                         break
+                         
+                         case "GSM Network":
+                         
+                         if let ind = arrTestsInSDK.firstIndex(of: ("GSM Network")) {
+                         arrTestsInSDK.remove(at: ind)
+                         
+                         let vc = self.storyboard?.instantiateViewController(withIdentifier: "GsmVC") as! GsmVC
+                         let navigationController = UINavigationController(rootViewController: vc)
+                         navigationController.modalPresentationStyle = .overFullScreen
+                         vc.resultJSON = testResultJSON
+                         vc.modalPresentationStyle = .overFullScreen
+                         self.present(navigationController, animated: true, completion: nil)
+                         
+                         }
+                         
+                         break
+                         
+                         case "Vibrator":
+                         
+                         if let ind = arrTestsInSDK.firstIndex(of: ("Vibrator")) {
+                         arrTestsInSDK.remove(at: ind)
+                         
+                         let vc = self.storyboard?.instantiateViewController(withIdentifier: "VibratorVC") as! VibratorVC
+                         let navigationController = UINavigationController(rootViewController: vc)
+                         navigationController.modalPresentationStyle = .overFullScreen
+                         vc.resultJSON = testResultJSON
+                         vc.modalPresentationStyle = .overFullScreen
+                         self.present(navigationController, animated: true, completion: nil)
+                         
+                         }
+                         
+                         break
+                         */
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("bluetooth".lowercased())) {
-                            arrTestsInSDK.remove(at: ind)
-                            
-                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "BluetoothVC") as! BluetoothVC
-                            let navigationController = UINavigationController(rootViewController: vc)
-                            navigationController.modalPresentationStyle = .overFullScreen
-                            vc.resultJSON = testResultJSON
-                            vc.modalPresentationStyle = .overFullScreen
-                            self.present(navigationController, animated: true, completion: nil)
-                            
-                        }
+                    case "Top Speakers":
                         
-                        break
-                        
-                    case "wifi".lowercased():
-                        
-                        if let ind = arrTestsInSDK.firstIndex(of: ("wifi".lowercased())) {
-                            arrTestsInSDK.remove(at: ind)
-                            
-                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "WiFiVC") as! WiFiVC
-                            let navigationController = UINavigationController(rootViewController: vc)
-                            navigationController.modalPresentationStyle = .overFullScreen
-                            vc.resultJSON = testResultJSON
-                            vc.modalPresentationStyle = .overFullScreen
-                            self.present(navigationController, animated: true, completion: nil)
-                            
-                        }
-                        
-                        break
-                        
-                    case "battery".lowercased():
-                        
-                        if let ind = arrTestsInSDK.firstIndex(of: ("battery".lowercased())) {
-                            arrTestsInSDK.remove(at: ind)
-                            
-                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "BatteryVC") as! BatteryVC
-                            let navigationController = UINavigationController(rootViewController: vc)
-                            navigationController.modalPresentationStyle = .overFullScreen
-                            vc.resultJSON = testResultJSON
-                            vc.modalPresentationStyle = .overFullScreen
-                            self.present(navigationController, animated: true, completion: nil)
-                            
-                        }
-                        
-                        break
-                        
-                    case "storage".lowercased():
-                        
-                        if let ind = arrTestsInSDK.firstIndex(of: ("storage".lowercased())) {
-                            arrTestsInSDK.remove(at: ind)
-                            
-                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "StorageVC") as! StorageVC
-                            let navigationController = UINavigationController(rootViewController: vc)
-                            navigationController.modalPresentationStyle = .overFullScreen
-                            vc.resultJSON = testResultJSON
-                            vc.modalPresentationStyle = .overFullScreen
-                            self.present(navigationController, animated: true, completion: nil)
-                            
-                        }
-                        
-                        break
-                        
-                    case "gps".lowercased():
-                        
-                        if let ind = arrTestsInSDK.firstIndex(of: ("gps".lowercased())) {
-                            arrTestsInSDK.remove(at: ind)
-                            
-                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "GpsVC") as! GpsVC
-                            let navigationController = UINavigationController(rootViewController: vc)
-                            navigationController.modalPresentationStyle = .overFullScreen
-                            vc.resultJSON = testResultJSON
-                            vc.modalPresentationStyle = .overFullScreen
-                            self.present(navigationController, animated: true, completion: nil)
-                            
-                        }
-                        
-                        break
-                        
-                    case "gsm network".lowercased():
-                        
-                        if let ind = arrTestsInSDK.firstIndex(of: ("gsm network".lowercased())) {
-                            arrTestsInSDK.remove(at: ind)
-                            
-                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "GsmVC") as! GsmVC
-                            let navigationController = UINavigationController(rootViewController: vc)
-                            navigationController.modalPresentationStyle = .overFullScreen
-                            vc.resultJSON = testResultJSON
-                            vc.modalPresentationStyle = .overFullScreen
-                            self.present(navigationController, animated: true, completion: nil)
-                            
-                        }
-                        
-                        break
-                        
-                    case "vibrator".lowercased():
-                        
-                        if let ind = arrTestsInSDK.firstIndex(of: ("vibrator".lowercased())) {
-                            arrTestsInSDK.remove(at: ind)
-                            
-                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "VibratorVC") as! VibratorVC
-                            let navigationController = UINavigationController(rootViewController: vc)
-                            navigationController.modalPresentationStyle = .overFullScreen
-                            vc.resultJSON = testResultJSON
-                            vc.modalPresentationStyle = .overFullScreen
-                            self.present(navigationController, animated: true, completion: nil)
-                            
-                        }
-                        
-                        break
-                    */
-                        
-                    case "top speaker".lowercased():
-                        
-                        if let ind = arrTestsInSDK.firstIndex(of: ("top speaker".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Top Speakers")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpeakerVC") as! SpeakerVC
@@ -1625,9 +1688,9 @@ extension HomeVC {
                         
                         break
                         
-                    case "bottom speaker".lowercased():
+                    case "Bottom Speakers":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("bottom speaker".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Bottom Speakers")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpeakerVC") as! SpeakerVC
@@ -1643,9 +1706,9 @@ extension HomeVC {
                         
                         break
                         
-                    case "top microphone".lowercased():
+                    case "Top Microphone":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("top microphone".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Top Microphone")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "MicroPhoneVC") as! MicroPhoneVC
@@ -1661,9 +1724,9 @@ extension HomeVC {
                         
                         break
                         
-                    case "bottom microphone".lowercased():
+                    case "Bottom Microphone":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("bottom microphone".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Bottom Microphone")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "MicroPhoneVC") as! MicroPhoneVC
@@ -1679,9 +1742,9 @@ extension HomeVC {
                         
                         break
                         
-                    case "torch".lowercased():
+                    case "Torch":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("torch".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Torch")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "FlashLightVC") as! FlashLightVC
@@ -1695,9 +1758,9 @@ extension HomeVC {
                         
                         break
                         
-                    case "earphone jack".lowercased():
+                    case "Earphone Jack":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("earphone jack".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Earphone Jack")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "EarphoneVC") as! EarphoneVC
@@ -1711,9 +1774,9 @@ extension HomeVC {
                         
                         break
                         
-                    case "auto rotation".lowercased():
+                    case "Auto Rotation":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("auto rotation".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Auto Rotation")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "AutoRotationVC") as! AutoRotationVC
@@ -1727,9 +1790,9 @@ extension HomeVC {
                         
                         break
                         
-                    case "proximity".lowercased():
+                    case "Proximity":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("proximity".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Proximity")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProximityVC") as! ProximityVC
@@ -1743,9 +1806,9 @@ extension HomeVC {
                         
                         break
                         
-                    case "microusb slot".lowercased():
+                    case "USB Slot":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("microusb slot".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("USB Slot")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChargerVC") as! ChargerVC
@@ -1759,9 +1822,9 @@ extension HomeVC {
                         
                         break
                         
-                    case "dead pixels".lowercased():
+                    case "Dead Pixel":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("dead pixels".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Dead Pixel")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "DeadPixelsVC") as! DeadPixelsVC
@@ -1775,13 +1838,13 @@ extension HomeVC {
                         
                         break
                         
-                    case "camera".lowercased():
+                    case "Camera":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("camera".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Camera")) {
                             arrTestsInSDK.remove(at: ind)
                             
-                            //if let ind1 = arrTestsInSDK.firstIndex(of: ("autofocus".lowercased())) {
-                                //arrTestsInSDK.remove(at: ind1)
+                            //if let ind1 = arrTestsInSDK.firstIndex(of: ("Autofocus")) {
+                            //arrTestsInSDK.remove(at: ind1)
                             //}
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
@@ -1795,18 +1858,18 @@ extension HomeVC {
                         
                         break
                         
-                    case "autofocus".lowercased():
+                    case "Autofocus":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("autofocus".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Autofocus")) {
                             arrTestsInSDK.remove(at: ind)
                             
-                            //if let ind1 = arrTestsInSDK.firstIndex(of: ("camera".lowercased())) {
-                                //arrTestsInSDK.remove(at: ind1)
+                            //if let ind1 = arrTestsInSDK.firstIndex(of: ("Camera")) {
+                            //arrTestsInSDK.remove(at: ind1)
                             //}
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
                             let navigationController = UINavigationController(rootViewController: vc)
-                            navigationController.modalPresentationStyle = .overFullScreen                         
+                            navigationController.modalPresentationStyle = .overFullScreen
                             vc.resultJSON = testResultJSON
                             //vc.modalPresentationStyle = .overFullScreen
                             self.present(navigationController, animated: true, completion: nil)
@@ -1815,9 +1878,9 @@ extension HomeVC {
                         
                         break
                         
-                    case "screen".lowercased():
+                    case "Touch Screen":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("screen".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Touch Screen")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "ScreenCalibrationVC") as! ScreenCalibrationVC
@@ -1831,9 +1894,9 @@ extension HomeVC {
                         
                         break
                         
-                    case "device buttons".lowercased():
+                    case "Device Button":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("device buttons".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Device Button")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "VolumeButtonVC") as! VolumeButtonVC
@@ -1847,9 +1910,9 @@ extension HomeVC {
                         
                         break
                         
-                    case "fingerprint scanner".lowercased():
+                    case "Finger Print":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("fingerprint scanner".lowercased())) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Finger Print")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "BiometricVC") as! BiometricVC
@@ -1883,18 +1946,30 @@ extension HomeVC {
                     self.resultJSON = testResultJSON
                     self.testCollectionView.reloadData()
                     
+                    //if UIDevice.current.batteryState == .charging {
+                        
+                    //}
                     
-                    /*
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "DiagnosticTestResultVC") as! DiagnosticTestResultVC
-                    let navigationController = UINavigationController(rootViewController: vc)
-                    navigationController.modalPresentationStyle = .overFullScreen
-                    vc.resultJSON = testResultJSON
-                    vc.modalPresentationStyle = .overFullScreen
-                    vc.submitDiagnoseData = { finalResultJson in
-                        print("finalResultJson", finalResultJson)
-                    }
-                    self.present(navigationController, animated: true, completion: nil)
-                    */
+                    //NotificationCenter.default.addObserver(self, selector: #selector(self.accessoryDidConnect(_:)), name: .EAAccessoryDidConnect, object: nil)
+                    //NotificationCenter.default.addObserver(self, selector: #selector(self.accessoryDidDisconnect(_:)), name: .EAAccessoryDidDisconnect, object: nil)
+                    //EAAccessoryManager.shared().registerForLocalNotifications()
+                    
+                    UIDevice.current.isBatteryMonitoringEnabled = true
+                    NotificationCenter.default.addObserver(self, selector: #selector(self.batteryStateChanged), name: UIDevice.batteryStateDidChangeNotification, object: nil)
+                
+                
+                
+                /*
+                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "DiagnosticTestResultVC") as! DiagnosticTestResultVC
+                 let navigationController = UINavigationController(rootViewController: vc)
+                     navigationController.modalPresentationStyle = .overFullScreen
+                     vc.resultJSON = testResultJSON
+                     vc.modalPresentationStyle = .overFullScreen
+                     vc.submitDiagnoseData = { finalResultJson in
+                     print("finalResultJson", finalResultJson)
+                     }
+                     self.present(navigationController, animated: true, completion: nil)
+                     */
                     
                 }
                 
@@ -1902,6 +1977,108 @@ extension HomeVC {
             
         }
         
+    }
+        
+    
+    @objc func batteryStateChanged() {
+        if UIDevice.current.batteryState == .charging || UIDevice.current.batteryState == .full {
+            print("iPhone is connected via USB (charging)")
+            runTimerForResultSync()
+        } else {
+            print("iPhone is not connected via USB")
+            SyncClose()
+        }
+    }
+    
+    func runTimerForResultSync() {
+        self.syncTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.runSyncTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc func runSyncTimer() {
+        
+        self.syncCount += 1
+        
+        if self.syncCount < 12 {
+            self.printSyncResult()
+        }
+        else {
+            self.SyncClose()
+        }
+        
+    }
+    
+    func SyncClose() {
+        self.syncTimer?.invalidate()
+        self.syncCount = 0
+        
+        UIDevice.current.isBatteryMonitoringEnabled = false
+        NotificationCenter.default.removeObserver(self, name: UIDevice.batteryStateDidChangeNotification, object: nil)
+        
+    }
+    
+    func printSyncResult() {
+        
+        //39220iOS@physicalMemory{}
+        //390220iOS@LOCKS{}
+        //390220iOS@warehouse{}
+        
+        
+        DispatchQueue.main.async {
+            
+            //MARK: 1. physicalMemory
+            let current_ram = ProcessInfo.processInfo.physicalMemory
+            let current_rom = self.getTotalSize()
+            self.phyMemoryJSON["ram"].uInt64 = current_ram
+            self.phyMemoryJSON["rom"].int64 = current_rom
+            self.phyMemoryJSON["adminApps"].string = ""
+            //NSLog("%@%@", "39220iOS@physicalMemory: ", "\(self.phyMemoryJSON)")
+            
+                        
+            //MARK: 2. LOCKS
+            var oemLockStatus = Bool()
+            Utility.checkDeviceLockState { deviceLockState in
+                
+                if deviceLockState == Utility.DeviceLockState.unlocked {
+                    oemLockStatus = false
+                }
+                else {
+                    oemLockStatus = true
+                }
+            }
+            
+            let jailBrkStatus = Utility().isDeviceJailbroken()
+            let mdmStatus = Utility.isMDMManaged()
+            self.oemJailMdmJSON["oem_lock"].boolValue = oemLockStatus
+            self.oemJailMdmJSON["isJailbreak"].boolValue = jailBrkStatus
+            self.oemJailMdmJSON["isMdmManaged"].boolValue = mdmStatus
+            //NSLog("%@%@", "39220iOS@LOCKS: ", "\(self.oemJailMdmJSON)")
+            
+            
+            //MARK: 3. warehouse
+            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                self.resultJSON = resultJson
+                //NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+            }
+            else {
+                //NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+            }
+            
+            
+            NSLog("%@%@%@%@%@%@%@%@", "39220iOS@physicalMemory: ", "\(self.phyMemoryJSON)", "\n" , "39220iOS@LOCKS: ", "\(self.oemJailMdmJSON)", "\n",  "39220iOS@warehouse: ", "\(self.resultJSON)")
+            
+        }
+        
+    }
+    
+    @objc func accessoryDidConnect(_ notification: Notification) {
+        if let accessory = notification.userInfo?[EAAccessoryKey] as? EAAccessory {
+            print("Accessory Connected: \(accessory.name)")
+        }
+    }
+    
+    @objc func accessoryDidDisconnect(_ notification: Notification) {
+        print("Accessory Disconnected")
     }
     
     //MARK: Fetch JSON Data from Remote URL
@@ -1990,7 +2167,7 @@ extension HomeVC {
                                         print("preferredLanguage",preferredLanguage)
                                         print("preferredLanguageCode", preferredLanguageCode)
                                         print("firstCode", firstCode)
-                                                                                
+                                        
                                         //MARK: 1. Save Here Language
                                         for lang in languages {
                                             
@@ -2254,15 +2431,15 @@ extension HomeVC {
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 
                 DispatchQueue.main.async {
-            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                self.resultJSON = resultJson
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-            else {
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-        }
+                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                        self.resultJSON = resultJson
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                    else {
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                }
                 
             } else {
                 // Fallback on earlier versions
@@ -2279,17 +2456,17 @@ extension HomeVC {
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
-            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                self.resultJSON = resultJson
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                        self.resultJSON = resultJson
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                    else {
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                }
             }
-            else {
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-        }
-            }
-                        
+            
             self.bluetoothTestClose()
             
             break
@@ -2310,15 +2487,15 @@ extension HomeVC {
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
-            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                self.resultJSON = resultJson
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-            else {
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-        }
+                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                        self.resultJSON = resultJson
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                    else {
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                }
                 
                 self.bluetoothTestClose()
                 
@@ -2369,15 +2546,15 @@ extension HomeVC {
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
-            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                self.resultJSON = resultJson
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-            else {
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-        }
+                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                        self.resultJSON = resultJson
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                    else {
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                }
                 
                 self.bluetoothTestClose()
             }
@@ -2403,15 +2580,15 @@ extension HomeVC {
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
-            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                self.resultJSON = resultJson
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-            else {
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-        }
+                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                        self.resultJSON = resultJson
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                    else {
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                }
                 
                 self.bluetoothTestClose()
             }
@@ -2437,15 +2614,15 @@ extension HomeVC {
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
-            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                self.resultJSON = resultJson
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-            else {
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-        }
+                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                        self.resultJSON = resultJson
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                    else {
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                }
                 
                 self.bluetoothTestClose()
             }
@@ -2471,15 +2648,15 @@ extension HomeVC {
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
-            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                self.resultJSON = resultJson
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-            else {
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-        }
+                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                        self.resultJSON = resultJson
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                    else {
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                }
                 
                 self.bluetoothTestClose()
             }
@@ -2505,15 +2682,15 @@ extension HomeVC {
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
-            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                self.resultJSON = resultJson
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-            else {
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-        }
+                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                        self.resultJSON = resultJson
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                    else {
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                }
                 
                 self.bluetoothTestClose()
             }
@@ -2539,15 +2716,15 @@ extension HomeVC {
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
-            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                self.resultJSON = resultJson
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-            else {
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-        }
+                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                        self.resultJSON = resultJson
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                    else {
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                }
                 
                 self.bluetoothTestClose()
             }
@@ -2573,15 +2750,15 @@ extension HomeVC {
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
-            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                self.resultJSON = resultJson
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-            else {
-                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-            }
-        }
+                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                        self.resultJSON = resultJson
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                    else {
+                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                    }
+                }
                 
                 self.bluetoothTestClose()
             }
@@ -2624,20 +2801,20 @@ extension HomeVC {
             
             arrTestsResultJSONInSDK.append(1)
             
-            self.resultJSON["WIFI"].int = 1
-            UserDefaults.standard.setValue(true, forKey: "WIFI")
+            self.resultJSON["WiFi"].int = 1
+            UserDefaults.standard.setValue(true, forKey: "WiFi")
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {
-        if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-            let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-            self.resultJSON = resultJson
-            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-        }
-        else {
-            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-        }
-    }
+                if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                    let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                    self.resultJSON = resultJson
+                    NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                }
+                else {
+                    NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                }
+            }
             
             self.wifiTestClose()
             
@@ -2651,20 +2828,20 @@ extension HomeVC {
             
             arrTestsResultJSONInSDK.append(0)
             
-            self.resultJSON["WIFI"].int = 0
-            UserDefaults.standard.setValue(false, forKey: "WIFI")
+            self.resultJSON["WiFi"].int = 0
+            UserDefaults.standard.setValue(false, forKey: "WiFi")
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {
-        if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-            let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-            self.resultJSON = resultJson
-            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-        }
-        else {
-            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-        }
-    }
+                if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                    let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                    self.resultJSON = resultJson
+                    NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                }
+                else {
+                    NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                }
+            }
             
             //if self.wifiCount == 2 {
             self.wifiTestClose()
@@ -2712,15 +2889,15 @@ extension HomeVC {
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {
-        if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-            let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-            self.resultJSON = resultJson
-            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-        }
-        else {
-            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-        }
-    }
+                if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                    let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                    self.resultJSON = resultJson
+                    NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                }
+                else {
+                    NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                }
+            }
             
             //if self.batteryCount == 2 {
             self.batteryTestClose()
@@ -2740,15 +2917,15 @@ extension HomeVC {
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {
-        if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-            let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-            self.resultJSON = resultJson
-            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-        }
-        else {
-            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-        }
-    }
+                if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                    let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                    self.resultJSON = resultJson
+                    NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                }
+                else {
+                    NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                }
+            }
             
             self.batteryTestClose()
         }
@@ -2793,15 +2970,15 @@ extension HomeVC {
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {
-        if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-            let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-            self.resultJSON = resultJson
-            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-        }
-        else {
-            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-        }
-    }
+                if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                    let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                    self.resultJSON = resultJson
+                    NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                }
+                else {
+                    NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                }
+            }
             
             self.storageTestClose()
             
@@ -2819,15 +2996,15 @@ extension HomeVC {
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {
-        if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-            let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-            self.resultJSON = resultJson
-            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-        }
-        else {
-            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-        }
-    }
+                if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                    let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                    self.resultJSON = resultJson
+                    NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                }
+                else {
+                    NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                }
+            }
             
             //if self.storageCount == 2 {
             self.storageTestClose()
@@ -2909,15 +3086,15 @@ extension HomeVC {
                         
                         AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                         DispatchQueue.main.async {
-                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                        self.resultJSON = resultJson
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-                    }
-                    else {
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-                    }
-                }
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                            }
+                        }
                         
                         self.gpsTestClose()
                         
@@ -2936,15 +3113,15 @@ extension HomeVC {
                         
                         AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                         DispatchQueue.main.async {
-                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                        self.resultJSON = resultJson
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-                    }
-                    else {
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-                    }
-                }
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                            }
+                        }
                         
                         self.gpsTestClose()
                         
@@ -2965,15 +3142,15 @@ extension HomeVC {
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                     DispatchQueue.main.async {
-                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                        self.resultJSON = resultJson
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                        if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                            let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                            self.resultJSON = resultJson
+                            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                        }
+                        else {
+                            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                        }
                     }
-                    else {
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-                    }
-                }
                     
                     self.gpsTestClose()
                     
@@ -3008,15 +3185,15 @@ extension HomeVC {
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                     DispatchQueue.main.async {
-                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                        self.resultJSON = resultJson
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                        if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                            let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                            self.resultJSON = resultJson
+                            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                        }
+                        else {
+                            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                        }
                     }
-                    else {
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-                    }
-                }
                     
                     self.gpsTestClose()
                     
@@ -3037,15 +3214,15 @@ extension HomeVC {
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                     DispatchQueue.main.async {
-                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                        self.resultJSON = resultJson
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                        if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                            let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                            self.resultJSON = resultJson
+                            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                        }
+                        else {
+                            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                        }
                     }
-                    else {
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-                    }
-                }
                     
                     self.gpsTestClose()
                     
@@ -3066,7 +3243,7 @@ extension HomeVC {
         self.gsmTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.runGsmTimer), userInfo: nil, repeats: true)
     }
     
-    @objc func runGsmTimer() {        
+    @objc func runGsmTimer() {
         self.gsmTest()
         self.gsmCount += 1
     }
@@ -3076,7 +3253,7 @@ extension HomeVC {
         self.gsmCount = 0
         
         guard let didFinishTestDiagnosis = performDiagnostics else { return }
-        didFinishTestDiagnosis(self.resultJSON)        
+        didFinishTestDiagnosis(self.resultJSON)
     }
     
     func gsmTest() {
@@ -3092,8 +3269,8 @@ extension HomeVC {
                 
                 arrTestsResultJSONInSDK.append(1)
                 
-                self.resultJSON["GSM"].int = 1
-                UserDefaults.standard.set(true, forKey: "GSM")
+                self.resultJSON["GSM Network"].int = 1
+                UserDefaults.standard.set(true, forKey: "GSM Network")
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
@@ -3121,8 +3298,8 @@ extension HomeVC {
                 
                 arrTestsResultJSONInSDK.append(1)
                 
-                self.resultJSON["GSM"].int = 1
-                UserDefaults.standard.set(true, forKey: "GSM")
+                self.resultJSON["GSM Network"].int = 1
+                UserDefaults.standard.set(true, forKey: "GSM Network")
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
@@ -3150,8 +3327,8 @@ extension HomeVC {
                 
                 arrTestsResultJSONInSDK.append(1)
                 
-                self.resultJSON["GSM"].int = 1
-                UserDefaults.standard.set(true, forKey: "GSM")
+                self.resultJSON["GSM Network"].int = 1
+                UserDefaults.standard.set(true, forKey: "GSM Network")
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
@@ -3196,20 +3373,20 @@ extension HomeVC {
                         
                         arrTestsResultJSONInSDK.append(1)
                         
-                        self.resultJSON["GSM"].int = 1
-                        UserDefaults.standard.set(true, forKey: "GSM")
+                        self.resultJSON["GSM Network"].int = 1
+                        UserDefaults.standard.set(true, forKey: "GSM Network")
                         
                         AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                         DispatchQueue.main.async {
-                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                        self.resultJSON = resultJson
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-                    }
-                    else {
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-                    }
-                }
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                            }
+                        }
                         
                         self.gsmTestClose()
                         
@@ -3234,20 +3411,20 @@ extension HomeVC {
                     
                     arrTestsResultJSONInSDK.append(1)
                     
-                    self.resultJSON["GSM"].int = 1
-                    UserDefaults.standard.set(true, forKey: "GSM")
+                    self.resultJSON["GSM Network"].int = 1
+                    UserDefaults.standard.set(true, forKey: "GSM Network")
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                     DispatchQueue.main.async {
-                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                        self.resultJSON = resultJson
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                        if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                            let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                            self.resultJSON = resultJson
+                            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                        }
+                        else {
+                            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                        }
                     }
-                    else {
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-                    }
-                }
                     
                     self.gsmTestClose()
                     
@@ -3262,20 +3439,20 @@ extension HomeVC {
                     
                     arrTestsResultJSONInSDK.append(0)
                     
-                    self.resultJSON["GSM"].int = 0
-                    UserDefaults.standard.set(false, forKey: "GSM")
+                    self.resultJSON["GSM Network"].int = 0
+                    UserDefaults.standard.set(false, forKey: "GSM Network")
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                     DispatchQueue.main.async {
-                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                        self.resultJSON = resultJson
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                        if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                            let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                            self.resultJSON = resultJson
+                            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                        }
+                        else {
+                            NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                        }
                     }
-                    else {
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-                    }
-                }
                     
                     self.gsmTestClose()
                     
@@ -3293,23 +3470,23 @@ extension HomeVC {
             
             arrTestsResultJSONInSDK.append(-2)
             
-            self.resultJSON["GSM"].int = -2
-            UserDefaults.standard.set(true, forKey: "GSM")
+            self.resultJSON["GSM Network"].int = -2
+            UserDefaults.standard.set(true, forKey: "GSM Network")
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {
-                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                        self.resultJSON = resultJson
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-                    }
-                    else {
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-                    }
+                if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                    let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                    self.resultJSON = resultJson
+                    NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
                 }
+                else {
+                    NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                }
+            }
             
             //if self.gsmCount == 2 {
-                self.gsmTestClose()
+            self.gsmTestClose()
             //}
             
         }
@@ -3385,15 +3562,15 @@ extension HomeVC {
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {
-                    if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
-                        let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
-                        self.resultJSON = resultJson
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-                    }
-                    else {
-                        NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
-                    }
+                if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                    let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                    self.resultJSON = resultJson
+                    NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
                 }
+                else {
+                    NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+                }
+            }
             
             self.vibratorTestClose()
             
@@ -3487,7 +3664,7 @@ class Utility {
     
     class func checkDeviceLockState(completion: @escaping (DeviceLockState) -> Void) {
         
-       DispatchQueue.main.async {
+        DispatchQueue.main.async {
             if UIApplication.shared.isProtectedDataAvailable {
                 completion(.unlocked)
             } else {
@@ -3525,7 +3702,7 @@ class Utility {
             return false
         }
     }
-
+    
     
     class func canAccessRestrictedURLs() -> Bool {
         let url = URL(string: "cydia://")! // Cydia URL scheme

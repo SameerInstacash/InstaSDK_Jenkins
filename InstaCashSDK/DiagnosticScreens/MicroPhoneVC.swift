@@ -118,7 +118,6 @@ class MicroPhoneVC: UIViewController, RecorderDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-        
     }
     
     // MARK: IBActions
@@ -288,14 +287,12 @@ extension MicroPhoneVC {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             
-            
             if self.isBitRate {
                 self.finishRecording(success: self.isBitRate)
             }else {
                 self.finishRecording(success: self.isBitRate)
             }
         
-            
           
             
             /* To split both tests - 21/10/24
@@ -381,7 +378,8 @@ extension MicroPhoneVC {
         if (peakPower <= 0.2) {
             rate = 0.2
         //} else if (peakPower > 0.9) {
-        } else if (peakPower > 0.7) {
+        //} else if (peakPower > 0.7) {
+        } else if (peakPower > 0.40) {
             rate = 1.0
             self.isBitRate = true
         } else {
@@ -403,7 +401,6 @@ extension MicroPhoneVC {
         }else {
             
         }
-        
     }
     
     func finishRecording(success: Bool) {
@@ -430,12 +427,12 @@ extension MicroPhoneVC {
             //UserDefaults.standard.set(true, forKey: "mic")
             
             if self.isComeForTopMic {
-                self.resultJSON["top microphone"].int = 1
-                UserDefaults.standard.set(true, forKey: "top microphone")
+                self.resultJSON["Top Microphone"].int = 1
+                UserDefaults.standard.set(true, forKey: "Top Microphone")
             }
             else {
-                self.resultJSON["bottom microphone"].int = 1
-                UserDefaults.standard.set(true, forKey: "bottom microphone")
+                self.resultJSON["Bottom Microphone"].int = 1
+                UserDefaults.standard.set(true, forKey: "Bottom Microphone")
             }
                         
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
@@ -476,12 +473,12 @@ extension MicroPhoneVC {
             //UserDefaults.standard.set(false, forKey: "mic")
             
             if self.isComeForTopMic {
-                self.resultJSON["top microphone"].int = 0
-                UserDefaults.standard.set(false, forKey: "top microphone")
+                self.resultJSON["Top Microphone"].int = 0
+                UserDefaults.standard.set(false, forKey: "Top Microphone")
             }
             else {
-                self.resultJSON["bottom microphone"].int = 0
-                UserDefaults.standard.set(false, forKey: "bottom microphone")
+                self.resultJSON["Bottom Microphone"].int = 0
+                UserDefaults.standard.set(false, forKey: "Bottom Microphone")
             }
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
