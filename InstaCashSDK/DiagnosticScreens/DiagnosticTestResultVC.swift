@@ -187,18 +187,37 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
         }
         
         //MARK: 7. Vibrator Test
-        if self.resultJSON["Vibrator"].int != nil {
+        if self.resultJSON["vibrator_auto"].int != nil {
             
             let model = ModelCompleteDiagnosticFlow()
-            model.strTestName = "Vibrator"
+            model.strTestName = "vibrator_auto"
             
-            if self.resultJSON["Vibrator"].int == 1 {
+            if self.resultJSON["vibrator_auto"].int == 1 {
                 self.arrPassedTest.append(model)
             }
-            else if self.resultJSON["Vibrator"].int == -1 {
+            else if self.resultJSON["vibrator_auto"].int == -1 {
                 self.arrSkippedTest.append(model)
             }
-            else if self.resultJSON["Vibrator"].int == 0 {
+            else if self.resultJSON["vibrator_auto"].int == 0 {
+                self.arrFailedTest.append(model)
+            }
+            else {
+                
+            }
+        }
+        
+        if self.resultJSON["vibrator_manual"].int != nil {
+            
+            let model = ModelCompleteDiagnosticFlow()
+            model.strTestName = "vibrator_manual"
+            
+            if self.resultJSON["vibrator_manual"].int == 1 {
+                self.arrPassedTest.append(model)
+            }
+            else if self.resultJSON["vibrator_manual"].int == -1 {
+                self.arrSkippedTest.append(model)
+            }
+            else if self.resultJSON["vibrator_manual"].int == 0 {
                 self.arrFailedTest.append(model)
             }
             else {
@@ -405,18 +424,75 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
         }
         
         //MARK: 16. Camera Test
-        if self.resultJSON["Camera"].int != nil {
+        if self.resultJSON["frontCamera_auto"].int != nil {
             
             let model = ModelCompleteDiagnosticFlow()
-            model.strTestName = "Camera"
+            model.strTestName = "frontCamera_auto"
             
-            if self.resultJSON["Camera"].int == 1 {
+            if self.resultJSON["frontCamera_auto"].int == 1 {
                 self.arrPassedTest.append(model)
             }
-            else if self.resultJSON["Camera"].int == -1 {
+            else if self.resultJSON["frontCamera_auto"].int == -1 {
                 self.arrSkippedTest.append(model)
             }
-            else if self.resultJSON["Camera"].int == 0 {
+            else if self.resultJSON["frontCamera_auto"].int == 0 {
+                self.arrFailedTest.append(model)
+            }
+            else {
+                
+            }
+        }
+        
+        if self.resultJSON["frontCamera_manual"].int != nil {
+            
+            let model = ModelCompleteDiagnosticFlow()
+            model.strTestName = "frontCamera_manual"
+            
+            if self.resultJSON["frontCamera_manual"].int == 1 {
+                self.arrPassedTest.append(model)
+            }
+            else if self.resultJSON["frontCamera_manual"].int == -1 {
+                self.arrSkippedTest.append(model)
+            }
+            else if self.resultJSON["frontCamera_manual"].int == 0 {
+                self.arrFailedTest.append(model)
+            }
+            else {
+                
+            }
+        }
+        
+        if self.resultJSON["backCamera_auto"].int != nil {
+            
+            let model = ModelCompleteDiagnosticFlow()
+            model.strTestName = "backCamera_auto"
+            
+            if self.resultJSON["backCamera_auto"].int == 1 {
+                self.arrPassedTest.append(model)
+            }
+            else if self.resultJSON["backCamera_auto"].int == -1 {
+                self.arrSkippedTest.append(model)
+            }
+            else if self.resultJSON["backCamera_auto"].int == 0 {
+                self.arrFailedTest.append(model)
+            }
+            else {
+                
+            }
+        }
+        
+        if self.resultJSON["backCamera_manual"].int != nil {
+            
+            let model = ModelCompleteDiagnosticFlow()
+            model.strTestName = "backCamera_manual"
+            
+            if self.resultJSON["backCamera_manual"].int == 1 {
+                self.arrPassedTest.append(model)
+            }
+            else if self.resultJSON["backCamera_manual"].int == -1 {
+                self.arrSkippedTest.append(model)
+            }
+            else if self.resultJSON["backCamera_manual"].int == 0 {
                 self.arrFailedTest.append(model)
             }
             else {
@@ -465,18 +541,75 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
         }
         
         //MARK: 19. Volume-Button Test
-        if self.resultJSON["Device Button"].int != nil {
+        if self.resultJSON["volume up"].int != nil {
             
             let model = ModelCompleteDiagnosticFlow()
-            model.strTestName = "Device Button"
+            model.strTestName = "volume up"
             
-            if self.resultJSON["Device Button"].int == 1 {
+            if self.resultJSON["volume up"].int == 1 {
                 self.arrPassedTest.append(model)
             }
-            else if self.resultJSON["Device Button"].int == -1 {
+            else if self.resultJSON["volume up"].int == -1 {
                 self.arrSkippedTest.append(model)
             }
-            else if self.resultJSON["Device Button"].int == 0 {
+            else if self.resultJSON["volume up"].int == 0 {
+                self.arrFailedTest.append(model)
+            }
+            else {
+                
+            }
+        }
+        
+        if self.resultJSON["volume down"].int != nil {
+            
+            let model = ModelCompleteDiagnosticFlow()
+            model.strTestName = "volume down"
+            
+            if self.resultJSON["volume down"].int == 1 {
+                self.arrPassedTest.append(model)
+            }
+            else if self.resultJSON["volume down"].int == -1 {
+                self.arrSkippedTest.append(model)
+            }
+            else if self.resultJSON["volume down"].int == 0 {
+                self.arrFailedTest.append(model)
+            }
+            else {
+                
+            }
+        }
+        
+        if self.resultJSON["power button"].int != nil {
+            
+            let model = ModelCompleteDiagnosticFlow()
+            model.strTestName = "power button"
+            
+            if self.resultJSON["power button"].int == 1 {
+                self.arrPassedTest.append(model)
+            }
+            else if self.resultJSON["power button"].int == -1 {
+                self.arrSkippedTest.append(model)
+            }
+            else if self.resultJSON["power button"].int == 0 {
+                self.arrFailedTest.append(model)
+            }
+            else {
+                
+            }
+        }
+        
+        if self.resultJSON["ringer"].int != nil {
+            
+            let model = ModelCompleteDiagnosticFlow()
+            model.strTestName = "ringer"
+            
+            if self.resultJSON["ringer"].int == 1 {
+                self.arrPassedTest.append(model)
+            }
+            else if self.resultJSON["ringer"].int == -1 {
+                self.arrSkippedTest.append(model)
+            }
+            else if self.resultJSON["ringer"].int == 0 {
                 self.arrFailedTest.append(model)
             }
             else {
@@ -722,10 +855,27 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Vibrator") {
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "vibrator_auto") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "VibratorVC") as! VibratorVC
                     vc.isComingFromTestResult = true
+                    
+                    vc.isAutoTest = true
+                    
+                    vc.vibratorRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "vibrator_manual") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "VibratorVC") as! VibratorVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.isAutoTest = false
                     
                     vc.vibratorRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
@@ -877,10 +1027,61 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Camera") {
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "frontCamera_auto") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
                     vc.isComingFromTestResult = true
+                    
+                    vc.isComeForFrontCamera = true
+                    vc.isComeForFrontAuto = true
+                    
+                    vc.cameraRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "frontCamera_manual") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.isComeForFrontCamera = true
+                    vc.isComeForFrontAuto = false
+                    
+                    vc.cameraRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "backCamera_auto") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.isComeForFrontCamera = false
+                    vc.isComeForBackAuto = true
+                    
+                    vc.cameraRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "backCamera_manual") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.isComeForFrontCamera = false
+                    vc.isComeForBackAuto = false
                     
                     vc.cameraRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
@@ -916,10 +1117,69 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "Device Button") {
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "volume up") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "VolumeButtonVC") as! VolumeButtonVC
                     vc.isComingFromTestResult = true
+                    
+                    vc.isComeForVolumeUp = true
+                    vc.isComeForVolumeDown = false
+                    vc.isComeForPowerBtn = false
+                    vc.isComeForRingerBtn = false
+                    
+                    vc.volumeRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "volume down") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "VolumeButtonVC") as! VolumeButtonVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.isComeForVolumeUp = false
+                    vc.isComeForVolumeDown = true
+                    vc.isComeForPowerBtn = false
+                    vc.isComeForRingerBtn = false
+                    
+                    vc.volumeRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "power button") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "VolumeButtonVC") as! VolumeButtonVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.isComeForVolumeUp = false
+                    vc.isComeForVolumeDown = false
+                    vc.isComeForPowerBtn = true
+                    vc.isComeForRingerBtn = false
+                    
+                    vc.volumeRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrSkippedTest[indexPath.row - 1].strTestName == "ringer") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "VolumeButtonVC") as! VolumeButtonVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.isComeForVolumeUp = false
+                    vc.isComeForVolumeDown = false
+                    vc.isComeForPowerBtn = false
+                    vc.isComeForRingerBtn = true
                     
                     vc.volumeRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
@@ -1034,7 +1294,20 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Vibrator") {
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "vibrator_auto") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "VibratorVC") as! VibratorVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.vibratorRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "vibrator_auto") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "VibratorVC") as! VibratorVC
                     vc.isComingFromTestResult = true
@@ -1189,10 +1462,61 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Camera") {
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "frontCamera_auto") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
                     vc.isComingFromTestResult = true
+                    
+                    vc.isComeForFrontCamera = true
+                    vc.isComeForFrontAuto = true
+                    
+                    vc.cameraRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "frontCamera_manual") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.isComeForFrontCamera = true
+                    vc.isComeForFrontAuto = false
+                    
+                    vc.cameraRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "backCamera_auto") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.isComeForFrontCamera = false
+                    vc.isComeForBackAuto = true
+                    
+                    vc.cameraRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "backCamera_manual") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.isComeForFrontCamera = false
+                    vc.isComeForBackAuto = false
                     
                     vc.cameraRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
@@ -1228,10 +1552,69 @@ class DiagnosticTestResultVC: UIViewController, UITableViewDataSource, UITableVi
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "Device Button") {
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "volume up") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "VolumeButtonVC") as! VolumeButtonVC
                     vc.isComingFromTestResult = true
+                    
+                    vc.isComeForVolumeUp = true
+                    vc.isComeForVolumeDown = false
+                    vc.isComeForPowerBtn = false
+                    vc.isComeForRingerBtn = false
+                    
+                    vc.volumeRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "volume down") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "VolumeButtonVC") as! VolumeButtonVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.isComeForVolumeUp = false
+                    vc.isComeForVolumeDown = true
+                    vc.isComeForPowerBtn = false
+                    vc.isComeForRingerBtn = false
+                    
+                    vc.volumeRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "power button") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "VolumeButtonVC") as! VolumeButtonVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.isComeForVolumeUp = false
+                    vc.isComeForVolumeDown = false
+                    vc.isComeForPowerBtn = true
+                    vc.isComeForRingerBtn = false
+                    
+                    vc.volumeRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrFailedTest[indexPath.row - 1].strTestName == "ringer") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "VolumeButtonVC") as! VolumeButtonVC
+                    vc.isComingFromTestResult = true
+                    
+                    vc.isComeForVolumeUp = false
+                    vc.isComeForVolumeDown = false
+                    vc.isComeForPowerBtn = false
+                    vc.isComeForRingerBtn = true
                     
                     vc.volumeRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON

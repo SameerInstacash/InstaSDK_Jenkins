@@ -86,6 +86,11 @@
 		18E1C5F52C5B756E00676D59 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1C5EE2C5B756E00676D59 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		18E1C5F62C5B756E00676D59 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1C5EF2C5B756E00676D59 /* TPKeyboardAvoidingScrollView.m */; };
 		18E1C5F72C5B756E00676D59 /* TPKeyboardAvoidingCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1C5F12C5B756E00676D59 /* TPKeyboardAvoidingCollectionView.m */; };
+		591D6FDE2D73000F00A35CDC /* PhysicalQuestionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D6FDD2D73000F00A35CDC /* PhysicalQuestionVC.swift */; };
+		591D6FE12D7308FB00A35CDC /* PhysicalQuestionTblCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 591D6FE02D7308FB00A35CDC /* PhysicalQuestionTblCell.xib */; };
+		591D6FE22D7308FB00A35CDC /* PhysicalQuestionTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D6FDF2D7308FB00A35CDC /* PhysicalQuestionTblCell.swift */; };
+		591D6FE52D73098F00A35CDC /* PhysicalQuestionCollectionVWCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 591D6FE42D73098F00A35CDC /* PhysicalQuestionCollectionVWCell.xib */; };
+		591D6FE62D73098F00A35CDC /* PhysicalQuestionCollectionVWCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D6FE32D73098F00A35CDC /* PhysicalQuestionCollectionVWCell.swift */; };
 		596AA4022D6359AF001E72A0 /* BluetoothPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA4012D6359AF001E72A0 /* BluetoothPermission */; };
 		596AA4042D6359AF001E72A0 /* CameraPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA4032D6359AF001E72A0 /* CameraPermission */; };
 		596AA4062D6359AF001E72A0 /* FaceIDPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 596AA4052D6359AF001E72A0 /* FaceIDPermission */; };
@@ -217,6 +222,11 @@
 		18E1C5F32C5B756E00676D59 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		398D284FDDF91CD9010CF8DB /* Pods_InstaCashSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaCashSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47561EA5E6AE836B7C6D1F8D /* Pods-InstaCashSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaCashSDK.debug.xcconfig"; path = "Target Support Files/Pods-InstaCashSDK/Pods-InstaCashSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		591D6FDD2D73000F00A35CDC /* PhysicalQuestionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalQuestionVC.swift; sourceTree = "<group>"; };
+		591D6FDF2D7308FB00A35CDC /* PhysicalQuestionTblCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalQuestionTblCell.swift; sourceTree = "<group>"; };
+		591D6FE02D7308FB00A35CDC /* PhysicalQuestionTblCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhysicalQuestionTblCell.xib; sourceTree = "<group>"; };
+		591D6FE32D73098F00A35CDC /* PhysicalQuestionCollectionVWCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalQuestionCollectionVWCell.swift; sourceTree = "<group>"; };
+		591D6FE42D73098F00A35CDC /* PhysicalQuestionCollectionVWCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhysicalQuestionCollectionVWCell.xib; sourceTree = "<group>"; };
 		59D4BD922D11823F00E009B0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		59DE7CF12CFF28BA00DFC04C /* ios-data-wipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ios-data-wipe.swift"; sourceTree = "<group>"; };
 		59E7F6842D6491BC0040ECC4 /* CameraTestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTestVC.swift; sourceTree = "<group>"; };
@@ -275,6 +285,8 @@
 				18292ACB2C6CBA7900C8A525 /* TestResultCell.xib */,
 				18292ACF2C6CBA7A00C8A525 /* TestResultTitleCell.swift */,
 				18292ACE2C6CBA7A00C8A525 /* TestResultTitleCell.xib */,
+				591D6FDF2D7308FB00A35CDC /* PhysicalQuestionTblCell.swift */,
+				591D6FE02D7308FB00A35CDC /* PhysicalQuestionTblCell.xib */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -435,6 +447,7 @@
 				183ACBF22C564138004C9884 /* BiometricVC.swift */,
 				183ACBF62C564138004C9884 /* DiagnosticTestResultVC.swift */,
 				184A8C0D2C634D1200ECC27B /* GlobalSkipPopUpVC.swift */,
+				591D6FDD2D73000F00A35CDC /* PhysicalQuestionVC.swift */,
 			);
 			path = DiagnosticScreens;
 			sourceTree = "<group>";
@@ -444,6 +457,8 @@
 			children = (
 				188384E72C576771003CF5E1 /* TestCVCell.swift */,
 				188384E82C576771003CF5E1 /* TestCVCell.xib */,
+				591D6FE32D73098F00A35CDC /* PhysicalQuestionCollectionVWCell.swift */,
+				591D6FE42D73098F00A35CDC /* PhysicalQuestionCollectionVWCell.xib */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -608,6 +623,7 @@
 				183ACBCA2C5640F2004C9884 /* proximity.gif in Resources */,
 				183ACBDA2C5640F2004C9884 /* zero.wav in Resources */,
 				183ACBD82C5640F2004C9884 /* Roboto-Bold.ttf in Resources */,
+				591D6FE12D7308FB00A35CDC /* PhysicalQuestionTblCell.xib in Resources */,
 				183ACBDD2C5640F2004C9884 /* three.wav in Resources */,
 				183ACBCB2C5640F2004C9884 /* charging.gif in Resources */,
 				183ACB852C563E80004C9884 /* LaunchScreen.storyboard in Resources */,
@@ -631,6 +647,7 @@
 				183ACBDB2C5640F2004C9884 /* six.wav in Resources */,
 				183ACBCC2C5640F2004C9884 /* speech.gif in Resources */,
 				183ACBE12C5640F2004C9884 /* one.wav in Resources */,
+				591D6FE52D73098F00A35CDC /* PhysicalQuestionCollectionVWCell.xib in Resources */,
 				183ACBDE2C5640F2004C9884 /* seven.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -721,9 +738,11 @@
 				183ACBD22C5640F2004C9884 /* DeviceModel.swift in Sources */,
 				188384F22C577581003CF5E1 /* ConditionValue.swift in Sources */,
 				188384F42C577581003CF5E1 /* SpecificationValue.swift in Sources */,
+				591D6FDE2D73000F00A35CDC /* PhysicalQuestionVC.swift in Sources */,
 				188384F72C5792A3003CF5E1 /* BatteryVC.swift in Sources */,
 				183ACBFE2C564138004C9884 /* EarphoneVC.swift in Sources */,
 				183ACC0D2C564138004C9884 /* DiagnosticTestResultVC.swift in Sources */,
+				591D6FE62D73098F00A35CDC /* PhysicalQuestionCollectionVWCell.swift in Sources */,
 				183ACC0C2C564138004C9884 /* AutoRotationVC.swift in Sources */,
 				183ACBFC2C564138004C9884 /* MicroPhoneVC.swift in Sources */,
 				183ACB7B2C563E7E004C9884 /* SceneDelegate.swift in Sources */,
@@ -741,6 +760,7 @@
 				183ACBFD2C564138004C9884 /* VolumeButtonVC.swift in Sources */,
 				1833A30E2C7463E4009475AC /* Reachability.swift in Sources */,
 				188384FD2C579B13003CF5E1 /* BluetoothVC.swift in Sources */,
+				591D6FE22D7308FB00A35CDC /* PhysicalQuestionTblCell.swift in Sources */,
 				18292AD02C6CBA7A00C8A525 /* TestResultCell.swift in Sources */,
 				184A8C0E2C634D1200ECC27B /* GlobalSkipPopUpVC.swift in Sources */,
 				183ACC042C564138004C9884 /* SpeakerVC.swift in Sources */,
@@ -967,7 +987,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.3;
+				MARKETING_VERSION = 0.0.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -1076,7 +1096,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.3;
+				MARKETING_VERSION = 0.0.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",

@@ -31,6 +31,8 @@ class VibratorVC: UIViewController {
     let manager = CMMotionManager()
     var isVibrate = false
     
+    var isAutoTest = false
+    
     var retryIndex = -1
     var isComingFromTestResult = false
     var vibratorRetryDiagnosis: ((_ testJSON: JSON) -> Void)?
@@ -172,8 +174,17 @@ class VibratorVC: UIViewController {
                 arrTestsResultJSONInSDK.append(1)
             }
             
-            self.resultJSON["Vibrator"].int = 1
-            UserDefaults.standard.set(true, forKey: "Vibrator")
+            //self.resultJSON["Vibrator"].int = 1
+            //UserDefaults.standard.set(true, forKey: "Vibrator")
+            
+            if self.isAutoTest {
+                self.resultJSON["vibrator_auto"].int = 1
+                UserDefaults.standard.set(true, forKey: "vibrator_auto")
+            }
+            else {
+                self.resultJSON["vibrator_manual"].int = 1
+                UserDefaults.standard.set(true, forKey: "vibrator_manual")
+            }
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {
@@ -213,8 +224,17 @@ class VibratorVC: UIViewController {
                     arrTestsResultJSONInSDK.append(0)
                 }
                 
-                self.resultJSON["Vibrator"].int = 0
-                UserDefaults.standard.set(false, forKey: "Vibrator")
+                //self.resultJSON["Vibrator"].int = 0
+                //UserDefaults.standard.set(false, forKey: "Vibrator")
+                
+                if self.isAutoTest {
+                    self.resultJSON["vibrator_auto"].int = 0
+                    UserDefaults.standard.set(false, forKey: "vibrator_auto")
+                }
+                else {
+                    self.resultJSON["vibrator_manual"].int = 0
+                    UserDefaults.standard.set(false, forKey: "vibrator_manual")
+                }
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
@@ -270,8 +290,17 @@ class VibratorVC: UIViewController {
                     arrTestsResultJSONInSDK.append(-2)
                 }
                 
-                self.resultJSON["Vibrator"].int = -2
-                UserDefaults.standard.set(true, forKey: "Vibrator")
+                //self.resultJSON["Vibrator"].int = -2
+                //UserDefaults.standard.set(true, forKey: "Vibrator")
+                
+                if self.isAutoTest {
+                    self.resultJSON["vibrator_auto"].int = -2
+                    UserDefaults.standard.set(true, forKey: "vibrator_auto")
+                }
+                else {
+                    self.resultJSON["vibrator_manual"].int = -2
+                    UserDefaults.standard.set(true, forKey: "vibrator_manual")
+                }
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
@@ -359,8 +388,17 @@ class VibratorVC: UIViewController {
             arrTestsResultJSONInSDK.append(1)
         }
         
-        self.resultJSON["Vibrator"].int = 1
-        UserDefaults.standard.set(true, forKey: "Vibrator")
+        //self.resultJSON["Vibrator"].int = 1
+        //UserDefaults.standard.set(true, forKey: "Vibrator")
+        
+        if self.isAutoTest {
+            self.resultJSON["vibrator_auto"].int = 1
+            UserDefaults.standard.set(true, forKey: "vibrator_auto")
+        }
+        else {
+            self.resultJSON["vibrator_manual"].int = 1
+            UserDefaults.standard.set(true, forKey: "vibrator_manual")
+        }
         
         AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
         DispatchQueue.main.async {
@@ -400,8 +438,17 @@ class VibratorVC: UIViewController {
             arrTestsResultJSONInSDK.append(0)
         }
         
-        self.resultJSON["Vibrator"].int = 0
-        UserDefaults.standard.set(false, forKey: "Vibrator")
+        //self.resultJSON["Vibrator"].int = 0
+        //UserDefaults.standard.set(false, forKey: "Vibrator")
+        
+        if self.isAutoTest {
+            self.resultJSON["vibrator_auto"].int = 0
+            UserDefaults.standard.set(false, forKey: "vibrator_auto")
+        }
+        else {
+            self.resultJSON["vibrator_manual"].int = 0
+            UserDefaults.standard.set(false, forKey: "vibrator_manual")
+        }
         
         AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
         DispatchQueue.main.async {

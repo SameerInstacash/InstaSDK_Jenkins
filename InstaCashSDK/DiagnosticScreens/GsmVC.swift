@@ -232,7 +232,7 @@ class GsmVC: UIViewController {
             let telephonyInfo = CTTelephonyNetworkInfo()
             
             if #available(iOS 12.0, *) {
-                if telephonyInfo.serviceCurrentRadioAccessTechnology == nil {
+                if telephonyInfo.serviceCurrentRadioAccessTechnology != nil {
                     //if telephonyInfo.currentRadioAccessTechnology == nil {
                     
                     // Next, on iOS 12 only, you can check the number of services connected
@@ -485,7 +485,8 @@ extension GsmVC {
             } else {
                 
                 // Device cannot place a call at this time. SIM might be removed
-                self.isCapableToCall = true
+                //self.isCapableToCall = true
+                self.isCapableToCall = false
                 
             }
             

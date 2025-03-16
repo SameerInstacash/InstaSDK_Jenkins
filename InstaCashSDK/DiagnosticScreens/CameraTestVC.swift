@@ -23,6 +23,8 @@ class CameraTestVC: UIViewController, AVCapturePhotoCaptureDelegate {
     
     var isComeFrom = ""
     
+    var isAutoClick = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,6 +37,14 @@ class CameraTestVC: UIViewController, AVCapturePhotoCaptureDelegate {
             backCamera2Click()
         default:
             backCamera3Click()
+        }
+        
+        if isAutoClick {
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+                self.handleTakePhoto(self.captureButton)
+            })
+            
         }
         
     }

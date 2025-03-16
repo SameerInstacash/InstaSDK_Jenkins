@@ -539,7 +539,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="frontCameraBtnClicked:" destination="Li0-d9-zEI" eventType="touchUpInside" id="ud6-mP-VOs"/>
+                                                    <action selector="frontCameraBtnClicked::" destination="Li0-d9-zEI" eventType="touchUpInside" id="VeM-dE-tyt"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0uP-Ke-g5Q" customClass="CornerButton" customModule="InstaCashSDK" customModuleProvider="target">
@@ -557,7 +557,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="backCamera1BtnClicked:" destination="Li0-d9-zEI" eventType="touchUpInside" id="oXB-e4-M8D"/>
+                                                    <action selector="backCamera1BtnClicked::" destination="Li0-d9-zEI" eventType="touchUpInside" id="zVC-11-5mg"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1He-pp-zxN" customClass="CornerButton" customModule="InstaCashSDK" customModuleProvider="target">
@@ -575,7 +575,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="backCamera2BtnClicked:" destination="Li0-d9-zEI" eventType="touchUpInside" id="qDx-bD-i4S"/>
+                                                    <action selector="backCamera2BtnClicked::" destination="Li0-d9-zEI" eventType="touchUpInside" id="84S-Xh-hn0"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sVA-dD-u5F" customClass="CornerButton" customModule="InstaCashSDK" customModuleProvider="target">
@@ -593,7 +593,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="backCamera3BtnClicked:" destination="Li0-d9-zEI" eventType="touchUpInside" id="1ey-ib-Xgc"/>
+                                                    <action selector="backCamera3BtnClicked::" destination="Li0-d9-zEI" eventType="touchUpInside" id="T9U-fh-mo3"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDq-on-F4m" customClass="CornerButton" customModule="InstaCashSDK" customModuleProvider="target">
@@ -751,7 +751,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6S4-oj-kdJ">
                                 <rect key="frame" x="15" y="103" width="290" height="362"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Volume Button" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyA-11-moh">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device Buttons" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyA-11-moh">
                                         <rect key="frame" x="10" y="10" width="270" height="50"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="20"/>
                                         <nil key="textColor"/>
@@ -927,6 +927,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="lblPower" destination="bxH-eK-pmC" id="2OL-fN-4Pu"/>
+                        <outlet property="lblSilent" destination="mzq-2B-lUt" id="InA-uh-kg1"/>
+                        <outlet property="lblVolumeDown" destination="98Y-yS-k7f" id="kIU-v5-YUe"/>
+                        <outlet property="lblVolumeUp" destination="tbp-im-ydF" id="pax-3v-OXw"/>
                         <outlet property="powerImgGif" destination="YaH-dh-75F" id="Xlp-tX-Hyd"/>
                         <outlet property="powerImgVW" destination="OVf-x5-F6K" id="Hgo-rf-Jnw"/>
                         <outlet property="silentImgGif" destination="AYX-B2-Rel" id="N1q-Sy-67n"/>
@@ -1858,9 +1862,12 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="AEf-A4-qgG"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="START TEST"/>
+                                        <state key="normal" title="START TEST">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <integer key="value" value="5"/>
@@ -1890,20 +1897,23 @@
                                     </button>
                                     <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNz-ci-UPs" customClass="CornerButton" customModule="InstaCashSDK" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="40"/>
-                                        <color key="backgroundColor" red="0.84705882349999995" green="0.76862745099999996" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.89411764705882346" green="0.60784313725490191" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Whw-cO-XqI"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="tintColor" red="0.1176470588" green="0.1137254902" blue="0.10980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="WIPE DATA"/>
+                                        <state key="normal" title="PHYSICAL QUESTION">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="wipeDataButtonPressed:" destination="Pfu-QE-7fw" eventType="touchUpInside" id="Q2s-af-upK"/>
+                                            <action selector="fetchQuestionsButtonPressed:" destination="Pfu-QE-7fw" eventType="touchUpInside" id="05j-Tv-ZVp"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1922,6 +1932,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="fetchQuestionBtn" destination="kNz-ci-UPs" id="GyH-68-ALi"/>
                         <outlet property="quiteAppBtn" destination="MQK-Su-1uM" id="z36-Gi-F9j"/>
                         <outlet property="startTestBtn" destination="mgr-Jm-67r" id="rUa-Gg-Fqh"/>
                         <outlet property="testCollectionView" destination="kXD-uE-G42" id="bzH-1M-P0c"/>
@@ -2603,6 +2614,81 @@
             </objects>
             <point key="canvasLocation" x="1446" y="-53"/>
         </scene>
+        <!--Physical QuestionVC-->
+        <scene sceneID="67j-tY-nod">
+            <objects>
+                <viewController storyboardIdentifier="PhysicalQuestionVC" id="qV9-Ve-aqA" customClass="PhysicalQuestionVC" customModule="InstaCashSDK" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ce3-w2-Cpv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="iB7-vZ-iML">
+                                <rect key="frame" x="20" y="40" width="253" height="4"/>
+                                <color key="progressTintColor" red="0.0" green="0.5607843137254902" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/1" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TUe-K8-PAt">
+                                <rect key="frame" x="283" y="33.5" width="17" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.5607843137254902" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fgB-H0-1C2">
+                                <rect key="frame" x="0.0" y="60.5" width="320" height="432.5"/>
+                                <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="qV9-Ve-aqA" id="aJI-7q-5KB"/>
+                                    <outlet property="delegate" destination="qV9-Ve-aqA" id="vRc-DR-wjE"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lb8-4q-Vei" customClass="CornerButton" customModule="InstaCashSDK" customModuleProvider="target">
+                                <rect key="frame" x="20" y="508" width="280" height="40"/>
+                                <color key="backgroundColor" red="0.0" green="0.56078431370000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="4Y3-KI-lEU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="SUBMIT">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="physicalQuestionsResultSubmitButtonPressed:" destination="qV9-Ve-aqA" eventType="touchUpInside" id="yRT-IA-M6S"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="uYZ-At-pai"/>
+                        <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="iB7-vZ-iML" firstAttribute="leading" secondItem="uYZ-At-pai" secondAttribute="leading" constant="20" id="1BA-4n-oDg"/>
+                            <constraint firstItem="uYZ-At-pai" firstAttribute="bottom" secondItem="Lb8-4q-Vei" secondAttribute="bottom" constant="20" id="7fV-vM-Aws"/>
+                            <constraint firstItem="fgB-H0-1C2" firstAttribute="leading" secondItem="uYZ-At-pai" secondAttribute="leading" id="CKr-Ip-Sad"/>
+                            <constraint firstItem="uYZ-At-pai" firstAttribute="trailing" secondItem="Lb8-4q-Vei" secondAttribute="trailing" constant="20" id="LJF-0Y-RQY"/>
+                            <constraint firstItem="Lb8-4q-Vei" firstAttribute="top" secondItem="fgB-H0-1C2" secondAttribute="bottom" constant="15" id="akn-qy-t8C"/>
+                            <constraint firstItem="Lb8-4q-Vei" firstAttribute="leading" secondItem="uYZ-At-pai" secondAttribute="leading" constant="20" id="bXI-Iw-RFq"/>
+                            <constraint firstAttribute="trailing" secondItem="TUe-K8-PAt" secondAttribute="trailing" constant="20" id="dQT-dN-PJm"/>
+                            <constraint firstItem="TUe-K8-PAt" firstAttribute="centerY" secondItem="iB7-vZ-iML" secondAttribute="centerY" id="eeD-BP-eye"/>
+                            <constraint firstItem="iB7-vZ-iML" firstAttribute="top" secondItem="uYZ-At-pai" secondAttribute="top" constant="20" id="gBA-DN-yV9"/>
+                            <constraint firstItem="fgB-H0-1C2" firstAttribute="top" secondItem="TUe-K8-PAt" secondAttribute="bottom" constant="10" id="jrw-MC-EpG"/>
+                            <constraint firstItem="TUe-K8-PAt" firstAttribute="leading" secondItem="iB7-vZ-iML" secondAttribute="trailing" constant="10" id="r1p-sC-lPX"/>
+                            <constraint firstItem="uYZ-At-pai" firstAttribute="trailing" secondItem="fgB-H0-1C2" secondAttribute="trailing" id="raH-ho-PXD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lblQuestionCount" destination="TUe-K8-PAt" id="e9z-AP-MBA"/>
+                        <outlet property="physicalQuestTblVW" destination="fgB-H0-1C2" id="9Xv-Jr-1Vu"/>
+                        <outlet property="questionProgressVW" destination="iB7-vZ-iML" id="3NQ-iG-sex"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gCa-zL-dzX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2223.75" y="-54.929577464788736"/>
+        </scene>
         <!--Camera TestVC-->
         <scene sceneID="xDa-6w-Grf">
             <objects>
@@ -2637,7 +2723,7 @@
                                             <constraint firstAttribute="width" constant="80" id="cib-rO-jVe"/>
                                         </constraints>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" image="cursorarrow.motionlines.click" catalog="system"/>
+                                        <state key="normal" image="capture"/>
                                         <connections>
                                             <action selector="handleTakePhoto:" destination="4uU-sa-LVn" eventType="touchUpInside" id="zFW-TY-bSC"/>
                                         </connections>
@@ -2677,7 +2763,7 @@
         <image name="auto rotation_test" width="238" height="238"/>
         <image name="bluetooth_test" width="139" height="139"/>
         <image name="camera_test" width="238" height="238"/>
-        <image name="cursorarrow.motionlines.click" catalog="system" width="128" height="124"/>
+        <image name="capture" width="40" height="40"/>
         <image name="dead pixels_test" width="209" height="209"/>
         <image name="earphone_test" width="209" height="209"/>
         <image name="flashlight.off.fill" catalog="system" width="72" height="128"/>

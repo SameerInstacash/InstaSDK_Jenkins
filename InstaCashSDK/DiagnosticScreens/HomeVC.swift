@@ -40,8 +40,9 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     @IBOutlet weak var testCollectionView: UICollectionView!
     @IBOutlet weak var startTestBtn: UIButton!
     @IBOutlet weak var quiteAppBtn: UIButton!
-    //@IBOutlet weak var syncResultBtn: UIButton!
+    @IBOutlet weak var fetchQuestionBtn: UIButton!
     
+    var questAnswerJSON = JSON()
     var phyMemoryJSON = JSON()
     var oemJailMdmJSON = JSON()
     var resultJSON = JSON()
@@ -185,6 +186,44 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         
         //generateDeviceToken()
                 
+        /*
+        print("Device Model: \(getDeviceModel())")
+        
+        if checkIfBothSIMsAreESIM() {
+            print("Both SIMs are eSIM")
+        } else {
+            print("At least one SIM is physical")
+        }
+        */
+        
+    }
+
+    func getDeviceModel() -> String {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        let machineMirror = Mirror(reflecting: systemInfo.machine)
+        let identifier = machineMirror.children.reduce("") { identifier, element in
+            guard let value = element.value as? Int8, value != 0 else { return identifier }
+            return identifier + String(UnicodeScalar(UInt8(value)))
+        }
+        return identifier
+    }
+    
+    func checkIfBothSIMsAreESIM() -> Bool {
+        let networkInfo = CTTelephonyNetworkInfo()
+
+        // Get cellular providers (both SIMs if available)
+        guard let providers = networkInfo.serviceSubscriberCellularProviders else {
+            print("No cellular providers found")
+            return false
+        }
+
+        // Check if both SIMs exist and are eSIMs
+        let esimCarriers = providers.values.filter { $0.carrierName != nil && $0.mobileNetworkCode != nil }
+        
+        // If we have 2 active eSIM carriers, it's an eSIM-only device
+        let isESIMOnly = esimCarriers.count == 2
+        return isESIMOnly
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -256,18 +295,31 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
     
     func setCustomNavigationBar() {
-        
+              
+        //hide on 1/3/25
+        /*
         self.navigationController?.navigationBar.barStyle = .default
         //self.navigationController?.navigationBar.barTintColor = UIColor.lightGray
         self.navigationController?.view.tintColor = .black
         self.navigationItem.title = self.getLocalizatioStringValue(key: "InstaDiagnosis")
         
+         
+        if #available(iOS 13.0, *) {
+            UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+            UINavigationBar.appearance().shadowImage = UIImage()
+            UINavigationBar.appearance().isTranslucent = true
+        } else {
+            // Fallback on earlier versions
+        }
+                  
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "backWhite"), style: .plain, target: self, action: #selector(backBtnPressed))
+        */
+         
+        
         //self.navigationController?.view.backgroundColor = .black
         //self.navigationController?.hidesBarsOnSwipe = true
         //self.navigationController?.navigationBar.prefersLargeTitles = true
-        
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "backWhite"), style: .plain, target: self, action: #selector(backBtnPressed))
-        
+                
         
         /*
          //create a new button as RightBarButton for Language change in SDK
@@ -285,13 +337,23 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
          */
         
         
-        if #available(iOS 13.0, *) {
-            UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
-            UINavigationBar.appearance().shadowImage = UIImage()
-            UINavigationBar.appearance().isTranslucent = true
-        } else {
-            // Fallback on earlier versions
-        }
+        
+        
+        //Added on 1/3/25
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = GlobalUtility().AppThemeColor
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        
+        self.title = "InstaDiagnosis"
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "backWhite"), style: .plain, target: self, action: #selector(backBtnPressed))
+        
+        self.navigationController?.hidesBarsOnSwipe = true
         
     }
     
@@ -349,30 +411,43 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             arrTestsInSDK = [
                 
                 "Bluetooth",
-//                "WiFi",
-//                "Battery",
-//                "Storage",
-//                "GPS",
+                "WiFi",
+                "Battery",
+                "Storage",
+                "GPS",
                 "GSM Network",
+                "vibrator_auto",
+                //"vibrator_manual",
+                
+//                "frontCamera_auto",
+//                "backCamera_auto",
+//                "frontCamera_manual",
+//                "backCamera_manual",
+                                
+                "Autofocus",
+                "Auto Rotation",
+                "Proximity",
+                "Finger Print",
+                "Dead Pixel",
+                "Touch Screen",
+                "Earphone Jack",
+                "USB Slot",
+                "Torch",
+                "volume up",
+                "volume down",
+                "power button",
+                "ringer",
+                "Top Speakers",
+                "Bottom Speakers",
+                "Top Microphone",
+                "Bottom Microphone",
+                
+                
+//                "Device Button",
 //                "Vibrator",
 //                "Camera",
-//                "Autofocus",
-//                "Auto Rotation",
-//                "Proximity",
-//                "Finger Print",
-//                "Dead Pixel",
-//                "Touch Screen",
-//                "Earphone Jack",
-//                "USB Slot",
-//                "Torch",
-//                "Device Button",
-//                "Top Speakers",
-//                "Bottom Speakers",
-//                "Top Microphone",
-//                "Bottom Microphone",
+//                "nfc",
                 
-                
-                //"nfc",
                 
             ]
             
@@ -524,8 +599,6 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             self.runTestDynamicInApp()
             
             self.startTestBtn.setTitle(self.getLocalizatioStringValue(key: "RESTART TEST"), for: .normal)
-            //self.quiteAppBtn.isHidden = false
-            //self.syncResultBtn.isHidden = false
             
             self.printRamRom()
             
@@ -550,6 +623,34 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             exit(0)
         }
+    }
+    
+    @IBAction func fetchQuestionsButtonPressed(_ sender: UIButton) {
+                
+        var jsonStrOfQuestAnswer = ""
+        
+        if let jsonStr = UIPasteboard.general.string {
+            
+            jsonStrOfQuestAnswer = jsonStr
+             
+            print("Received JSON: \(jsonStrOfQuestAnswer)");
+            
+        }
+        
+        
+        
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "PhysicalQuestionVC") as! PhysicalQuestionVC
+        vc.modalPresentationStyle = .fullScreen
+        
+        vc.questAnswerDict = { dict in
+            self.questAnswerJSON = JSON(dict)
+            
+            print("questAnswerJSON is :",self.questAnswerJSON)
+        }
+        
+        self.navigationController?.pushViewController(vc, animated: false)
+        
     }
     
     @IBAction func syncResultButtonPressed(_ sender: UIButton) {
@@ -937,11 +1038,44 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "Vibrator") {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "vibrator_auto") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "VibratorVC") as! VibratorVC
                     vc.isComingFromTestResult = true
                     vc.retryIndex = indexPath.item
+                    
+                    vc.isAutoTest = true
+                    
+                    vc.vibratorRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                        
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
+                        
+                        self.testCollectionView.reloadData()
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "vibrator_manual") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "VibratorVC") as! VibratorVC
+                    vc.isComingFromTestResult = true
+                    vc.retryIndex = indexPath.item
+                    
+                    vc.isAutoTest = false
                     
                     vc.vibratorRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
@@ -1268,11 +1402,110 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "Camera") {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "frontCamera_auto") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
                     vc.isComingFromTestResult = true
                     vc.retryIndex = indexPath.item
+                    
+                    vc.isComeForFrontCamera = true
+                    vc.isComeForFrontAuto = true
+                    
+                    vc.cameraRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                        
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
+                        
+                        self.testCollectionView.reloadData()
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "frontCamera_manual") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
+                    vc.isComingFromTestResult = true
+                    vc.retryIndex = indexPath.item
+                    
+                    vc.isComeForFrontCamera = true
+                    vc.isComeForFrontAuto = false
+                    
+                    vc.cameraRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                        
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
+                        
+                        self.testCollectionView.reloadData()
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "backCamera_auto") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
+                    vc.isComingFromTestResult = true
+                    vc.retryIndex = indexPath.item
+                    
+                    vc.isComeForFrontCamera = false
+                    vc.isComeForBackAuto = true
+                    
+                    vc.cameraRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                        
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
+                        
+                        self.testCollectionView.reloadData()
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "backCamera_manual") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "CameraVC") as! CameraVC
+                    vc.isComingFromTestResult = true
+                    vc.retryIndex = indexPath.item
+                    
+                    vc.isComeForFrontCamera = false
+                    vc.isComeForBackAuto = false
                     
                     vc.cameraRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
@@ -1355,11 +1588,118 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "Device Button") {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "volume up") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "VolumeButtonVC") as! VolumeButtonVC
                     vc.isComingFromTestResult = true
                     vc.retryIndex = indexPath.item
+                    
+                    vc.isComeForVolumeUp = true
+                    vc.isComeForVolumeDown = false
+                    vc.isComeForPowerBtn = false
+                    vc.isComeForRingerBtn = false
+                    
+                    vc.volumeRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                        
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
+                        
+                        self.testCollectionView.reloadData()
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "volume down") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "VolumeButtonVC") as! VolumeButtonVC
+                    vc.isComingFromTestResult = true
+                    vc.retryIndex = indexPath.item
+                    
+                    vc.isComeForVolumeUp = false
+                    vc.isComeForVolumeDown = true
+                    vc.isComeForPowerBtn = false
+                    vc.isComeForRingerBtn = false
+                    
+                    vc.volumeRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                        
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
+                        
+                        self.testCollectionView.reloadData()
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "power button") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "VolumeButtonVC") as! VolumeButtonVC
+                    vc.isComingFromTestResult = true
+                    vc.retryIndex = indexPath.item
+                    
+                    vc.isComeForVolumeUp = false
+                    vc.isComeForVolumeDown = false
+                    vc.isComeForPowerBtn = true
+                    vc.isComeForRingerBtn = false
+                    
+                    vc.volumeRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                        
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
+                        
+                        self.testCollectionView.reloadData()
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "ringer") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "VolumeButtonVC") as! VolumeButtonVC
+                    vc.isComingFromTestResult = true
+                    vc.retryIndex = indexPath.item
+                    
+                    vc.isComeForVolumeUp = false
+                    vc.isComeForVolumeDown = false
+                    vc.isComeForPowerBtn = false
+                    vc.isComeForRingerBtn = true
                     
                     vc.volumeRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
@@ -1545,9 +1885,9 @@ extension HomeVC {
                         
                         break
                         
-                    case "Vibrator":
+                    case "vibrator_auto":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("Vibrator")) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("vibrator_auto")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             self.vibratorLoad()
@@ -1555,6 +1895,21 @@ extension HomeVC {
                         }
                         
                         break
+                        
+                    case "vibrator_manual":
+                        
+                        if let ind = arrTestsInSDK.firstIndex(of: ("vibrator_manual")) {
+                            arrTestsInSDK.remove(at: ind)
+                            
+                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "VibratorVC") as! VibratorVC
+                            vc.isAutoTest = false
+                            let navigationController = UINavigationController(rootViewController: vc)
+                            navigationController.modalPresentationStyle = .overFullScreen
+                            vc.resultJSON = testResultJSON
+                            vc.modalPresentationStyle = .overFullScreen
+                            self.present(navigationController, animated: true, completion: nil)
+                            
+                        }
                         
                         /*
                          case "Bluetooth":
@@ -1838,10 +2193,10 @@ extension HomeVC {
                         
                         break
                         
-                    case "Camera":
+                    case "frontCamera_auto", "frontCamera_manual", "backCamera_auto", "backCamera_manual" :
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("Camera")) {
-                            arrTestsInSDK.remove(at: ind)
+                        //if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_auto")) {
+                            //arrTestsInSDK.remove(at: ind)
                             
                             //if let ind1 = arrTestsInSDK.firstIndex(of: ("Autofocus")) {
                             //arrTestsInSDK.remove(at: ind1)
@@ -1854,7 +2209,7 @@ extension HomeVC {
                             vc.modalPresentationStyle = .fullScreen
                             self.present(navigationController, animated: true, completion: nil)
                             
-                        }
+                        //}
                         
                         break
                         
@@ -1894,10 +2249,10 @@ extension HomeVC {
                         
                         break
                         
-                    case "Device Button":
+                    case "volume up", "volume down", "power button", "ringer" :
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("Device Button")) {
-                            arrTestsInSDK.remove(at: ind)
+                        //if let ind = arrTestsInSDK.firstIndex(of: ("volume up")) {
+                            //arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "VolumeButtonVC") as! VolumeButtonVC
                             let navigationController = UINavigationController(rootViewController: vc)
@@ -1906,7 +2261,7 @@ extension HomeVC {
                             vc.modalPresentationStyle = .overFullScreen
                             self.present(navigationController, animated: true, completion: nil)
                             
-                        }
+                        //}
                         
                         break
                         
@@ -1957,7 +2312,21 @@ extension HomeVC {
                     UIDevice.current.isBatteryMonitoringEnabled = true
                     NotificationCenter.default.addObserver(self, selector: #selector(self.batteryStateChanged), name: UIDevice.batteryStateDidChangeNotification, object: nil)
                 
-                
+                    
+                    self.fetchQuestionBtn.isHidden = false
+                    
+                    
+                    /*
+                    if Luminous.Battery.state == .charging || Luminous.Battery.state == .full {
+                        print("iPhone is connected via USB (charging)")
+                        self.runTimerForResultSync()
+                    }
+                    else {
+                        print("iPhone is not connected via USB")
+                        self.SyncClose()
+                    }
+                    */
+                    
                 
                 /*
                  let vc = self.storyboard?.instantiateViewController(withIdentifier: "DiagnosticTestResultVC") as! DiagnosticTestResultVC
@@ -1978,9 +2347,11 @@ extension HomeVC {
         }
         
     }
-        
     
     @objc func batteryStateChanged() {
+        
+        //SyncClose()
+        
         if UIDevice.current.batteryState == .charging || UIDevice.current.batteryState == .full {
             print("iPhone is connected via USB (charging)")
             runTimerForResultSync()
@@ -1988,6 +2359,7 @@ extension HomeVC {
             print("iPhone is not connected via USB")
             SyncClose()
         }
+        
     }
     
     func runTimerForResultSync() {
@@ -2017,11 +2389,6 @@ extension HomeVC {
     }
     
     func printSyncResult() {
-        
-        //39220iOS@physicalMemory{}
-        //390220iOS@LOCKS{}
-        //390220iOS@warehouse{}
-        
         
         DispatchQueue.main.async {
             
@@ -2065,7 +2432,7 @@ extension HomeVC {
             }
             
             
-            NSLog("%@%@%@%@%@%@%@%@", "39220iOS@physicalMemory: ", "\(self.phyMemoryJSON)", "\n" , "39220iOS@LOCKS: ", "\(self.oemJailMdmJSON)", "\n",  "39220iOS@warehouse: ", "\(self.resultJSON)")
+            NSLog("%@%@%@%@%@%@%@%@%@%@%@", "39220iOS@physicalMemory: ", "\(self.phyMemoryJSON)", "\n" , "39220iOS@LOCKS: ", "\(self.oemJailMdmJSON)", "\n",  "39220iOS@warehouse: ", "\(self.resultJSON)", "\n", "39220iOS@physicalQuestions", "\(self.questAnswerJSON)")
             
         }
         
@@ -3260,6 +3627,7 @@ extension HomeVC {
         
         if self.checkGSM() {
             
+            /*
             if Luminous.Carrier.mobileCountryCode != nil {
                 
                 if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
@@ -3346,7 +3714,7 @@ extension HomeVC {
                 
                 return
             }
-            
+            */
             
             //MARK: ***** TO CHECK GSM TEST WHEN E-SIM AVAILABLE ***** //
             
@@ -3355,8 +3723,7 @@ extension HomeVC {
             let telephonyInfo = CTTelephonyNetworkInfo()
             
             if #available(iOS 12.0, *) {
-                if telephonyInfo.serviceCurrentRadioAccessTechnology == nil {
-                    //if telephonyInfo.currentRadioAccessTechnology == nil {
+                if telephonyInfo.serviceCurrentRadioAccessTechnology != nil {
                     
                     // Next, on iOS 12 only, you can check the number of services connected
                     // With the new serviceCurrentRadioAccessTechnology property
@@ -3392,14 +3759,27 @@ extension HomeVC {
                         
                         return
                     }
+                    else{
+                        print("radioTechnologies is Empty")
+                        
+                        markAsFail()
+                    }
+                    
+                }
+                else {
+                    print("telephonyInfo.serviceCurrentRadioAccessTechnology is nil")
+                    
+                    markAsFail()
                     
                 }
                 
             } else {
                 // Fallback on earlier versions
                 
+                markAsFail()
             }
             
+            /*
             if #available(iOS 12.0, *) {
                 if let countryCode = CTTelephonyNetworkInfo().serviceSubscriberCellularProviders?.values.first(where: { $0.isoCountryCode != nil }) {
                     print("Country Code : \(countryCode)")
@@ -3458,6 +3838,7 @@ extension HomeVC {
                     
                 }
             }
+            */
             
             // ***** TO CHECK GSM TEST WHEN E-SIM AVAILABLE ***** //
             
@@ -3493,6 +3874,33 @@ extension HomeVC {
         
     }
     
+    func markAsFail() {
+        
+        if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+            let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+            self.resultJSON = resultJson
+        }
+        
+        arrTestsResultJSONInSDK.append(0)
+        
+        self.resultJSON["GSM Network"].int = 0
+        UserDefaults.standard.set(false, forKey: "GSM Network")
+        
+        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+        DispatchQueue.main.async {
+            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                self.resultJSON = resultJson
+                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+            }
+            else {
+                NSLog("%@%@", "39220iOS@warehouse: ", "\(self.resultJSON)")
+            }
+        }
+                            
+        self.gsmTestClose()
+    }
+    
     func checkGSM() -> Bool {
         
         if UIApplication.shared.canOpenURL(NSURL(string: "tel://")! as URL) {
@@ -3508,7 +3916,8 @@ extension HomeVC {
             } else {
                 
                 // Device cannot place a call at this time. SIM might be removed
-                self.isCapableToCall = true
+                //self.isCapableToCall = true
+                self.isCapableToCall = false
                 
             }
             
@@ -3557,8 +3966,9 @@ extension HomeVC {
             
             arrTestsResultJSONInSDK.append(1)
             
-            self.resultJSON["Vibrator"].int = 1
-            UserDefaults.standard.set(true, forKey: "Vibrator")
+            self.resultJSON["vibrator_auto"].int = 1
+            UserDefaults.standard.set(true, forKey: "vibrator_auto")
+            
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {
@@ -3585,8 +3995,8 @@ extension HomeVC {
                 
                 arrTestsResultJSONInSDK.append(0)
                 
-                self.resultJSON["Vibrator"].int = 0
-                UserDefaults.standard.set(false, forKey: "Vibrator")
+                self.resultJSON["vibrator_auto"].int = 0
+                UserDefaults.standard.set(false, forKey: "vibrator_auto")
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
@@ -3630,8 +4040,8 @@ extension HomeVC {
                 
                 arrTestsResultJSONInSDK.append(-2)
                 
-                self.resultJSON["Vibrator"].int = -2
-                UserDefaults.standard.set(true, forKey: "Vibrator")
+                self.resultJSON["vibrator_auto"].int = -2
+                UserDefaults.standard.set(true, forKey: "vibrator_auto")
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {

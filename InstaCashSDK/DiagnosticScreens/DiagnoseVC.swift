@@ -64,12 +64,20 @@ open class DiagnoseVC: UIViewController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.navigationController?.navigationBar.isHidden = true
+        
         //AppOrientationUtility.lockOrientation(.portrait)
         appDelegate_Obj.orientationLock = .portrait
         
         self.setUIElementsProperties()
         
         self.changeLanguageOfUI()
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     // MARK: Custom Methods

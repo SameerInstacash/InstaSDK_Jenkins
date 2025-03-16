@@ -16,6 +16,11 @@ var checkPowerBtnState : (() -> Void)?
 
 class VolumeButtonVC: UIViewController {
     
+    @IBOutlet weak var lblVolumeUp: UILabel!
+    @IBOutlet weak var lblVolumeDown: UILabel!
+    @IBOutlet weak var lblSilent: UILabel!
+    @IBOutlet weak var lblPower: UILabel!
+    
     @IBOutlet weak var volumeUpImgVW: UIImageView!
     @IBOutlet weak var volumeDownImgVW: UIImageView!
     @IBOutlet weak var silentImgVW: UIImageView!
@@ -27,9 +32,7 @@ class VolumeButtonVC: UIViewController {
     @IBOutlet weak var powerImgGif: UIImageView!
     
     var resultJSON = JSON()
-    
-    var volDown = false
-    var volUp = false
+        
     private var audioLevel : Float = 0.0
     var audioSession : AVAudioSession?
     
@@ -37,32 +40,155 @@ class VolumeButtonVC: UIViewController {
     var isComingFromTestResult = false
     var volumeRetryDiagnosis: ((_ testJSON: JSON) -> Void)?
     
+    var volUp = false
+    var volDown = false
     var isPowerKeyPress = false
     var isSilentKeyPress = false
+    
     var isValueChange : Bool?
+    
+    var isComeForVolumeUp = false
+    var isComeForVolumeDown = false
+    var isComeForPowerBtn = false
+    var isComeForRingerBtn = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setStatusBarColor(themeColor: GlobalUtility().AppThemeColor)
-        
-        self.volumeUpImgGif.loadGif(name: "ring_loader")
-        self.volumeDownImgGif.loadGif(name: "ring_loader")
-        self.silentImgGif.loadGif(name: "ring_loader")
-        self.powerImgGif.loadGif(name: "ring_loader")
+            
+        if self.isComingFromTestResult {
+            
+            if isComeForVolumeUp {
+                self.volUp = false
+                
+                self.volumeUpImgGif.loadGif(name: "ring_loader")
+            }
+            else {
+                self.volUp = true
+                
+                self.lblVolumeUp.isHidden = true
+                self.volumeUpImgGif.isHidden = true
+                self.volumeUpImgVW.isHidden = true
+            }
+            
+            if self.isComeForVolumeDown {
+                self.volDown = false
+
+                self.volumeDownImgGif.loadGif(name: "ring_loader")
+            }
+            else {
+                self.volDown = true
+                
+                self.lblVolumeDown.isHidden = true
+                self.volumeDownImgGif.isHidden = true
+                self.volumeDownImgVW.isHidden = true
+            }
+            
+            if self.isComeForPowerBtn {
+                self.isPowerKeyPress = false
+                
+                self.powerImgGif.loadGif(name: "ring_loader")
+                
+                NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+                
+            }
+            else {
+                self.isPowerKeyPress = true
+                
+                self.lblPower.isHidden = true
+                self.powerImgGif.isHidden = true
+                self.powerImgVW.isHidden = true
+            }
+            
+            if self.isComeForRingerBtn {
+                self.isSilentKeyPress = false
+                
+                self.silentImgGif.loadGif(name: "ring_loader")
+                
+                self.checkSilentKey()
+            }
+            else {
+                self.isSilentKeyPress = true
+                
+                self.lblSilent.isHidden = true
+                self.silentImgGif.isHidden = true
+                self.silentImgVW.isHidden = true
+            }
+            
+        }
+        else {
+            
+            if let ind = arrTestsInSDK.firstIndex(of: ("volume up")) {
+                self.volUp = false
+                
+                self.volumeUpImgGif.loadGif(name: "ring_loader")
+            }
+            else {
+                self.volUp = true
+                
+                self.lblVolumeUp.isHidden = true
+                self.volumeUpImgGif.isHidden = true
+                self.volumeUpImgVW.isHidden = true
+            }
+            
+            if let ind = arrTestsInSDK.firstIndex(of: ("volume down")) {
+                self.volDown = false
+                
+                self.volumeDownImgGif.loadGif(name: "ring_loader")
+            }
+            else {
+                self.volDown = true
+                
+                self.lblVolumeDown.isHidden = true
+                self.volumeDownImgGif.isHidden = true
+                self.volumeDownImgVW.isHidden = true
+            }
+            
+            if let ind = arrTestsInSDK.firstIndex(of: ("power button")) {
+                self.isPowerKeyPress = false
+                
+                self.powerImgGif.loadGif(name: "ring_loader")
+                
+                NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+                
+                checkPowerBtnState = {
+                    self.listenVolumeButton()
+                    
+                    self.checkSilentKey()
+                }
+                
+            }
+            else {
+                self.isPowerKeyPress = true
+                
+                self.lblPower.isHidden = true
+                self.powerImgGif.isHidden = true
+                self.powerImgVW.isHidden = true
+            }
+            
+            if let ind = arrTestsInSDK.firstIndex(of: ("ringer")) {
+                self.isSilentKeyPress = false
+                
+                self.silentImgGif.loadGif(name: "ring_loader")
+                
+                self.checkSilentKey()
+            }
+            else {
+                self.isSilentKeyPress = true
+                
+                self.lblSilent.isHidden = true
+                self.silentImgGif.isHidden = true
+                self.silentImgVW.isHidden = true
+            }
+            
+        }
+          
         
         self.listenVolumeButton()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+                
         
         //NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-        
-        
-        checkPowerBtnState = {
-            self.listenVolumeButton()
-            
-            self.checkSilentKey()
-        }
         
     }
     
@@ -73,7 +199,7 @@ class VolumeButtonVC: UIViewController {
         
         self.setCustomNavigationBar()
         
-        self.checkSilentKey()
+        //self.checkSilentKey()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -140,6 +266,7 @@ class VolumeButtonVC: UIViewController {
             self.resultJSON = resultJson
         }
         
+        /*
         if self.isComingFromTestResult {
             arrTestsResultJSONInSDK.remove(at: retryIndex)
             arrTestsResultJSONInSDK.insert(1, at: retryIndex)
@@ -150,6 +277,87 @@ class VolumeButtonVC: UIViewController {
         
         UserDefaults.standard.set(true, forKey: "volume")
         self.resultJSON["Device Button"].int = 1
+        */
+        
+        if self.isComingFromTestResult {
+            
+            if self.isComeForVolumeUp {
+                
+                arrTestsResultJSONInSDK.remove(at: retryIndex)
+                arrTestsResultJSONInSDK.insert(1, at: retryIndex)
+                
+                UserDefaults.standard.set(true, forKey: "volume up")
+                self.resultJSON["volume up"].int = 1
+            }
+            
+            if self.isComeForVolumeDown {
+                
+                arrTestsResultJSONInSDK.remove(at: retryIndex)
+                arrTestsResultJSONInSDK.insert(1, at: retryIndex)
+                
+                UserDefaults.standard.set(true, forKey: "volume down")
+                self.resultJSON["volume down"].int = 1
+            }
+            
+            if self.isComeForPowerBtn {
+                
+                arrTestsResultJSONInSDK.remove(at: retryIndex)
+                arrTestsResultJSONInSDK.insert(1, at: retryIndex)
+                
+                UserDefaults.standard.set(true, forKey: "power button")
+                self.resultJSON["power button"].int = 1
+            }
+            
+            if self.isComeForRingerBtn {
+                
+                arrTestsResultJSONInSDK.remove(at: retryIndex)
+                arrTestsResultJSONInSDK.insert(1, at: retryIndex)
+                
+                UserDefaults.standard.set(true, forKey: "ringer")
+                self.resultJSON["ringer"].int = 1
+            }
+            
+        }
+        else {
+            
+            if let ind = arrTestsInSDK.firstIndex(of: ("volume up")) {
+                arrTestsInSDK.remove(at: ind)
+                
+                UserDefaults.standard.set(true, forKey: "volume up")
+                self.resultJSON["volume up"].int = 1
+                
+                arrTestsResultJSONInSDK.append(1)
+            }
+            
+            if let ind = arrTestsInSDK.firstIndex(of: ("volume down")) {
+                arrTestsInSDK.remove(at: ind)
+                
+                UserDefaults.standard.set(true, forKey: "volume down")
+                self.resultJSON["volume down"].int = 1
+                
+                arrTestsResultJSONInSDK.append(1)
+            }
+            
+            if let ind = arrTestsInSDK.firstIndex(of: ("power button")) {
+                arrTestsInSDK.remove(at: ind)
+                
+                UserDefaults.standard.set(true, forKey: "power button")
+                self.resultJSON["power button"].int = 1
+                
+                arrTestsResultJSONInSDK.append(1)
+            }
+            
+            if let ind = arrTestsInSDK.firstIndex(of: ("ringer")) {
+                arrTestsInSDK.remove(at: ind)
+                
+                UserDefaults.standard.set(true, forKey: "ringer")
+                self.resultJSON["ringer"].int = 1
+                
+                arrTestsResultJSONInSDK.append(1)
+            }
+            
+        }
+        
         
         AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
         DispatchQueue.main.async {
@@ -271,6 +479,7 @@ class VolumeButtonVC: UIViewController {
             self.resultJSON = resultJson
         }
         
+        /*
         if self.isComingFromTestResult {
             arrTestsResultJSONInSDK.remove(at: retryIndex)
             arrTestsResultJSONInSDK.insert(-1, at: retryIndex)
@@ -281,6 +490,83 @@ class VolumeButtonVC: UIViewController {
         
         UserDefaults.standard.set(false, forKey: "volume")
         self.resultJSON["Device Button"].int = -1
+        */
+        
+        if self.isComingFromTestResult {
+            
+            if self.isComeForVolumeUp {
+                UserDefaults.standard.set(false, forKey: "volume up")
+                self.resultJSON["volume up"].int = -1
+                
+                arrTestsResultJSONInSDK.remove(at: retryIndex)
+                arrTestsResultJSONInSDK.insert(-1, at: retryIndex)
+            }
+            
+            if self.isComeForVolumeDown {
+                UserDefaults.standard.set(false, forKey: "volume down")
+                self.resultJSON["volume down"].int = -1
+                
+                arrTestsResultJSONInSDK.remove(at: retryIndex)
+                arrTestsResultJSONInSDK.insert(-1, at: retryIndex)
+            }
+            
+            if self.isComeForPowerBtn {
+                UserDefaults.standard.set(false, forKey: "power button")
+                self.resultJSON["power button"].int = -1
+                
+                arrTestsResultJSONInSDK.remove(at: retryIndex)
+                arrTestsResultJSONInSDK.insert(-1, at: retryIndex)
+            }
+            
+            if self.isComeForRingerBtn {
+                UserDefaults.standard.set(false, forKey: "ringer")
+                self.resultJSON["ringer"].int = -1
+                
+                arrTestsResultJSONInSDK.remove(at: retryIndex)
+                arrTestsResultJSONInSDK.insert(-1, at: retryIndex)
+            }
+            
+        }
+        else {
+            
+            if let ind = arrTestsInSDK.firstIndex(of: ("volume up")) {
+                arrTestsInSDK.remove(at: ind)
+                
+                UserDefaults.standard.set(false, forKey: "volume up")
+                self.resultJSON["volume up"].int = -1
+                
+                arrTestsResultJSONInSDK.append(-1)
+            }
+            
+            if let ind = arrTestsInSDK.firstIndex(of: ("volume down")) {
+                arrTestsInSDK.remove(at: ind)
+                
+                UserDefaults.standard.set(false, forKey: "volume down")
+                self.resultJSON["volume down"].int = -1
+                
+                arrTestsResultJSONInSDK.append(-1)
+            }
+            
+            if let ind = arrTestsInSDK.firstIndex(of: ("power button")) {
+                arrTestsInSDK.remove(at: ind)
+                
+                UserDefaults.standard.set(false, forKey: "power button")
+                self.resultJSON["power button"].int = -1
+                
+                arrTestsResultJSONInSDK.append(-1)
+            }
+            
+            if let ind = arrTestsInSDK.firstIndex(of: ("ringer")) {
+                arrTestsInSDK.remove(at: ind)
+                
+                UserDefaults.standard.set(false, forKey: "ringer")
+                self.resultJSON["ringer"].int = -1
+                
+                arrTestsResultJSONInSDK.append(-1)
+            }
+            
+        }
+        
         
         AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
         DispatchQueue.main.async {
@@ -381,6 +667,7 @@ class VolumeButtonVC: UIViewController {
                     self.resultJSON = resultJson
                 }
                 
+                /*
                 if self.isComingFromTestResult {
                     arrTestsResultJSONInSDK.remove(at: self.retryIndex)
                     arrTestsResultJSONInSDK.insert(-1, at: self.retryIndex)
@@ -391,6 +678,83 @@ class VolumeButtonVC: UIViewController {
                 
                 UserDefaults.standard.set(false, forKey: "volume")
                 self.resultJSON["Device Button"].int = -1
+                */
+                
+                if self.isComingFromTestResult {
+                    
+                    if self.isComeForVolumeUp {
+                        UserDefaults.standard.set(false, forKey: "volume up")
+                        self.resultJSON["volume up"].int = -1
+                        
+                        arrTestsResultJSONInSDK.remove(at: self.retryIndex)
+                        arrTestsResultJSONInSDK.insert(-1, at: self.retryIndex)
+                    }
+                    
+                    if self.isComeForVolumeDown {
+                        UserDefaults.standard.set(false, forKey: "volume down")
+                        self.resultJSON["volume down"].int = -1
+                        
+                        arrTestsResultJSONInSDK.remove(at: self.retryIndex)
+                        arrTestsResultJSONInSDK.insert(-1, at: self.retryIndex)
+                    }
+                    
+                    if self.isComeForPowerBtn {
+                        UserDefaults.standard.set(false, forKey: "power button")
+                        self.resultJSON["power button"].int = -1
+                        
+                        arrTestsResultJSONInSDK.remove(at: self.retryIndex)
+                        arrTestsResultJSONInSDK.insert(-1, at: self.retryIndex)
+                    }
+                    
+                    if self.isComeForRingerBtn {
+                        UserDefaults.standard.set(false, forKey: "ringer")
+                        self.resultJSON["ringer"].int = -1
+                        
+                        arrTestsResultJSONInSDK.remove(at: self.retryIndex)
+                        arrTestsResultJSONInSDK.insert(-1, at: self.retryIndex)
+                    }
+                    
+                }
+                else {
+                 
+                    if let ind = arrTestsInSDK.firstIndex(of: ("volume up")) {
+                        arrTestsInSDK.remove(at: ind)
+                        
+                        UserDefaults.standard.set(false, forKey: "volume up")
+                        self.resultJSON["volume up"].int = -1
+                        
+                        arrTestsResultJSONInSDK.append(-1)
+                    }
+                    
+                    if let ind = arrTestsInSDK.firstIndex(of: ("volume down")) {
+                        arrTestsInSDK.remove(at: ind)
+                        
+                        UserDefaults.standard.set(false, forKey: "volume down")
+                        self.resultJSON["volume down"].int = -1
+                        
+                        arrTestsResultJSONInSDK.append(-1)
+                    }
+                    
+                    if let ind = arrTestsInSDK.firstIndex(of: ("power button")) {
+                        arrTestsInSDK.remove(at: ind)
+                        
+                        UserDefaults.standard.set(false, forKey: "power button")
+                        self.resultJSON["power button"].int = -1
+                        
+                        arrTestsResultJSONInSDK.append(-1)
+                    }
+                    
+                    if let ind = arrTestsInSDK.firstIndex(of: ("ringer")) {
+                        arrTestsInSDK.remove(at: ind)
+                        
+                        UserDefaults.standard.set(false, forKey: "ringer")
+                        self.resultJSON["ringer"].int = -1
+                        
+                        arrTestsResultJSONInSDK.append(-1)
+                    }
+                    
+                }
+                
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {

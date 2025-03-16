@@ -23,7 +23,7 @@ class MicroPhoneVC: UIViewController, RecorderDelegate {
     var resultJSON = JSON()
         
     var recordingSession: AVAudioSession?
-    var recording: Recording!
+    var Recordings: Recording!
     var recordDuration = 0
     var isBitRate = false
     var micTimer: Timer?
@@ -49,8 +49,15 @@ class MicroPhoneVC: UIViewController, RecorderDelegate {
 
         self.loaderImgVW.loadGif(name: "ring_loader")                
         
-        self.checkMicPermission()
-    }        
+                
+        if self.isComeForTopMic {
+            self.checkMicPermission()
+        }
+        else {
+            self.checkBottomMicPermission()
+        }
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -167,7 +174,7 @@ class MicroPhoneVC: UIViewController, RecorderDelegate {
     
     @IBAction func startRecordingButtonPressed(_ sender: UIButton) {
         
-        guard recording != nil else {
+        guard Recordings != nil else {
             
             DispatchQueue.main.async() {
                 self.view.makeToast(self.getLocalizatioStringValue(key: "Please give microphone permission"), duration: 2.0, position: .bottom)
@@ -202,6 +209,70 @@ class MicroPhoneVC: UIViewController, RecorderDelegate {
 
 extension MicroPhoneVC {
     
+    func checkBottomMicPermission() {
+        
+        self.recordingSession = AVAudioSession.sharedInstance()
+            
+            do {
+                // Request permission
+                try recordingSession?.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker])
+                try recordingSession?.setActive(true)
+
+                // Select bottom microphone
+                if let bottomMic = recordingSession?.availableInputs?.first(where: { $0.portType == .builtInMic }) {
+                    try recordingSession?.setPreferredInput(bottomMic)
+                }
+                                
+                
+                self.recordingSession?.requestRecordPermission() { [weak self] allowed in
+                    
+                    if allowed {
+                        //self.loadRecordingUI()
+                        
+                        DispatchQueue.main.async {
+                            self?.createRecorder()
+                        }
+                        
+                    } else {
+                        
+                        // failed to record!
+                        DispatchQueue.main.async() {
+                            self?.view.makeToast(self?.getLocalizatioStringValue(key: "failed to record!"), duration: 2.0, position: .bottom)
+                        }
+                        
+                    }
+                    
+                }
+
+                /*
+                // Set recording settings
+                let settings: [String: Any] = [
+                    AVFormatIDKey: kAudioFormatMPEG4AAC,
+                    AVSampleRateKey: 44100.0,
+                    AVNumberOfChannelsKey: 1,
+                    AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+                ]
+
+                // Define file path
+                let audioFilename = FileManager.default.temporaryDirectory.appendingPathComponent("recording.m4a")
+
+                // Initialize recorder
+                //self.Recordings = Recording(to: "recording.m4a")
+                self.Recordings.recorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+                self.Recordings.recorder?.delegate = self
+                self.Recordings.recorder?.record()
+                */
+
+                print("Recording started using bottom mic")
+            } catch {
+                //print("Error setting up recording: \(error.localizedDescription)")
+                // failed to record!
+                DispatchQueue.main.async() {
+                    self.view.makeToast(self.getLocalizatioStringValue(key: "failed to record!"), duration: 2.0, position: .bottom)
+                }
+            }
+        }
+    
     //MARK: Custom Microphone Methods
     func checkMicPermission() {
         
@@ -210,9 +281,9 @@ extension MicroPhoneVC {
         self.recordingSession = AVAudioSession.sharedInstance()
         
         do {
-            //try self.recordingSession?.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+            try self.recordingSession?.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
             
-            try self.recordingSession?.setCategory(AVAudioSession.Category.playAndRecord)
+            //try self.recordingSession?.setCategory(AVAudioSession.Category.playAndRecord)
             try self.recordingSession?.setActive(true)
             
             self.recordingSession?.requestRecordPermission() { [weak self] allowed in
@@ -245,8 +316,8 @@ extension MicroPhoneVC {
     }
     
     public func createRecorder() {
-        self.recording = Recording(to: "recording.m4a")
-        self.recording.delegate = self
+        self.Recordings = Recording(to: "recording.m4a")
+        self.Recordings.delegate = self
         
         // Optionally, you can prepare the recording in the background to
         // make it start recording faster when you hit `record()`.
@@ -254,7 +325,7 @@ extension MicroPhoneVC {
         DispatchQueue.global().async {
             // Background thread
             do {
-                try self.recording.prepare()
+                try self.Recordings.prepare()
             } catch {
                 
             }
@@ -270,7 +341,7 @@ extension MicroPhoneVC {
                                  userInfo: nil,
                                  repeats: false)
             
-            try recording.record()
+            try Recordings.record()
             //self.playUsingAVAudioPlayer(url: url)
             
         } catch {
@@ -283,7 +354,7 @@ extension MicroPhoneVC {
         self.micTimer?.invalidate()
         
         self.recordDuration = 0
-        self.recording.stop()
+        self.Recordings.stop()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             
@@ -367,19 +438,17 @@ extension MicroPhoneVC {
         
     }
     
-    func audioMeterDidUpdate(_ db: Float) {
+    func audioMeterDidUpdate_OLD(_ db: Float) {
         
-        self.recording.recorder?.updateMeters()
+        self.Recordings.recorder?.updateMeters()
         
         let ALPHA = 0.05
-        let peakPower = pow(10, (ALPHA * Double((self.recording.recorder?.peakPower(forChannel: 0))!)))
+        let peakPower = pow(10, (ALPHA * Double((self.Recordings.recorder?.peakPower(forChannel: 0))!)))
         var rate: Double = 0.0
         
         if (peakPower <= 0.2) {
             rate = 0.2
-        //} else if (peakPower > 0.9) {
-        //} else if (peakPower > 0.7) {
-        } else if (peakPower > 0.40) {
+        } else if (peakPower > 0.25) {
             rate = 1.0
             self.isBitRate = true
         } else {
@@ -390,6 +459,39 @@ extension MicroPhoneVC {
         print("peakPower is:",peakPower)
         
         self.recordDuration += 1
+    }
+    
+    func audioMeterDidUpdate(_ db: Float) {
+        
+        // update power values
+        // audioRecorder.updateMeters()
+        self.Recordings.recorder?.updateMeters()
+        
+        let peak0 = self.Recordings.recorder?.peakPower(forChannel: 0) ?? 0.0
+        print("peak0 = \(peak0)")
+        
+        if peak0 <= 0 && peak0 >= -30 {
+            // Speaker is working
+            //print("Speaker is working")
+            
+            self.isBitRate = true
+                       
+        }else {
+            //print("Speaker is not working")
+        }
+        
+        //print("rate is:",rate)
+        print("peakPower is:",peak0)
+        self.recordDuration += 1
+        
+        /*
+        timerCount += 1
+        if timerCount == 50 {
+            timer.invalidate()
+            self.finishRecording(success: true)
+        }
+        */
+        
     }
     
     @objc func runTimerForReverseCounter() {
@@ -406,7 +508,7 @@ extension MicroPhoneVC {
     func finishRecording(success: Bool) {
         
         self.micTimer?.invalidate()
-        self.recording.recorder?.deleteRecording()
+        self.Recordings.recorder?.deleteRecording()
 
         if success {
             
