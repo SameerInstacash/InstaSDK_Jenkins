@@ -41,6 +41,9 @@ class MicroPhoneVC: UIViewController, RecorderDelegate {
     
     var isComeForTopMic = false
     var isComeForBottomMic = false
+    
+    var isComeForTopAutoTest = false
+    var isComeForBottomAutoTest = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -529,12 +532,28 @@ extension MicroPhoneVC {
             //UserDefaults.standard.set(true, forKey: "mic")
             
             if self.isComeForTopMic {
-                self.resultJSON["Top Microphone"].int = 1
-                UserDefaults.standard.set(true, forKey: "Top Microphone")
+                
+                if self.isComeForTopAutoTest {
+                    self.resultJSON["TopMicrophone_auto"].int = 1
+                    UserDefaults.standard.set(true, forKey: "TopMicrophone_auto")
+                }
+                else {
+                    self.resultJSON["TopMicrophone_manual"].int = 1
+                    UserDefaults.standard.set(true, forKey: "TopMicrophone_manual")
+                }
+                
             }
             else {
-                self.resultJSON["Bottom Microphone"].int = 1
-                UserDefaults.standard.set(true, forKey: "Bottom Microphone")
+                
+                if self.isComeForTopAutoTest {
+                    self.resultJSON["BottomMicrophone_auto"].int = 1
+                    UserDefaults.standard.set(true, forKey: "BottomMicrophone_auto")
+                }
+                else {
+                    self.resultJSON["BottomMicrophone_manual"].int = 1
+                    UserDefaults.standard.set(true, forKey: "BottomMicrophone_manual")
+                }
+                                
             }
                         
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
@@ -575,12 +594,28 @@ extension MicroPhoneVC {
             //UserDefaults.standard.set(false, forKey: "mic")
             
             if self.isComeForTopMic {
-                self.resultJSON["Top Microphone"].int = 0
-                UserDefaults.standard.set(false, forKey: "Top Microphone")
+                
+                if self.isComeForTopAutoTest {
+                    self.resultJSON["TopMicrophone_auto"].int = 0
+                    UserDefaults.standard.set(false, forKey: "TopMicrophone_auto")
+                }
+                else {
+                    self.resultJSON["TopMicrophone_manual"].int = 0
+                    UserDefaults.standard.set(false, forKey: "TopMicrophone_manual")
+                }
+                                
             }
             else {
-                self.resultJSON["Bottom Microphone"].int = 0
-                UserDefaults.standard.set(false, forKey: "Bottom Microphone")
+                
+                if self.isComeForTopAutoTest {
+                    self.resultJSON["BottomMicrophone_auto"].int = 0
+                    UserDefaults.standard.set(false, forKey: "BottomMicrophone_auto")
+                }
+                else {
+                    self.resultJSON["BottomMicrophone_manual"].int = 0
+                    UserDefaults.standard.set(false, forKey: "BottomMicrophone_manual")
+                }
+                                
             }
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")

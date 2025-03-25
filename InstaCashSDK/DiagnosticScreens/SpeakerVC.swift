@@ -52,6 +52,9 @@ class SpeakerVC: UIViewController {
     var isComeForTopSpeaker = false
     var isComeForBottomSpeaker = false
     
+    var isComeForTopAutoTest = false
+    var isComeForBottomAutoTest = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -213,11 +216,19 @@ class SpeakerVC: UIViewController {
                     }
                                                     
                     
-                    //self.resultJSON["Speakers"].int = 1
-                    //UserDefaults.standard.set(true, forKey: "Speakers")
+                    if self.isComeForTopAutoTest {
+                        
+                        self.resultJSON["TopSpeakers_auto"].int = 1
+                        UserDefaults.standard.set(true, forKey: "TopSpeakers_auto")
+                        
+                    }
+                    else {
+                        
+                        self.resultJSON["TopSpeakers_manual"].int = 1
+                        UserDefaults.standard.set(true, forKey: "TopSpeakers_manual")
+                        
+                    }
                     
-                    self.resultJSON["Top Speakers"].int = 1
-                    UserDefaults.standard.set(true, forKey: "Top Speakers")
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                     DispatchQueue.main.async {
@@ -248,9 +259,15 @@ class SpeakerVC: UIViewController {
                     
                     //self.resultJSON["Speakers"].int = 0
                     //UserDefaults.standard.set(false, forKey: "Speakers")
-                    
-                    self.resultJSON["Top Speakers"].int = 0
-                    UserDefaults.standard.set(false, forKey: "Top Speakers")
+                                        
+                    if self.isComeForTopAutoTest {
+                        self.resultJSON["TopSpeakers_auto"].int = 0
+                        UserDefaults.standard.set(false, forKey: "TopSpeakers_auto")
+                    }
+                    else {
+                        self.resultJSON["TopSpeakers_manual"].int = 0
+                        UserDefaults.standard.set(false, forKey: "TopSpeakers_manual")
+                    }
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                     DispatchQueue.main.async {
@@ -373,9 +390,16 @@ class SpeakerVC: UIViewController {
                 
                 //self.resultJSON["Speakers"].int = 1
                 //UserDefaults.standard.set(true, forKey: "Speakers")
+                                
                 
-                self.resultJSON["Bottom Speakers"].int = 1
-                UserDefaults.standard.set(true, forKey: "Bottom Speakers")
+                if self.isComeForBottomAutoTest {
+                    self.resultJSON["BottomSpeakers_auto"].int = 1
+                    UserDefaults.standard.set(true, forKey: "BottomSpeakers_auto")
+                }
+                else {
+                    self.resultJSON["BottomSpeakers_manual"].int = 1
+                    UserDefaults.standard.set(true, forKey: "BottomSpeakers_manual")
+                }
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {
@@ -404,11 +428,17 @@ class SpeakerVC: UIViewController {
                     arrTestsResultJSONInSDK.append(0)
                 }
                 
-                //self.resultJSON["Speakers"].int = 0
-                //UserDefaults.standard.set(false, forKey: "Speakers")
+                //self.resultJSON["Bottom Speakers"].int = 0
+                //UserDefaults.standard.set(false, forKey: "Bottom Speakers")
                 
-                self.resultJSON["Bottom Speakers"].int = 0
-                UserDefaults.standard.set(false, forKey: "Bottom Speakers")
+                if self.isComeForBottomAutoTest {
+                    self.resultJSON["BottomSpeakers_auto"].int = 0
+                    UserDefaults.standard.set(false, forKey: "BottomSpeakers_auto")
+                }
+                else {
+                    self.resultJSON["BottomSpeakers_manual"].int = 0
+                    UserDefaults.standard.set(false, forKey: "BottomSpeakers_manual")
+                }
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
                 DispatchQueue.main.async {

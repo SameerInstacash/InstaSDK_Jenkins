@@ -34,8 +34,9 @@ import MediaLibraryPermission
 import SpeechRecognizerPermission
 
 import ExternalAccessory
+import AVFAudio
 
-class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, CBCentralManagerDelegate {
+class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, CBCentralManagerDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate, RecorderDelegate {
     
     @IBOutlet weak var testCollectionView: UICollectionView!
     @IBOutlet weak var startTestBtn: UIButton!
@@ -94,6 +95,20 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     var syncTimer: Timer?
     var syncCount = 0
     
+    //MARK: 7. Speaker & Microphone
+    var Recordings: Recording!
+    var recordDuration = 0
+    var isBitRate = false
+    var recordingSession : AVAudioSession!
+    var audioSession : AVAudioSession? = nil
+    var audioRecorder: AVAudioRecorder!
+    var audioPlayer : AVAudioPlayer?
+    
+    private var topTimer: Timer?
+    private var topTimerCount = 0
+    
+    private var bottomTimer: Timer?
+    private var bottomTimerCount = 0
     
     //MARK: Framework Paths
     //let SBSERVPATH = "/System/Library/PrivateFrameworks/SpringBoardServices.framework/SpringBoardServices"
@@ -416,13 +431,15 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 "Storage",
                 "GPS",
                 "GSM Network",
+                
                 "vibrator_auto",
                 //"vibrator_manual",
                 
-//                "frontCamera_auto",
-//                "backCamera_auto",
-//                "frontCamera_manual",
-//                "backCamera_manual",
+                "frontCamera_auto",
+                "backCamera_auto",
+                
+                //"frontCamera_manual",
+                //"backCamera_manual",
                                 
                 "Autofocus",
                 "Auto Rotation",
@@ -437,16 +454,28 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 "volume down",
                 "power button",
                 "ringer",
-                "Top Speakers",
-                "Bottom Speakers",
-                "Top Microphone",
-                "Bottom Microphone",
+                                
+                "TopSpeakers_auto",
+                "BottomSpeakers_auto",
+                
+                //"TopSpeakers_manual",
+                //"BottomSpeakers_manual",
+                
+                "TopMicrophone_auto",
+                "BottomMicrophone_auto",
+                
+                //"TopMicrophone_manual",
+                //"BottomMicrophone_manual",
                 
                 
-//                "Device Button",
-//                "Vibrator",
-//                "Camera",
-//                "nfc",
+                //"Top Speakers",
+                //"Bottom Speakers",
+                //"Top Microphone",
+                //"Bottom Microphone",
+                //"Device Button",
+                //"Vibrator",
+                //"Camera",
+                //"nfc",
                 
                 
             ]
@@ -639,7 +668,6 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         
         
         
-        
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "PhysicalQuestionVC") as! PhysicalQuestionVC
         vc.modalPresentationStyle = .fullScreen
         
@@ -647,6 +675,12 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             self.questAnswerJSON = JSON(dict)
             
             print("questAnswerJSON is :",self.questAnswerJSON)
+            
+            UIDevice.current.isBatteryMonitoringEnabled = true
+            NotificationCenter.default.addObserver(self, selector: #selector(self.batteryStateChanged), name: UIDevice.batteryStateDidChangeNotification, object: nil)
+            
+            self.checkUSBConnection()
+            
         }
         
         self.navigationController?.pushViewController(vc, animated: false)
@@ -775,7 +809,6 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             return false
         }
     }
-    
     
     //MARK: UICollectionView DataSource & Delegates
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -1100,7 +1133,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "Top Speakers") {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "TopSpeakers_auto") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpeakerVC") as! SpeakerVC
                     vc.isComingFromTestResult = true
@@ -1109,6 +1142,9 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.isComeForTopSpeaker = true
                     vc.isComeForBottomSpeaker = false
                     
+                    vc.isComeForTopAutoTest = true
+                    vc.isComeForBottomAutoTest = false
+                    
                     vc.speakerRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
@@ -1132,7 +1168,42 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "Bottom Speakers") {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "TopSpeakers_manual") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpeakerVC") as! SpeakerVC
+                    vc.isComingFromTestResult = true
+                    vc.retryIndex = indexPath.item
+                    
+                    vc.isComeForTopSpeaker = true
+                    vc.isComeForBottomSpeaker = false
+                    
+                    vc.isComeForTopAutoTest = false
+                    vc.isComeForBottomAutoTest = false
+                    
+                    vc.speakerRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                        
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
+                        
+                        self.testCollectionView.reloadData()
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "BottomSpeakers_auto") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpeakerVC") as! SpeakerVC
                     vc.isComingFromTestResult = true
@@ -1141,6 +1212,9 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.isComeForTopSpeaker = false
                     vc.isComeForBottomSpeaker = true
                     
+                    vc.isComeForTopAutoTest = false
+                    vc.isComeForBottomAutoTest = true
+                    
                     vc.speakerRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
                         
@@ -1164,7 +1238,42 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "Top Microphone") {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "BottomSpeakers_manual") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpeakerVC") as! SpeakerVC
+                    vc.isComingFromTestResult = true
+                    vc.retryIndex = indexPath.item
+                    
+                    vc.isComeForTopSpeaker = false
+                    vc.isComeForBottomSpeaker = true
+                    
+                    vc.isComeForTopAutoTest = false
+                    vc.isComeForBottomAutoTest = false
+                    
+                    vc.speakerRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                        
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
+                        
+                        self.testCollectionView.reloadData()
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "TopMicrophone_auto") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "MicroPhoneVC") as! MicroPhoneVC
                     vc.isComingFromTestResult = true
@@ -1172,6 +1281,9 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     
                     vc.isComeForTopMic = true
                     vc.isComeForBottomMic = false
+                    
+                    vc.isComeForTopAutoTest = true
+                    vc.isComeForBottomAutoTest = false
                     
                     vc.micRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
@@ -1196,7 +1308,42 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)
                 }
-                else if (self.arrTestInSDK_Hold[indexPath.item] == "Bottom Microphone") {
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "TopMicrophone_manual") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "MicroPhoneVC") as! MicroPhoneVC
+                    vc.isComingFromTestResult = true
+                    vc.retryIndex = indexPath.item
+                    
+                    vc.isComeForTopMic = true
+                    vc.isComeForBottomMic = false
+                    
+                    vc.isComeForTopAutoTest = false
+                    vc.isComeForBottomAutoTest = false
+                    
+                    vc.micRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                        
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
+                        
+                        self.testCollectionView.reloadData()
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "BottomMicrophone_auto") {
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "MicroPhoneVC") as! MicroPhoneVC
                     vc.isComingFromTestResult = true
@@ -1204,6 +1351,44 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     
                     vc.isComeForTopMic = false
                     vc.isComeForBottomMic = true
+                    
+                    vc.isComeForTopAutoTest = false
+                    vc.isComeForBottomAutoTest = true
+                    
+                    vc.micRetryDiagnosis = { retryJSON in
+                        self.resultJSON = retryJSON
+                        
+                        AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
+                        DispatchQueue.main.async {
+                            if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
+                                let resultJson = JSON.init(parseJSON: AppUserDefaults.value(forKey: "AppResultJSON_Data") as! String)
+                                self.resultJSON = resultJson
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                            else {
+                                NSLog("%@%@", "39220iOS@retry: ", "\(self.resultJSON)")
+                            }
+                        }
+                        
+                        
+                        self.testCollectionView.reloadData()
+                    }
+                    
+                    vc.resultJSON = self.resultJSON
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+                else if (self.arrTestInSDK_Hold[indexPath.item] == "BottomMicrophone_manual") {
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "MicroPhoneVC") as! MicroPhoneVC
+                    vc.isComingFromTestResult = true
+                    vc.retryIndex = indexPath.item
+                    
+                    vc.isComeForTopMic = false
+                    vc.isComeForBottomMic = true
+                    
+                    vc.isComeForTopAutoTest = false
+                    vc.isComeForBottomAutoTest = false
                     
                     vc.micRetryDiagnosis = { retryJSON in
                         self.resultJSON = retryJSON
@@ -1896,6 +2081,50 @@ extension HomeVC {
                         
                         break
                         
+                    case "TopSpeakers_auto":
+                        
+                        //if let ind = arrTestsInSDK.firstIndex(of: ("TopSpeakers_auto")) {
+                            //arrTestsInSDK.remove(at: ind)
+                            
+                        self.playSoundFromTopSpeaker()
+                            
+                        //}
+                        
+                        break
+                        
+                    case "BottomSpeakers_auto":
+                        
+                        //if let ind = arrTestsInSDK.firstIndex(of: ("BottomSpeakers_auto")) {
+                            //arrTestsInSDK.remove(at: ind)
+                            
+                        self.playSoundFromBottomSpeaker()
+                            
+                        //}
+                        
+                        break
+                        
+                    case "TopMicrophone_auto":
+                        
+                        //if let ind = arrTestsInSDK.firstIndex(of: ("TopMicrophone_auto")) {
+                            //arrTestsInSDK.remove(at: ind)
+                            
+                        self.playSoundFromTopSpeaker()
+                            
+                        //}
+                        
+                        break
+                        
+                    case "BottomMicrophone_auto":
+                        
+                        //if let ind = arrTestsInSDK.firstIndex(of: ("BottomMicrophone_auto")) {
+                            //arrTestsInSDK.remove(at: ind)
+                            
+                        self.playSoundFromBottomSpeaker()
+                            
+                        //}
+                        
+                        break
+                        
                     case "vibrator_manual":
                         
                         if let ind = arrTestsInSDK.firstIndex(of: ("vibrator_manual")) {
@@ -2024,18 +2253,24 @@ extension HomeVC {
                          
                          break
                          */
+                                           
                         
-                    case "Top Speakers":
+                    case "TopSpeakers_manual":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("Top Speakers")) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("TopSpeakers_manual")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpeakerVC") as! SpeakerVC
                             let navigationController = UINavigationController(rootViewController: vc)
                             navigationController.modalPresentationStyle = .overFullScreen
                             vc.resultJSON = testResultJSON
+                            
                             vc.isComeForTopSpeaker = true
                             vc.isComeForBottomSpeaker = false
+                            
+                            vc.isComeForTopAutoTest = false
+                            vc.isComeForBottomAutoTest = false
+                            
                             vc.modalPresentationStyle = .overFullScreen
                             self.present(navigationController, animated: true, completion: nil)
                             
@@ -2043,17 +2278,22 @@ extension HomeVC {
                         
                         break
                         
-                    case "Bottom Speakers":
+                    case "BottomSpeakers_manual":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("Bottom Speakers")) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("BottomSpeakers_manual")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpeakerVC") as! SpeakerVC
                             let navigationController = UINavigationController(rootViewController: vc)
                             navigationController.modalPresentationStyle = .overFullScreen
                             vc.resultJSON = testResultJSON
+                            
                             vc.isComeForTopSpeaker = false
                             vc.isComeForBottomSpeaker = true
+                            
+                            vc.isComeForTopAutoTest = false
+                            vc.isComeForBottomAutoTest = false
+                            
                             vc.modalPresentationStyle = .overFullScreen
                             self.present(navigationController, animated: true, completion: nil)
                             
@@ -2061,17 +2301,22 @@ extension HomeVC {
                         
                         break
                         
-                    case "Top Microphone":
+                    case "TopMicrophone_manual":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("Top Microphone")) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("TopMicrophone_manual")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "MicroPhoneVC") as! MicroPhoneVC
                             let navigationController = UINavigationController(rootViewController: vc)
                             navigationController.modalPresentationStyle = .overFullScreen
                             vc.resultJSON = testResultJSON
+                            
                             vc.isComeForTopMic = true
                             vc.isComeForBottomMic = false
+                            
+                            vc.isComeForTopAutoTest = false
+                            vc.isComeForBottomAutoTest = false
+                            
                             vc.modalPresentationStyle = .overFullScreen
                             self.present(navigationController, animated: true, completion: nil)
                             
@@ -2079,17 +2324,22 @@ extension HomeVC {
                         
                         break
                         
-                    case "Bottom Microphone":
+                    case "BottomMicrophone_manual":
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("Bottom Microphone")) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("BottomMicrophone_manual")) {
                             arrTestsInSDK.remove(at: ind)
                             
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "MicroPhoneVC") as! MicroPhoneVC
                             let navigationController = UINavigationController(rootViewController: vc)
                             navigationController.modalPresentationStyle = .overFullScreen
                             vc.resultJSON = testResultJSON
+                            
                             vc.isComeForTopMic = false
                             vc.isComeForBottomMic = true
+                            
+                            vc.isComeForTopAutoTest = false
+                            vc.isComeForBottomAutoTest = false
+                            
                             vc.modalPresentationStyle = .overFullScreen
                             self.present(navigationController, animated: true, completion: nil)
                             
@@ -2309,10 +2559,11 @@ extension HomeVC {
                     //NotificationCenter.default.addObserver(self, selector: #selector(self.accessoryDidDisconnect(_:)), name: .EAAccessoryDidDisconnect, object: nil)
                     //EAAccessoryManager.shared().registerForLocalNotifications()
                     
-                    UIDevice.current.isBatteryMonitoringEnabled = true
-                    NotificationCenter.default.addObserver(self, selector: #selector(self.batteryStateChanged), name: UIDevice.batteryStateDidChangeNotification, object: nil)
-                
                     
+                    
+                    //UIDevice.current.isBatteryMonitoringEnabled = true
+                    //NotificationCenter.default.addObserver(self, selector: #selector(self.batteryStateChanged), name: UIDevice.batteryStateDidChangeNotification, object: nil)
+                                    
                     self.fetchQuestionBtn.isHidden = false
                     
                     
@@ -2348,6 +2599,19 @@ extension HomeVC {
         
     }
     
+    func checkUSBConnection() {
+        
+        if Luminous.Battery.state == .charging || Luminous.Battery.state == .full {
+            print("iPhone is connected via USB (charging)")
+            self.runTimerForResultSync()
+        }
+        else {
+            print("iPhone is not connected via USB")
+            self.SyncClose()
+        }
+        
+    }
+    
     @objc func batteryStateChanged() {
         
         //SyncClose()
@@ -2363,7 +2627,9 @@ extension HomeVC {
     }
     
     func runTimerForResultSync() {
-        self.syncTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.runSyncTimer), userInfo: nil, repeats: true)
+        DispatchQueue.main.async {
+            self.syncTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.runSyncTimer), userInfo: nil, repeats: true)
+        }
     }
     
     @objc func runSyncTimer() {
@@ -4063,6 +4329,224 @@ extension HomeVC {
         //AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
     }
     
+}
+
+//MARK: Extenstion for Speaker & Microphone
+extension HomeVC {
+    
+    func playSoundFromTopSpeaker() {
+        
+        guard let url = Bundle.main.path(forResource: "whistle", ofType: "mp3") else {
+            print("not found")
+            return
+        }
+        
+        self.audioSession? = AVAudioSession.sharedInstance()
+                                
+        // This is to audio output from top (earpiece) speaker
+        do {
+            try self.recordingSession?.setCategory(.playAndRecord, mode: .voiceChat, options: [.defaultToSpeaker, .allowBluetooth])
+            try self.recordingSession?.setActive(true)
+            try self.recordingSession?.overrideOutputAudioPort(AVAudioSession.PortOverride.none)
+                            
+            print("Successfully configured audio session (SPEAKER-top).", "\nCurrent audio route: ",self.audioSession?.currentRoute.outputs ?? "")
+            
+        } catch let error as NSError {
+            print("#configureAudioSessionToSpeaker Error \(error.localizedDescription)")
+        }
+        
+        do {
+            
+            self.audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: url))
+            self.audioPlayer?.play()
+            
+            let outputVol = AVAudioSession.sharedInstance().outputVolume
+            print("outputVol in top", outputVol)
+            
+            if(outputVol > 0.20) {
+                
+                self.passMarkTopSpeakerAndMicTest()
+                
+            }else{
+                
+                self.failMarkTopSpeakerAndMicTest()
+                
+            }
+        } catch let error {
+            
+            self.failMarkTopSpeakerAndMicTest()
+            
+        }
+        
+    }
+    
+    func playSoundFromBottomSpeaker() {
+
+            guard let url = Bundle.main.path(forResource: "whistle", ofType: "mp3") else {
+                print("not found")
+                return
+            }
+        
+            self.audioSession? = AVAudioSession.sharedInstance()
+                                    
+            // This is to audio output from bottom (main) speaker
+            do {
+                try self.audioSession?.setCategory(AVAudioSession.Category.playAndRecord)
+                try self.audioSession?.setActive(true)
+                try self.audioSession?.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+                                
+                print("Successfully configured audio session (SPEAKER-Bottom).", "\nCurrent audio route: ",self.audioSession?.currentRoute.outputs ?? "")
+                
+            } catch let error as NSError {
+                print("#configureAudioSessionToSpeaker Error \(error.localizedDescription)")
+            }
+            
+            
+            do {
+                
+                self.audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: url))
+                self.audioPlayer?.play()
+                
+                let outputVol = AVAudioSession.sharedInstance().outputVolume
+                print("outputVol in bottom", outputVol)
+                
+                if(outputVol > 0.20) {
+                    
+                    self.passMarkBottomSpeakerAndMicTest()
+                    
+                }else{
+                    
+                    self.failMarkBottomSpeakerAndMicTest()
+                    
+                }
+            } catch let error {
+                
+                self.failMarkBottomSpeakerAndMicTest()
+                
+            }
+        
+    }
+    
+    func failMarkTopSpeakerAndMicTest() {
+        
+        if let ind = arrTestsInSDK.firstIndex(of: ("TopSpeakers_auto")) {
+            arrTestsInSDK.remove(at: ind)
+            
+            arrTestsResultJSONInSDK.append(0)
+            
+            self.resultJSON["TopSpeakers_auto"].int = 0
+            UserDefaults.standard.set(false, forKey: "TopSpeakers_auto")
+        }
+        
+        
+        if let ind = arrTestsInSDK.firstIndex(of: ("TopMicrophone_auto")) {
+            arrTestsInSDK.remove(at: ind)
+            
+            arrTestsResultJSONInSDK.append(0)
+            
+            self.resultJSON["TopMicrophone_auto"].int = 0
+            UserDefaults.standard.set(false, forKey: "TopMicrophone_auto")
+        }
+        
+        self.audioSession = nil
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            guard let didFinishTestDiagnosis = performDiagnostics else { return }
+            didFinishTestDiagnosis(self.resultJSON)
+        })
+        
+    }
+    
+    func passMarkTopSpeakerAndMicTest() {
+        
+        if let ind = arrTestsInSDK.firstIndex(of: ("TopSpeakers_auto")) {
+            arrTestsInSDK.remove(at: ind)
+            
+            arrTestsResultJSONInSDK.append(1)
+            
+            self.resultJSON["TopSpeakers_auto"].int = 1
+            UserDefaults.standard.set(true, forKey: "TopSpeakers_auto")
+        }
+        
+        
+        if let ind = arrTestsInSDK.firstIndex(of: ("TopMicrophone_auto")) {
+            arrTestsInSDK.remove(at: ind)
+            
+            arrTestsResultJSONInSDK.append(1)
+            
+            self.resultJSON["TopMicrophone_auto"].int = 1
+            UserDefaults.standard.set(true, forKey: "TopMicrophone_auto")
+        }
+        
+        self.audioSession = nil
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            guard let didFinishTestDiagnosis = performDiagnostics else { return }
+            didFinishTestDiagnosis(self.resultJSON)
+        })
+        
+    }
+    
+    func failMarkBottomSpeakerAndMicTest() {
+        
+        if let ind = arrTestsInSDK.firstIndex(of: ("BottomSpeakers_auto")) {
+            arrTestsInSDK.remove(at: ind)
+            
+            arrTestsResultJSONInSDK.append(0)
+            
+            self.resultJSON["BottomSpeakers_auto"].int = 0
+            UserDefaults.standard.set(false, forKey: "BottomSpeakers_auto")
+        }
+        
+        
+        if let ind = arrTestsInSDK.firstIndex(of: ("BottomMicrophone_auto")) {
+            arrTestsInSDK.remove(at: ind)
+            
+            arrTestsResultJSONInSDK.append(0)
+            
+            self.resultJSON["BottomMicrophone_auto"].int = 0
+            UserDefaults.standard.set(false, forKey: "BottomMicrophone_auto")
+        }
+        
+        self.audioSession = nil
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            guard let didFinishTestDiagnosis = performDiagnostics else { return }
+            didFinishTestDiagnosis(self.resultJSON)
+        })
+        
+    }
+    
+    func passMarkBottomSpeakerAndMicTest() {
+        
+        if let ind = arrTestsInSDK.firstIndex(of: ("BottomSpeakers_auto")) {
+            arrTestsInSDK.remove(at: ind)
+            
+            arrTestsResultJSONInSDK.append(1)
+            
+            self.resultJSON["BottomSpeakers_auto"].int = 1
+            UserDefaults.standard.set(true, forKey: "BottomSpeakers_auto")
+        }
+        
+        
+        if let ind = arrTestsInSDK.firstIndex(of: ("BottomMicrophone_auto")) {
+            arrTestsInSDK.remove(at: ind)
+            
+            arrTestsResultJSONInSDK.append(1)
+            
+            self.resultJSON["BottomMicrophone_auto"].int = 1
+            UserDefaults.standard.set(true, forKey: "BottomMicrophone_auto")
+        }
+        
+        self.audioSession = nil
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            guard let didFinishTestDiagnosis = performDiagnostics else { return }
+            didFinishTestDiagnosis(self.resultJSON)
+        })
+        
+    }
+  
 }
 
 class Utility {
