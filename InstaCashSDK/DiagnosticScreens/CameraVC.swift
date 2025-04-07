@@ -202,7 +202,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         }
         else {
             
-            if arrTestsInSDK.firstIndex(of: ("frontCamera_auto")) != nil {
+            if arrTestsInSDK.firstIndex(of: ("frontCamera_auto".lowercased())) != nil {
                 
                 DispatchQueue.main.async {
                     self.btnFrontCamera.isHidden = true
@@ -218,7 +218,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 
             }
             
-            if arrTestsInSDK.firstIndex(of: ("backCamera_auto")) != nil {
+            if arrTestsInSDK.firstIndex(of: ("backCamera_auto".lowercased())) != nil {
                 
                 DispatchQueue.main.async {
                     self.btnBackCamera1.isHidden = true
@@ -579,7 +579,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         }
         else {
             
-            if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_auto")) {
+            if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_auto".lowercased())) {
                 arrTestsInSDK.remove(at: ind)
                 
                 arrTestsResultJSONInSDK.append(-1)
@@ -588,7 +588,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 self.resultJSON["frontCamera_auto"].int = -1
             }
             
-            if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_manual")) {
+            if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_manual".lowercased())) {
                 arrTestsInSDK.remove(at: ind)
                 
                 arrTestsResultJSONInSDK.append(-1)
@@ -597,7 +597,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 self.resultJSON["frontCamera_manual"].int = -1
             }
             
-            if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_auto")) {
+            if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_auto".lowercased())) {
                 arrTestsInSDK.remove(at: ind)
                 
                 arrTestsResultJSONInSDK.append(-1)
@@ -606,7 +606,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 self.resultJSON["backCamera_auto"].int = -1
             }
             
-            if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_manual")) {
+            if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_manual".lowercased())) {
                 arrTestsInSDK.remove(at: ind)
                 
                 arrTestsResultJSONInSDK.append(-1)
@@ -633,8 +633,8 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         
         //Auto-Focus Test
-        if arrTestsInSDK.contains("Autofocus") {
-            if let ind = arrTestsInSDK.firstIndex(of: ("Autofocus")) {
+        if arrTestsInSDK.contains("Autofocus".lowercased()) {
+            if let ind = arrTestsInSDK.firstIndex(of: ("Autofocus".lowercased())) {
                 arrTestsInSDK.remove(at: ind)
                 
                 if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
@@ -738,7 +738,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         }
         else {
             
-            if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_auto")) {
+            if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_auto".lowercased())) {
                 arrTestsInSDK.remove(at: ind)
                 
                 arrTestsResultJSONInSDK.append(1)
@@ -747,7 +747,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 self.resultJSON["frontCamera_auto"].int = 1
             }
             
-            if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_manual")) {
+            if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_manual".lowercased())) {
                 arrTestsInSDK.remove(at: ind)
                 
                 arrTestsResultJSONInSDK.append(1)
@@ -756,7 +756,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 self.resultJSON["frontCamera_manual"].int = 1
             }
             
-            if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_auto")) {
+            if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_auto".lowercased())) {
                 arrTestsInSDK.remove(at: ind)
                 
                 arrTestsResultJSONInSDK.append(1)
@@ -765,7 +765,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 self.resultJSON["backCamera_auto"].int = 1
             }
             
-            if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_manual")) {
+            if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_manual".lowercased())) {
                 arrTestsInSDK.remove(at: ind)
                 
                 arrTestsResultJSONInSDK.append(1)
@@ -791,8 +791,8 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         }
         
         //Auto-Focus Test
-        if arrTestsInSDK.contains("Autofocus") {
-            if let ind = arrTestsInSDK.firstIndex(of: ("Autofocus")) {
+        if arrTestsInSDK.contains("Autofocus".lowercased()) {
+            if let ind = arrTestsInSDK.firstIndex(of: ("Autofocus".lowercased())) {
                 arrTestsInSDK.remove(at: ind)
                 
                 if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
@@ -918,7 +918,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     }
                     else {
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_auto")) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_auto".lowercased())) {
                             arrTestsInSDK.remove(at: ind)
                             
                             arrTestsResultJSONInSDK.append(0)
@@ -927,7 +927,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                             self.resultJSON["frontCamera_auto"].int = 0
                         }
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_manual")) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_manual".lowercased())) {
                             arrTestsInSDK.remove(at: ind)
                             
                             arrTestsResultJSONInSDK.append(0)
@@ -936,7 +936,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                             self.resultJSON["frontCamera_manual"].int = 0
                         }
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_auto")) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_auto".lowercased())) {
                             arrTestsInSDK.remove(at: ind)
                             
                             arrTestsResultJSONInSDK.append(0)
@@ -945,7 +945,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                             self.resultJSON["backCamera_auto"].int = 0
                         }
                         
-                        if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_manual")) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_manual".lowercased())) {
                             arrTestsInSDK.remove(at: ind)
                             
                             arrTestsResultJSONInSDK.append(0)
@@ -972,8 +972,8 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     
                     
                     //Auto-Focus Test
-                    if arrTestsInSDK.contains("Autofocus") {
-                        if let ind = arrTestsInSDK.firstIndex(of: ("Autofocus")) {
+                    if arrTestsInSDK.contains("Autofocus".lowercased()) {
+                        if let ind = arrTestsInSDK.firstIndex(of: ("Autofocus".lowercased())) {
                             arrTestsInSDK.remove(at: ind)
                             
                             if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
@@ -1083,7 +1083,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }
             else {
                 
-                if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_auto")) {
+                if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_auto".lowercased())) {
                     arrTestsInSDK.remove(at: ind)
                     
                     arrTestsResultJSONInSDK.append(0)
@@ -1092,7 +1092,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     self.resultJSON["frontCamera_auto"].int = 0
                 }
                 
-                if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_manual")) {
+                if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_manual".lowercased())) {
                     arrTestsInSDK.remove(at: ind)
                     
                     arrTestsResultJSONInSDK.append(0)
@@ -1101,7 +1101,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     self.resultJSON["frontCamera_manual"].int = 0
                 }
                 
-                if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_auto")) {
+                if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_auto".lowercased())) {
                     arrTestsInSDK.remove(at: ind)
                     
                     arrTestsResultJSONInSDK.append(0)
@@ -1110,7 +1110,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     self.resultJSON["backCamera_auto"].int = 0
                 }
                 
-                if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_manual")) {
+                if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_manual".lowercased())) {
                     arrTestsInSDK.remove(at: ind)
                     
                     arrTestsResultJSONInSDK.append(0)
@@ -1136,8 +1136,8 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }
             
             //Auto-Focus Test
-            if arrTestsInSDK.contains("Autofocus") {
-                if let ind = arrTestsInSDK.firstIndex(of: ("Autofocus")) {
+            if arrTestsInSDK.contains("Autofocus".lowercased()) {
+                if let ind = arrTestsInSDK.firstIndex(of: ("Autofocus".lowercased())) {
                     arrTestsInSDK.remove(at: ind)
                     
                     if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
@@ -1244,7 +1244,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }
             else {
                 
-                if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_auto")) {
+                if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_auto".lowercased())) {
                     arrTestsInSDK.remove(at: ind)
                     
                     arrTestsResultJSONInSDK.append(0)
@@ -1253,7 +1253,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     self.resultJSON["frontCamera_auto"].int = 0
                 }
                 
-                if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_manual")) {
+                if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_manual".lowercased())) {
                     arrTestsInSDK.remove(at: ind)
                     
                     arrTestsResultJSONInSDK.append(0)
@@ -1262,7 +1262,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     self.resultJSON["frontCamera_manual"].int = 0
                 }
                 
-                if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_auto")) {
+                if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_auto".lowercased())) {
                     arrTestsInSDK.remove(at: ind)
                     
                     arrTestsResultJSONInSDK.append(0)
@@ -1271,7 +1271,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     self.resultJSON["backCamera_auto"].int = 0
                 }
                 
-                if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_manual")) {
+                if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_manual".lowercased())) {
                     arrTestsInSDK.remove(at: ind)
                     
                     arrTestsResultJSONInSDK.append(0)
@@ -1297,8 +1297,8 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }
             
             //Auto-Focus Test
-            if arrTestsInSDK.contains("Autofocus") {
-                if let ind = arrTestsInSDK.firstIndex(of: ("Autofocus")) {
+            if arrTestsInSDK.contains("Autofocus".lowercased()) {
+                if let ind = arrTestsInSDK.firstIndex(of: ("Autofocus".lowercased())) {
                     arrTestsInSDK.remove(at: ind)
                     
                     if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {
@@ -1403,7 +1403,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }
             else {
                 
-                if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_auto")) {
+                if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_auto".lowercased())) {
                     arrTestsInSDK.remove(at: ind)
                     
                     arrTestsResultJSONInSDK.append(0)
@@ -1412,7 +1412,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     self.resultJSON["frontCamera_auto"].int = 0
                 }
                 
-                if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_manual")) {
+                if let ind = arrTestsInSDK.firstIndex(of: ("frontCamera_manual".lowercased())) {
                     arrTestsInSDK.remove(at: ind)
                     
                     arrTestsResultJSONInSDK.append(0)
@@ -1421,7 +1421,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     self.resultJSON["frontCamera_manual"].int = 0
                 }
                 
-                if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_auto")) {
+                if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_auto".lowercased())) {
                     arrTestsInSDK.remove(at: ind)
                     
                     arrTestsResultJSONInSDK.append(0)
@@ -1430,7 +1430,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     self.resultJSON["backCamera_auto"].int = 0
                 }
                 
-                if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_manual")) {
+                if let ind = arrTestsInSDK.firstIndex(of: ("backCamera_manual".lowercased())) {
                     arrTestsInSDK.remove(at: ind)
                     
                     arrTestsResultJSONInSDK.append(0)
@@ -1455,8 +1455,8 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }
             
             //Auto-Focus Test
-            if arrTestsInSDK.contains("Autofocus") {
-                if let ind = arrTestsInSDK.firstIndex(of: ("Autofocus")) {
+            if arrTestsInSDK.contains("Autofocus".lowercased()) {
+                if let ind = arrTestsInSDK.firstIndex(of: ("Autofocus".lowercased())) {
                     arrTestsInSDK.remove(at: ind)
                     
                     if (AppUserDefaults.value(forKey: "AppResultJSON_Data") != nil) {

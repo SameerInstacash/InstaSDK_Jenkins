@@ -142,7 +142,7 @@ class DeadPixelsVC: UIViewController {
         
         let popUpVC = self.storyboard?.instantiateViewController(withIdentifier: "GlobalSkipPopUpVC") as! GlobalSkipPopUpVC
         
-        popUpVC.strTitle = "Dead Pixel"
+        popUpVC.strTitle = "Dead Pixels"
         popUpVC.strMessage = "Did you find any spot?"
         popUpVC.strBtnYesTitle = "Yes"
         popUpVC.strBtnNoTitle = "No"
@@ -168,7 +168,7 @@ class DeadPixelsVC: UIViewController {
                     arrTestsResultJSONInSDK.append(0)
                 }
                 
-                self.resultJSON["Dead Pixel"].int = 0
+                self.resultJSON["Dead Pixels"].int = 0
                 UserDefaults.standard.set(false, forKey: "deadPixel")
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
@@ -207,7 +207,7 @@ class DeadPixelsVC: UIViewController {
                     arrTestsResultJSONInSDK.append(1)
                 }
                 
-                self.resultJSON["Dead Pixel"].int = 1
+                self.resultJSON["Dead Pixels"].int = 1
                 UserDefaults.standard.set(true, forKey: "deadPixel")
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")

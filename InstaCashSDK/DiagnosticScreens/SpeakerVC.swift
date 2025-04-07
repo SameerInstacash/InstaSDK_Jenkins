@@ -218,14 +218,14 @@ class SpeakerVC: UIViewController {
                     
                     if self.isComeForTopAutoTest {
                         
-                        self.resultJSON["TopSpeakers_auto"].int = 1
-                        UserDefaults.standard.set(true, forKey: "TopSpeakers_auto")
+                        self.resultJSON["top speaker_auto"].int = 1
+                        UserDefaults.standard.set(true, forKey: "top speaker_auto")
                         
                     }
                     else {
                         
-                        self.resultJSON["TopSpeakers_manual"].int = 1
-                        UserDefaults.standard.set(true, forKey: "TopSpeakers_manual")
+                        self.resultJSON["top speaker"].int = 1
+                        UserDefaults.standard.set(true, forKey: "top speaker")
                         
                     }
                     
@@ -261,12 +261,12 @@ class SpeakerVC: UIViewController {
                     //UserDefaults.standard.set(false, forKey: "Speakers")
                                         
                     if self.isComeForTopAutoTest {
-                        self.resultJSON["TopSpeakers_auto"].int = 0
-                        UserDefaults.standard.set(false, forKey: "TopSpeakers_auto")
+                        self.resultJSON["top speaker_auto"].int = 0
+                        UserDefaults.standard.set(false, forKey: "top speaker_auto")
                     }
                     else {
-                        self.resultJSON["TopSpeakers_manual"].int = 0
-                        UserDefaults.standard.set(false, forKey: "TopSpeakers_manual")
+                        self.resultJSON["top speaker"].int = 0
+                        UserDefaults.standard.set(false, forKey: "top speaker")
                     }
                     
                     AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
@@ -393,12 +393,12 @@ class SpeakerVC: UIViewController {
                                 
                 
                 if self.isComeForBottomAutoTest {
-                    self.resultJSON["BottomSpeakers_auto"].int = 1
-                    UserDefaults.standard.set(true, forKey: "BottomSpeakers_auto")
+                    self.resultJSON["bottom speaker_auto"].int = 1
+                    UserDefaults.standard.set(true, forKey: "bottom speaker_auto")
                 }
                 else {
-                    self.resultJSON["BottomSpeakers_manual"].int = 1
-                    UserDefaults.standard.set(true, forKey: "BottomSpeakers_manual")
+                    self.resultJSON["bottom speaker"].int = 1
+                    UserDefaults.standard.set(true, forKey: "bottom speaker")
                 }
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
@@ -432,12 +432,12 @@ class SpeakerVC: UIViewController {
                 //UserDefaults.standard.set(false, forKey: "Bottom Speakers")
                 
                 if self.isComeForBottomAutoTest {
-                    self.resultJSON["BottomSpeakers_auto"].int = 0
-                    UserDefaults.standard.set(false, forKey: "BottomSpeakers_auto")
+                    self.resultJSON["bottom speaker_auto"].int = 0
+                    UserDefaults.standard.set(false, forKey: "bottom speaker_auto")
                 }
                 else {
-                    self.resultJSON["BottomSpeakers_manual"].int = 0
-                    UserDefaults.standard.set(false, forKey: "BottomSpeakers_manual")
+                    self.resultJSON["bottom speaker"].int = 0
+                    UserDefaults.standard.set(false, forKey: "bottom speaker")
                 }
                 
                 AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")

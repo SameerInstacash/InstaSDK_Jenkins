@@ -94,7 +94,7 @@ class ChargerVC: UIViewController {
             }
             
             UserDefaults.standard.set(true, forKey: "charger")
-            self.resultJSON["USB Slot"].int = 1
+            self.resultJSON["microusb slot"].int = 1
             
             AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
             DispatchQueue.main.async {
@@ -141,7 +141,7 @@ class ChargerVC: UIViewController {
         }
         
         UserDefaults.standard.set(true, forKey: "charger")
-        self.resultJSON["USB Slot"].int = 1
+        self.resultJSON["microusb slot"].int = 1
         
         AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
         DispatchQueue.main.async {
@@ -181,7 +181,7 @@ class ChargerVC: UIViewController {
         }
         
         UserDefaults.standard.set(true, forKey: "charger")
-        self.resultJSON["USB Slot"].int = 1
+        self.resultJSON["microusb slot"].int = 1
         
         AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
         DispatchQueue.main.async {
@@ -250,7 +250,7 @@ class ChargerVC: UIViewController {
         }
         
         UserDefaults.standard.set(false, forKey: "charger")
-        self.resultJSON["USB Slot"].int = -1
+        self.resultJSON["microusb slot"].int = -1
         
         AppUserDefaults.setValue(self.resultJSON.rawString(), forKey: "AppResultJSON_Data")
         DispatchQueue.main.async {

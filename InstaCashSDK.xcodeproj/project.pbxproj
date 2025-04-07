@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -231,6 +231,10 @@
 		59DE7CF12CFF28BA00DFC04C /* ios-data-wipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ios-data-wipe.swift"; sourceTree = "<group>"; };
 		59E7F6842D6491BC0040ECC4 /* CameraTestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTestVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		59FF7D322D9D5A6E008CC318 /* PhysicalQuestionModal */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = PhysicalQuestionModal; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		183ACB722C563E7E004C9884 /* Frameworks */ = {
@@ -466,6 +470,7 @@
 		188384EB2C57755D003CF5E1 /* QuestionModel */ = {
 			isa = PBXGroup;
 			children = (
+				59FF7D322D9D5A6E008CC318 /* PhysicalQuestionModal */,
 				188384ED2C577581003CF5E1 /* ConditionValue.swift */,
 				188384EC2C577581003CF5E1 /* CosmeticQuestions.swift */,
 				188384F02C577581003CF5E1 /* Msg.swift */,
@@ -524,6 +529,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				59FF7D322D9D5A6E008CC318 /* PhysicalQuestionModal */,
 			);
 			name = InstaCashSDK;
 			productName = InstaCashSDK;
@@ -950,7 +958,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = FPA74MVT87;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1058,7 +1066,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = FPA74MVT87;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;

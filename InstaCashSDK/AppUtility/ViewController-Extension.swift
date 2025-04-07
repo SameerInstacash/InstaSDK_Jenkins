@@ -186,7 +186,7 @@ extension UIViewController {
         let testName = arrTests[index]
         
         switch testName {
-        case "Touch Screen":
+        case "Screen":
             return ("ScreenCalibrationVC", ScreenCalibrationVC())
         case "deadpixel":
             return ("DeadPixelsVC", DeadPixelsVC())

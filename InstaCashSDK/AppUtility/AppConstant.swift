@@ -19,13 +19,13 @@ var totalTestsCount = 0
 
 let appDelegate_Obj = UIApplication.shared.delegate as! AppDelegate
 
-var AppApiKey = UserDefaults.standard.string(forKey: "App_ApiKey") ?? "fd9a42ed13c8b8a27b5ead10d054caaf"
-var AppUserName = UserDefaults.standard.string(forKey: "App_UserName") ?? "planetm"
+var AppApiKey = UserDefaults.standard.string(forKey: "App_ApiKey") ?? "202cb962ac59075b964b07152d234b70"
+var AppUserName = UserDefaults.standard.string(forKey: "App_UserName") ?? "whtest"
 
 var AppHashCode = ""
 var AppStoreName = ""
 var AppStoreId = ""
-var AppBaseUrl = ""
+var AppBaseUrl = "https://getinstacash.in/warehouse/v1/public/"
 
 var AppCustomerID = ""
 var AppProductID = ""

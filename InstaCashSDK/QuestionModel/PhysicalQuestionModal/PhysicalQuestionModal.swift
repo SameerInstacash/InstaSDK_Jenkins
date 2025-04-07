@@ -12,7 +12,8 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 */
 
 import Foundation
-struct Json4Swift_Base : Codable {
+struct PhysicalQuestionModal : Codable {
+    
 	let timeStamp : String?
 	let question : [Question]?
 	let status : Bool?

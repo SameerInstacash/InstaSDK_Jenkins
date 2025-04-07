@@ -534,24 +534,24 @@ extension MicroPhoneVC {
             if self.isComeForTopMic {
                 
                 if self.isComeForTopAutoTest {
-                    self.resultJSON["TopMicrophone_auto"].int = 1
-                    UserDefaults.standard.set(true, forKey: "TopMicrophone_auto")
+                    self.resultJSON["top microphone_auto"].int = 1
+                    UserDefaults.standard.set(true, forKey: "top microphone_auto")
                 }
                 else {
-                    self.resultJSON["TopMicrophone_manual"].int = 1
-                    UserDefaults.standard.set(true, forKey: "TopMicrophone_manual")
+                    self.resultJSON["top microphone"].int = 1
+                    UserDefaults.standard.set(true, forKey: "top microphone")
                 }
                 
             }
             else {
                 
                 if self.isComeForTopAutoTest {
-                    self.resultJSON["BottomMicrophone_auto"].int = 1
-                    UserDefaults.standard.set(true, forKey: "BottomMicrophone_auto")
+                    self.resultJSON["bottom microphone_auto"].int = 1
+                    UserDefaults.standard.set(true, forKey: "bottom microphone_auto")
                 }
                 else {
-                    self.resultJSON["BottomMicrophone_manual"].int = 1
-                    UserDefaults.standard.set(true, forKey: "BottomMicrophone_manual")
+                    self.resultJSON["bottom microphone"].int = 1
+                    UserDefaults.standard.set(true, forKey: "bottom microphone")
                 }
                                 
             }
@@ -596,24 +596,24 @@ extension MicroPhoneVC {
             if self.isComeForTopMic {
                 
                 if self.isComeForTopAutoTest {
-                    self.resultJSON["TopMicrophone_auto"].int = 0
-                    UserDefaults.standard.set(false, forKey: "TopMicrophone_auto")
+                    self.resultJSON["top microphone_auto"].int = 0
+                    UserDefaults.standard.set(false, forKey: "top microphone_auto")
                 }
                 else {
-                    self.resultJSON["TopMicrophone_manual"].int = 0
-                    UserDefaults.standard.set(false, forKey: "TopMicrophone_manual")
+                    self.resultJSON["top microphone"].int = 0
+                    UserDefaults.standard.set(false, forKey: "top microphone")
                 }
                                 
             }
             else {
                 
                 if self.isComeForTopAutoTest {
-                    self.resultJSON["BottomMicrophone_auto"].int = 0
-                    UserDefaults.standard.set(false, forKey: "BottomMicrophone_auto")
+                    self.resultJSON["bottom microphone_auto"].int = 0
+                    UserDefaults.standard.set(false, forKey: "bottom microphone_auto")
                 }
                 else {
-                    self.resultJSON["BottomMicrophone_manual"].int = 0
-                    UserDefaults.standard.set(false, forKey: "BottomMicrophone_manual")
+                    self.resultJSON["bottom microphone"].int = 0
+                    UserDefaults.standard.set(false, forKey: "bottom microphone")
                 }
                                 
             }

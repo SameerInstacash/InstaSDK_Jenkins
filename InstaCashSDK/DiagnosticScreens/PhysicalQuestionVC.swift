@@ -15,6 +15,8 @@ class PhysicalQuestionVC: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var questionProgressVW: UIProgressView!
     @IBOutlet weak var lblQuestionCount: UILabel!
     
+    var arrQuestions = [[String:Any]]()
+    
     //var arrQuestion = ["does your device ON", "does your device OFF", "does your device Broken"]
     //var arrAnswer = ["Yes", "No", "May be", "No Idea"]
     //var responseObject = [String:Any]()
@@ -189,10 +191,11 @@ class PhysicalQuestionVC: UIViewController, UITableViewDelegate, UITableViewData
 """
         
         
-        let respDict = convertToDictionary(text: response)
-        print("respDict", respDict ?? [:])
+        //let respDict = convertToDictionary(text: response)
+        //print("respDict", respDict ?? [:])
+        //let arrData = respDict?["question"] as? NSArray ?? []
         
-        let arrData = respDict?["question"] as? NSArray ?? []
+        let arrData = self.arrQuestions
         
         for index in 0..<arrData.count {
             let dict = arrData[index] as? [String:Any] ?? [:]

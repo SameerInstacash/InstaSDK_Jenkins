@@ -10,7 +10,11 @@
 		<string>Roboto-Bold.ttf</string>
 		<string>Roboto-Regular.ttf</string>
 	</array>
-	<key>UIFileSharingEnabled</key>
-	<true/>
+	
+    <key>UIFileSharingEnabled</key>
+    <true/>
+    <key>LSSupportsOpeningDocumentsInPlace</key>
+    <true/>
+
 </dict>
 </plist>
