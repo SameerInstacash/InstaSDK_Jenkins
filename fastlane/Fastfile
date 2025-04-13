@@ -1,0 +1,35 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Push a new beta build to TestFlight"
+  lane :beta1 do
+    increment_build_number(xcodeproj: "InstaCashSDK.xcodeproj")
+    build_app(workspace: "InstaCashSDK.xcworkspace", scheme: "InstaCashSDK")
+    upload_to_testflight
+  end
+
+  desc "Upload to TestFlight"
+  lane :beta do
+    upload_to_testflight(
+      ipa: "/Users/sameerkhan/.jenkins/workspace/instaSDK deploy/build/Release-iphoneos/InstaCashSDK.2.2025.04.13_Dist.ipa", # Optional if lane builds the app
+      api_key_id: "DVM2UH7XLT",
+      api_key_issuer_id: "69a6de95-94e2-47e3-e053-5b8c7c11a4d1"
+    )
+  end
+
+end

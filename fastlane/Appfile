@@ -1,0 +1,8 @@
+app_identifier("in.instaWarehouse") # The bundle identifier of your app
+apple_id("sameer.khan@getinstacash.in") # Your Apple Developer Portal username
+
+itc_team_id("118868047") # App Store Connect Team ID
+team_id("FPA74MVT87") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
