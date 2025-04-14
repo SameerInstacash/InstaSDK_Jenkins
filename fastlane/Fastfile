@@ -25,10 +25,20 @@ platform :ios do
 
   desc "Upload to TestFlight"
   lane :beta do
-    upload_to_testflight(
+    upload_to_testflight_old(
       ipa: "/Users/sameerkhan/.jenkins/workspace/instaSDK deploy/build/Release-iphoneos/InstaCashSDK.2.2025.04.13_Dist.ipa", # Optional if lane builds the app
       api_key_id: "DVM2UH7XLT",
       api_key_issuer_id: "69a6de95-94e2-47e3-e053-5b8c7c11a4d1"
+    )
+  end
+
+  lane :upload_to_testflight do
+    upload_to_testflight(
+      ipa: "/Users/sameerkhan/.jenkins/workspace/instaSDK deploy/build/Release-iphoneos/InstaCashSDK.2.2025.04.13_Dist.ipa",      # path to your ipa
+      skip_waiting_for_build_processing: true,
+      skip_submission: true,
+      skip_metadata: true,
+      skip_screenshots: true
     )
   end
 
