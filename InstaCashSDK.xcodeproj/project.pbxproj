@@ -972,6 +972,7 @@
 				INFOPLIST_FILE = InstaCashSDK/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Insta Warehouse";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Media library access required to check app's functionality";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth Permission needed for Diagnosing the bluetooth hardware.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth Permission needed for Diagnosing the bluetooth hardware.";
@@ -1044,10 +1045,10 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = in.instaWarehouse;
+				PRODUCT_BUNDLE_IDENTIFIER = in.InstaSDK.InstaCashSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = instaWarehouse_DevProfile;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development in.InstaSDK.InstaCashSDK";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1082,6 +1083,7 @@
 				INFOPLIST_FILE = InstaCashSDK/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Insta Warehouse";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Media library access required to check app's functionality";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth Permission needed for Diagnosing the bluetooth hardware.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth Permission needed for Diagnosing the bluetooth hardware.";
@@ -1154,10 +1156,10 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = in.instaWarehouse;
+				PRODUCT_BUNDLE_IDENTIFIER = in.InstaSDK.InstaCashSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = instaWarehouse_DistProfile;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore in.InstaSDK.InstaCashSDK";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
