@@ -13,37 +13,38 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
-
+# AppStore
+KEY_FILE_PATH = "/Users/sameerkhan/Desktop/InstaCash\ Apps/p8\ key\ of\ InstaCash/AuthKey_DVM2UH7XLT.p8"
+KEY_ID = "DVM2UH7XLT"
+ISSUER_ID = "69a6de95-94e2-47e3-e053-5b8c7c11a4d1"
+WORKSPACE_PATH = "/Users/sameerkhan/Desktop/CI\:CD\ App\ using\ Jenkins/April-25/15\:4\:25/InstaCashSDK/InstaCashSDK.xcworkspace"
+TARGET_SCHEME = "InstaCashSDK"
+CONFIG_APPSTORE = "Release"
+OUTPUT_DIRECTORY = "./fastlane/builds"
 
 default_platform(:ios)
 
 platform :ios do
+
   desc "Push a new beta build to TestFlight"
-  lane :beta1 do
-    increment_build_number(xcodeproj: "InstaCashSDK.xcodeproj")
-    build_app(workspace: "InstaCashSDK.xcworkspace", scheme: "InstaCashSDK")
-    upload_to_testflight
-  end
-
-  desc "Upload to TestFlight"
-  lane :beta do
-    upload_to_testflight(
-      ipa: "/Users/sameerkhan/.jenkins/workspace/instaSDK deploy/build/Release-iphoneos/InstaCashSDK.2.2025.04.13_Dist.ipa", # Optional if lane builds the app
-      api_key_id: "DVM2UH7XLT",
-      api_key_issuer_id: "69a6de95-94e2-47e3-e053-5b8c7c11a4d1"
+  lane :release do
+    app_store_connect_api_key(
+      key_id: KEY_ID,
+      issuer_id: ISSUER_ID,
+      key_filepath: KEY_FILE_PATH,
+      duration: 1200, # optional (maximum 1200)
+      in_house: false # optional but may be required if using match/sigh
     )
+    build_app(workspace: WORKSPACE_PATH,
+              scheme: TARGET_SCHEME,
+              configuration: CONFIG_APPSTORE,
+              export_method: "app-store",
+              export_options: {
+                provisioningProfiles: {
+                  "in.InstaSDK.InstaCashSDK" => "match AppStore in.InstaSDK.InstaCashSDK"
+                }
+              },
+            )
     upload_to_testflight
   end
-
-  lane :upload_to_testflight do
-    upload_to_testflight(
-      ipa: "/Users/sameerkhan/.jenkins/workspace/instaSDK deploy/build/Release-iphoneos/InstaCashSDK.2.2025.04.13_Dist.ipa",      # path to your ipa
-      skip_waiting_for_build_processing: true,
-      skip_submission: true,
-      skip_metadata: true,
-      skip_screenshots: true
-    )
-    upload_to_testflight
-  end
-
 end
