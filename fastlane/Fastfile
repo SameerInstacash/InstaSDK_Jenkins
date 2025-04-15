@@ -17,7 +17,7 @@
 KEY_FILE_PATH = "/Users/sameerkhan/Desktop/InstaCash\ Apps/p8\ key\ of\ InstaCash/AuthKey_DVM2UH7XLT.p8"
 KEY_ID = "DVM2UH7XLT"
 ISSUER_ID = "69a6de95-94e2-47e3-e053-5b8c7c11a4d1"
-WORKSPACE_PATH = "/Users/sameerkhan/Desktop/CI\:CD\ App\ using\ Jenkins/April-25/15\:4\:25/InstaCashSDK/InstaCashSDK.xcworkspace"
+WORKSPACE_PATH = "InstaCashSDK.xcworkspace"
 TARGET_SCHEME = "InstaCashSDK"
 CONFIG_APPSTORE = "Release"
 OUTPUT_DIRECTORY = "./fastlane/builds"
